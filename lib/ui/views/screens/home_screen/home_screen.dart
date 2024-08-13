@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
-import 'package:flutter_application/model/user.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/example.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';

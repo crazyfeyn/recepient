@@ -1,5 +1,5 @@
-import 'package:flutter_application/model/ingredient.dart';
-import 'package:flutter_application/model/recipe.dart';
+import 'package:flutter_application/data/model/ingredient.dart';
+import 'package:flutter_application/data/model/recipe.dart';
 
 class Example {
   static List<Recipe> ingredients = [
