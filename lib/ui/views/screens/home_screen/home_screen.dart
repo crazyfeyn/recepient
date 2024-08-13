@@ -159,147 +159,157 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: ListView.builder(
                     itemCount: Example.ingredients.length,
                     itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.symmetric(vertical: 15),
-                            height: 250,
-                            width: double.maxFinite,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                    Example.ingredients[index].imageUrl),
-                                fit: BoxFit.cover,
+                      return GestureDetector(
+                        onTap: () {},
+                        child: Column(
+                          children: [
+                            Container(
+                              margin: const EdgeInsets.symmetric(vertical: 15),
+                              height: 250,
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                image: DecorationImage(
+                                  image: NetworkImage(
+                                      Example.ingredients[index].imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CircleAvatar(
+                                      backgroundColor: Colors.white,
+                                      child: Image.asset(
+                                        'assets/images/share_icon.png',
+                                        height: 22,
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CircleAvatar(
+                                          backgroundColor: Colors.white,
+                                          child: Image.asset(
+                                            'assets/images/comment_icon.png',
+                                            height: 22,
+                                            color: const Color(0xFFFF9B05),
+                                          ),
+                                        ),
+                                        GestureDetector(
+                                          onTap: () {},
+                                          child: Container(
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadiusDirectional
+                                                      .circular(10),
+                                              color: Colors.white,
+                                            ),
+                                            width: 59,
+                                            height: 42,
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                const Icon(
+                                                  Icons
+                                                      .favorite_border_outlined,
+                                                  color: Color(0xFFFF9B05),
+                                                  size: 25,
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8),
+                                                  child: Text(
+                                                    Example.ingredients[index]
+                                                        .likes
+                                                        .toString(),
+                                                    style: const TextStyle(
+                                                      fontSize: 10,
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  CircleAvatar(
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      Example.ingredients[index].title,
+                                      style: const TextStyle(
+                                        color: Color(0xFF1E1E1E),
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          'assets/images/time_icon.png',
+                                          height: 20,
+                                          color: const Color(0xFFFF9B05),
+                                        ),
+                                        Text(
+                                          ' ${Example.ingredients[index].estimatedTime.inMinutes} min',
+                                          style: const TextStyle(
+                                            color: Color(0xFF1E1E1E),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Icon(
+                                          Icons.star,
+                                          size: 20,
+                                          color: Color(0xFFFF9B05),
+                                        ),
+                                        Text(
+                                          ' ${Example.ingredients[index].rate}',
+                                          style: const TextStyle(
+                                            color: Color(0xFF1E1E1E),
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 14,
+                                          ),
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                                GestureDetector(
+                                  onTap: () {},
+                                  child: CircleAvatar(
                                     backgroundColor: Colors.white,
                                     child: Image.asset(
-                                      'assets/images/share_icon.png',
+                                      'assets/images/saved_icon.png',
                                       height: 22,
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        child: Image.asset(
-                                          'assets/images/comment_icon.png',
-                                          height: 22,
-                                          color: const Color(0xFFFF9B05),
-                                        ),
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          alignment: Alignment.center,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadiusDirectional
-                                                    .circular(10),
-                                            color: Colors.white,
-                                          ),
-                                          width: 59,
-                                          height: 42,
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              const Icon(
-                                                Icons.favorite_border_outlined,
-                                                color: Color(0xFFFF9B05),
-                                                size: 25,
-                                              ),
-                                              Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 8),
-                                                child: Text(
-                                                  Example
-                                                      .ingredients[index].likes
-                                                      .toString(),
-                                                  style: const TextStyle(
-                                                    fontSize: 10,
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    Example.ingredients[index].title,
-                                    style: const TextStyle(
-                                      color: Color(0xFF1E1E1E),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Image.asset(
-                                        'assets/images/time_icon.png',
-                                        height: 20,
-                                      ),
-                                      Text(
-                                        ' ${Example.ingredients[index].estimatedTime.inMinutes} min',
-                                        style: const TextStyle(
-                                          color: Color(0xFF1E1E1E),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Icon(Icons.star, size: 20),
-                                      Text(
-                                        ' ${Example.ingredients[index].rate}',
-                                        style: const TextStyle(
-                                          color: Color(0xFF1E1E1E),
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14,
-                                        ),
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: CircleAvatar(
-                                  backgroundColor: Colors.white,
-                                  child: Image.asset(
-                                    'assets/images/saved_icon.png',
-                                    height: 22,
-                                  ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
+                              ],
+                            )
+                          ],
+                        ),
                       );
                     },
                   ),
