@@ -243,24 +243,60 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                Example.ingredients[index].title,
-                                style: const TextStyle(
-                                  color: Color(0xFF1E1E1E),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    Example.ingredients[index].title,
+                                    style: const TextStyle(
+                                      color: Color(0xFF1E1E1E),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Image.asset(
+                                        'assets/images/time_icon.png',
+                                        height: 20,
+                                      ),
+                                      Text(
+                                        ' ${Example.ingredients[index].estimatedTime.inMinutes} min',
+                                        style: const TextStyle(
+                                          color: Color(0xFF1E1E1E),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.star, size: 20),
+                                      Text(
+                                        ' ${Example.ingredients[index].rate}',
+                                        style: const TextStyle(
+                                          color: Color(0xFF1E1E1E),
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 14,
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {},
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Image.asset(
+                                    'assets/images/saved_icon.png',
+                                    height: 22,
+                                  ),
                                 ),
                               ),
-                              Text(
-                                'time: ${Example.ingredients[index].estimatedTime
-                                        .inMinutes}min',
-                                style: const TextStyle(
-                                  color: Color(0xFF1E1E1E),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
-                              )
                             ],
                           )
                         ],
