@@ -50,10 +50,10 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("ok"),
+                        child: const Text("ok"),
                       ),
                     ],
-                    title: Text("we send a confirm text to your gmail"),
+                    title: const Text("we send a confirm text to your gmail"),
                   );
                 },
               );
@@ -68,7 +68,7 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("ok"),
+                        child: const Text("ok"),
                       ),
                     ],
                     title: Text(state.errorMessage),
@@ -94,7 +94,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         image: DecorationImage(
                             image: AssetImage('assets/images/login.png'))),
                   ),

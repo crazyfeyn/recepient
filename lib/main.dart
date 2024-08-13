@@ -12,7 +12,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -42,11 +41,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, user) {
-              if (user.hasData) {
-                return const WelcomeScreen();
-              } else {
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data != null) {
                 return const HomeScreen();
+              } else {
+                return const WelcomeScreen();
               }
             },
           ),

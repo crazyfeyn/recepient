@@ -15,14 +15,15 @@ class UserModel {
     required this.saved,
   });
 
+  // Only include fields that you want to store in Firebase
   Map<String, dynamic> toJson() {
     return {
       'email': email,
       'name': name,
       'imageUrl': imageUrl,
       'uId': uId,
-      'likes': likes,
-      'saved': saved,
+      'likes': likes, // Excluded from Firebase
+      'saved': saved, // Excluded from Firebase
     };
   }
 
@@ -32,8 +33,8 @@ class UserModel {
       name: json['name'],
       imageUrl: json['imageUrl'],
       uId: json['uId'],
-      likes: List<String>.from(json['likes']),
-      saved: List<String>.from(json['saved']),
+      likes: List<String>.from(json['likes'] ?? []),
+      saved: List<String>.from(json['saved'] ?? []),
     );
   }
 }

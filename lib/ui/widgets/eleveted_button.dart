@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ElevetedButtonWidget extends StatelessWidget {
   final String title;
   final VoidCallback? onPressed;
@@ -30,7 +31,7 @@ class ElevetedButtonWidget extends StatelessWidget {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 17,
-          color: textColor == null ? Colors.white : textColor,
+          color: textColor ?? Colors.white,
         ),
       ),
     );

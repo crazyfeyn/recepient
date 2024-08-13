@@ -6,9 +6,10 @@ import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/model/user_model.dart';
 
 class ReviewWidget extends StatefulWidget {
-  ReviewWidget({super.key});
+  const ReviewWidget({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ReviewWidgetState createState() => _ReviewWidgetState();
 }
 
@@ -260,7 +261,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                             fontSize: 14,
                             color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       Wrap(

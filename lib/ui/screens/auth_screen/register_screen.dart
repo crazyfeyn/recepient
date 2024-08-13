@@ -35,7 +35,6 @@ class RegisterScreen extends StatelessWidget {
         key: _formKey,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            print(state);
             if (state is AuthenticatedState) {
               Navigator.pushReplacement(
                 context,
@@ -161,6 +160,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 10,
                         ),
                         TextFormField(
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Input pass';
@@ -191,6 +191,7 @@ class RegisterScreen extends StatelessWidget {
                           height: 10,
                         ),
                         TextFormField(
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Input pass';
@@ -246,7 +247,7 @@ class RegisterScreen extends StatelessWidget {
                                     return LoginScreen();
                                   },
                                 ),
-                               );
+                              );
                             },
                             child: RichText(
                               text: TextSpan(

@@ -1,7 +1,10 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
+import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -16,7 +19,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LogoutEvent>(_onLogoutUser);
     on<WatchAuthEvent>(_onWatchAuth);
   }
-
   void _loginUser(LoginUserEvent event, Emitter<AuthState> emit) async {
     emit(LoadingAuthState());
     try {
@@ -38,6 +40,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           email: event.email, password: event.password);
       emit(AuthenticatedState());
       FirebaseAuth.instance.currentUser!.updateDisplayName(event.name);
+      FirebaseUserService().createUser(
+        UserModel(
+            email: event.email,
+            name: event.name,
+            imageUrl: '',
+            uId: FirebaseAuth.instance.currentUser!.uid,
+            likes: [],
+            saved: []),
+      );
     } catch (e) {
       emit(
         ErrorAuthState(

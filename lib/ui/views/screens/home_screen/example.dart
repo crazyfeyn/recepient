@@ -124,7 +124,7 @@ class Example {
         "Toss the lettuce with the dressing and croutons.",
         "Serve with additional Parmesan cheese and freshly ground black pepper."
       ],
-      estimatedTime: Duration(minutes: 20),
+      estimatedTime: const Duration(minutes: 20),
       category: ["Salad", "Healthy"],
       imageUrl:
           "https://images.immediate.co.uk/production/volatile/sites/30/2018/07/RedPepperAnchovySpaghetti-copy-1dec261.jpg",

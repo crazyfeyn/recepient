@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/screens/review_widget.dart';
 
+// ignore: must_be_immutable
 class CategoryWidget extends StatelessWidget {
   CategoryWidget({super.key});
   List<String> recipeCategories = [
@@ -24,11 +25,11 @@ class CategoryWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 'Categories',
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
@@ -41,7 +42,7 @@ class CategoryWidget extends StatelessWidget {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return ReviewWidget();
+                              return const ReviewWidget();
                             },
                           ),
                         );

@@ -4,7 +4,6 @@ import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/example.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -23,7 +22,6 @@ class _HomeScreenState extends State<HomeScreen> {
     likes: [],
     saved: [],
   );
-
   List<String> categories = [
     'All',
     'Latest',
