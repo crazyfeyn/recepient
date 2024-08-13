@@ -25,7 +25,7 @@ class Example {
       "Drain the pasta and toss with the pancetta, then quickly mix in the egg and cheese mixture.",
       "Serve immediately with freshly ground black pepper."
     ],
-    estimatedTime: DateTime.now().add(Duration(minutes: 25)),
+    estimatedTime: Duration(minutes: 10),
     category: ["Italian", "Pasta"],
     imageUrl:
         "https://media.istockphoto.com/id/1144823591/photo/spaghetti-in-a-dish-on-a-white-background.jpg?s=612x612&w=0&k=20&c=SeEWmJfPQlX1zVUHPKjL-cgYeMs9cZ97-kdZMm7feA4=",
@@ -56,7 +56,7 @@ class Example {
       "Add tomatoes and simmer until the chicken is cooked through.",
       "Serve with rice or naan."
     ],
-    estimatedTime: DateTime.now().add(Duration(minutes: 40)),
+    estimatedTime: Duration(minutes: 15),
     category: ["Indian", "Spicy"],
     imageUrl:
         "https://media.istockphoto.com/id/1144823591/photo/spaghetti-in-a-dish-on-a-white-background.jpg?s=612x612&w=0&k=20&c=SeEWmJfPQlX1zVUHPKjL-cgYeMs9cZ97-kdZMm7feA4=",
@@ -86,7 +86,7 @@ class Example {
       "Toss the lettuce with the dressing and croutons.",
       "Serve with additional Parmesan cheese and freshly ground black pepper."
     ],
-    estimatedTime: DateTime.now().add(Duration(minutes: 15)),
+    estimatedTime: Duration(minutes: 20),
     category: ["Salad", "Healthy"],
     imageUrl:
         "https://media.istockphoto.com/id/1144823591/photo/spaghetti-in-a-dish-on-a-white-background.jpg?s=612x612&w=0&k=20&c=SeEWmJfPQlX1zVUHPKjL-cgYeMs9cZ97-kdZMm7feA4=",
@@ -116,7 +116,7 @@ class Example {
       "Assemble the tacos by filling the shells with beef, salsa, and guacamole.",
       "Serve with a side of sour cream and lime wedges."
     ],
-    estimatedTime: DateTime.now().add(Duration(minutes: 20)),
+    estimatedTime: Duration(minutes: 12),
     category: ["Mexican", "Tacos"],
     imageUrl:
         "https://media.istockphoto.com/id/1144823591/photo/spaghetti-in-a-dish-on-a-white-background.jpg?s=612x612&w=0&k=20&c=SeEWmJfPQlX1zVUHPKjL-cgYeMs9cZ97-kdZMm7feA4=",

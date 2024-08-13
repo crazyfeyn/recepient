@@ -6,7 +6,7 @@ class Recipe {
   Ingredient ingredient;
   String description;
   List<String> preparation;
-  DateTime estimatedTime;
+  Duration estimatedTime;
   List<String> category;
   String imageUrl;
   String videoUrl;
