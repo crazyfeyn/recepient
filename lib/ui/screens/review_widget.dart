@@ -12,12 +12,15 @@ class ReviewWidget extends StatelessWidget {
 
   Recipe recipe = Recipe(
     title: 'Chicken ramion',
-    ingredient: Ingredient(
-        name: 'Chicken broth', quantity: 8, type: 'type', isSelected: false),
+    ingredient: [
+      Ingredient(
+          name: 'Chicken broth', quantity: 8, type: 'type', isSelected: false),
+    ],
+    createdAt: DateTime.now(),
     description:
         'Est deserunt cupidatat irure esse esse.Duis Lorem occaecat officia velit amet duis excepteur in anim.',
     preparation: ['qwertytrewqwertre', 'qwertyhtrewsdcvfdfvfdfvfdedfvfdfvf'],
-    estimatedTime: DateTime.now(),
+    estimatedTime: const Duration(minutes: 40),
     category: ['Asian', 'Nonoushta'],
     imageUrl: '',
     videoUrl: '',
@@ -66,8 +69,8 @@ class ReviewWidget extends StatelessWidget {
                     ),
                     Text(
                       recipe.title,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 22),
+                      style:
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                     const Text(
                       'Estimade Time',
@@ -77,9 +80,9 @@ class ReviewWidget extends StatelessWidget {
                           color: Colors.grey),
                     ),
                     Text(
-                      '${recipe.estimatedTime} minutes',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20),
+                      '${recipe.estimatedTime.inMinutes} minutes',
+                      style:
+                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ],
                 ),
