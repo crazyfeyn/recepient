@@ -246,7 +246,7 @@ class RegisterScreen extends StatelessWidget {
                                     return LoginScreen();
                                   },
                                 ),
-                              );
+                               );
                             },
                             child: RichText(
                               text: TextSpan(
