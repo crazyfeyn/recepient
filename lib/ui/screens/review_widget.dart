@@ -69,8 +69,8 @@ class ReviewWidget extends StatelessWidget {
                     ),
                     Text(
                       recipe.title,
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 22),
                     ),
                     const Text(
                       'Estimade Time',
@@ -81,8 +81,8 @@ class ReviewWidget extends StatelessWidget {
                     ),
                     Text(
                       '${recipe.estimatedTime.inMinutes} minutes',
-                      style:
-                          const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20),
                     ),
                   ],
                 ),
