@@ -1,9 +1,27 @@
-import 'package:flutter_application/data/model/user_model.dart';
-
 class Comment {
-  int rate;
-  UserModel user;
-  String title;
+  String userId;
+  String text;
+  DateTime createdAt;
 
-  Comment({required this.rate, required this.user, required this.title});
+  Comment({
+    required this.userId,
+    required this.text,
+    required this.createdAt,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'userId': userId,
+      'text': text,
+      'createdAt': createdAt.toIso8601String(),
+    };
+  }
+
+  factory Comment.fromJson(Map<String, dynamic> json) {
+    return Comment(
+      userId: json['userId'],
+      text: json['text'],
+      createdAt: DateTime.parse(json['createdAt']),
+    );
+  }
 }
