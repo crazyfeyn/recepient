@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "846994147082",
+    "project_id": "retsept-app-db287",
+    "storage_bucket": "retsept-app-db287.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846994147082:android:a93a6ec1b92135bc869cf3",
+        "android_client_info": {
+          "package_name": "com.example.flutter_application"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDGJsVvy7szTGa8U1EhxZwY58zX9Y9wh4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,5 @@
-import 'package:flutter_application/model/comment.dart';
-import 'package:flutter_application/model/ingredient.dart';
+import 'package:flutter_application/data/model/comment.dart';
+import 'package:flutter_application/data/model/ingredient.dart';
 
 class Recipe {
   String title;

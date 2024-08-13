@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
-import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
+import 'package:flutter_application/data/repositories/auth_repository.dart';
+import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
+import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) {
@@ -12,15 +16,31 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return RepositoryProvider(
+      create: (context) =>
+          AuthRepository(firebaseAuthService: FirebaseAuthSerivce()),
+      child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) {
-            return HomeScreenCubits();
-          })
+          BlocProvider(
+            create: (context) {
+              return AuthBloc(authRepository: context.read<AuthRepository>());
+            },
+          ),
         ],
-        child: const MaterialApp(
+        child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: HomeScreen(),
-        ));
+          home: StreamBuilder<User?>(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, user) {
+              if (user.hasData) {
+                return const WelcomeScreen();
+              } else {
+                return LoginScreen();
+              }
+            },
+          ),
+        ),
+      ),
+    );
   }
 }

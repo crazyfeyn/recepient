@@ -1,4 +1,4 @@
-import 'package:flutter_application/model/user.dart';
+import 'package:flutter_application/data/model/user_model.dart';
 
 class Comment {
   int rate;
