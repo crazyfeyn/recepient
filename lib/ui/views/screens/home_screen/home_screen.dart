@@ -108,6 +108,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         ...List.generate(categories.length, (index) {
+                          print(DateTime.now());
                           return GestureDetector(
                             onTap: () {
                               context
