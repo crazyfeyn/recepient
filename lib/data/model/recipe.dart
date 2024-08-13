@@ -3,7 +3,7 @@ import 'package:flutter_application/data/model/ingredient.dart';
 
 class Recipe {
   String title;
-  Ingredient ingredient;
+  List<Ingredient> ingredient;
   String description;
   List<String> preparation;
   Duration estimatedTime;
