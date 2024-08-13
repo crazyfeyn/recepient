@@ -1,20 +1,14 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
-import 'package:flutter_application/ui/screens/home_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
+void main(List<String> args) {
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
