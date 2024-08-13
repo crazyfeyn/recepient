@@ -41,7 +41,7 @@ class RegisterScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-                    return HomeScreen();
+                    return const HomeScreen();
                   },
                 ),
               );
@@ -246,7 +246,7 @@ class RegisterScreen extends StatelessWidget {
                                     return LoginScreen();
                                   },
                                 ),
-                               );
+                              );
                             },
                             child: RichText(
                               text: TextSpan(
