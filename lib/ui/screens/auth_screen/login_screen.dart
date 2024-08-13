@@ -36,11 +36,7 @@ class LoginScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
-<<<<<<< HEAD
                     return const HomeScreen();
-=======
-                    return CategoryWidget();
->>>>>>> 4792e788bab2e0709a3ae6003ec56088e88ae947
                   },
                 ),
               );
