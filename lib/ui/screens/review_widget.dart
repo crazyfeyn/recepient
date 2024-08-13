@@ -29,18 +29,7 @@ class ReviewWidget extends StatelessWidget {
     isSaved: false,
     likes: 0,
     rate: 5,
-    comments: [
-      Comment(
-          rate: 0,
-          user: UserModel(
-              email: FirebaseAuth.instance.currentUser!.email!,
-              name: '',
-              imageUrl: '',
-              uId: '',
-              likes: [],
-              saved: []),
-          title: 'qwertyuiop')
-    ],
+    comments: [],
   );
   @override
   Widget build(BuildContext context) {
