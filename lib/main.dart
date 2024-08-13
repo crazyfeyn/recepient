@@ -1,15 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/recipe_details_screen.dart';
-import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) {
+  Firebase.initializeApp(options: )
   runApp(const MyApp());
 }
 
