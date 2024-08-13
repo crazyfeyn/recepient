@@ -139,44 +139,39 @@ class Example {
 
 // Recipe 4: Beef Tacos
   static Recipe beefTacos = Recipe(
-      title: "Beef Tacos",
-      ingredient: [
-        Ingredient(
-            name: "Ground Beef",
-            quantity: 300,
-            type: "Meat",
-            isSelected: false),
-        Ingredient(
-            name: "Taco Shells", quantity: 6, type: "Bread", isSelected: false),
-        Ingredient(
-            name: "Tomatoes",
-            quantity: 2,
-            type: "Vegetable",
-            isSelected: false),
-        Ingredient(
-            name: "Onion", quantity: 1, type: "Vegetable", isSelected: false),
-        Ingredient(
-            name: "Cilantro", quantity: 1, type: "Herb", isSelected: false),
-        Ingredient(name: "Lime", quantity: 1, type: "Fruit", isSelected: false),
-      ],
-      description: "Delicious beef tacos with homemade salsa and guacamole.",
-      preparation: [
-        "Cook the ground beef with taco seasoning until browned.",
-        "Warm the taco shells in the oven.",
-        "Prepare the salsa by mixing tomatoes, onions, cilantro, and lime juice.",
-        "Assemble the tacos by filling the shells with beef, salsa, and guacamole.",
-        "Serve with a side of sour cream and lime wedges."
-      ],
-      estimatedTime: const Duration(minutes: 25),
-      category: ["Mexican", "Tacos"],
-      imageUrl:
-          "https://images.immediate.co.uk/production/volatile/sites/30/2018/07/RedPepperAnchovySpaghetti-copy-1dec261.jpg",
-      videoUrl: "https://example.com/beef_tacos_video.mp4",
-      userId: "user4",
-      id: "recipe4",
-      isSaved: true,
-      likes: 180,
-      rate: 4.6,
-      comments: [],
-      createdAt: DateTime.now());
+    title: "Beef Tacos",
+    ingredient: [
+      Ingredient(
+          name: "Ground Beef", quantity: 300, type: "Meat", isSelected: false),
+      Ingredient(
+          name: "Taco Shells", quantity: 6, type: "Bread", isSelected: false),
+      Ingredient(
+          name: "Tomatoes", quantity: 2, type: "Vegetable", isSelected: false),
+      Ingredient(
+          name: "Onion", quantity: 1, type: "Vegetable", isSelected: false),
+      Ingredient(
+          name: "Cilantro", quantity: 1, type: "Herb", isSelected: false),
+      Ingredient(name: "Lime", quantity: 1, type: "Fruit", isSelected: false),
+    ],
+    description: "Delicious beef tacos with homemade salsa and guacamole.",
+    preparation: [
+      "Cook the ground beef with taco seasoning until browned.",
+      "Warm the taco shells in the oven.",
+      "Prepare the salsa by mixing tomatoes, onions, cilantro, and lime juice.",
+      "Assemble the tacos by filling the shells with beef, salsa, and guacamole.",
+      "Serve with a side of sour cream and lime wedges."
+    ],
+    estimatedTime: const Duration(minutes: 25),
+    category: ["Mexican", "Tacos"],
+    imageUrl:
+        "https://images.immediate.co.uk/production/volatile/sites/30/2018/07/RedPepperAnchovySpaghetti-copy-1dec261.jpg",
+    videoUrl: "https://example.com/beef_tacos_video.mp4",
+    userId: "user4",
+    id: "recipe4",
+    isSaved: true,
+    likes: 180,
+    rate: 4.6,
+    comments: [],
+    createdAt: DateTime.now(),
+  );
 }
