@@ -8,6 +8,11 @@ import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
+<<<<<<< HEAD
+import 'package:flutter_application/ui/views/screens/add_new_retsept/add_new_retsept.dart';
+=======
+import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
+>>>>>>> ecc8b4ac72d19a37d2646fec36f2b6cc06f2e0e3
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) async {
@@ -46,7 +51,7 @@ class MyApp extends StatelessWidget {
               if (user.hasData) {
                 return const WelcomeScreen();
               } else {
-                return const RecipeDetailsScreen();
+                return AddNewRetsept();
               }
             },
           ),
