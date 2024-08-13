@@ -1,3 +1,5 @@
+
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
 
@@ -11,8 +13,8 @@ class AuthRepository {
       await _firebaseAuthSerivce.loginUser(email: email, password: password);
 
   Future<void> register(
-          {required String email, required String password}) async =>
-      await _firebaseAuthSerivce.registerUser(email: email, password: password);
+          {required String email, required String password,required String name}) async =>
+      await _firebaseAuthSerivce.registerUser(email: email, password: password,name:name);
 
   Future<void> logOut() async => await _firebaseAuthSerivce.logOutUser();
 

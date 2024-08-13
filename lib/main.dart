@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
@@ -7,7 +8,9 @@ import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 

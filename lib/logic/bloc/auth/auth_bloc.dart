@@ -35,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(LoadingAuthState());
     try {
       await _authRepository.register(
-          email: event.email, password: event.password);
+          email: event.email, password: event.password,name: event.name);
       emit(AuthenticatedState());
       FirebaseAuth.instance.currentUser!.updateDisplayName(event.name);
     } catch (e) {
