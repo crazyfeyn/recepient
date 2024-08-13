@@ -16,6 +16,7 @@ class Recipe {
   int likes;
   double rate;
   List<Comment> comments;
+  DateTime createdAt;
 
   Recipe({
     required this.title,
@@ -26,11 +27,12 @@ class Recipe {
     required this.category,
     required this.imageUrl,
     required this.videoUrl,
-    required this.userId, 
-    required this.id, 
+    required this.userId,
+    required this.id,
     required this.isSaved,
     required this.likes,
     required this.rate,
-    required this.comments
+    required this.comments,
+    required this.createdAt,
   });
 }
