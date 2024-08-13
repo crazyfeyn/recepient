@@ -78,4 +78,24 @@ class Recipe {
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
+
+  factory Recipe.copy() {
+    return Recipe(
+      title: "",
+      ingredient: [],
+      description: "",
+      preparation: [],
+      estimatedTime: Duration.zero,
+      category: [],
+      imageUrl: '',
+      videoUrl: '',
+      userId: '',
+      id: '',
+      isSaved: false,
+      likes: 0,
+      rate: 4,
+      comments: [],
+      createdAt: DateTime.now(),
+    );
+  }
 }
