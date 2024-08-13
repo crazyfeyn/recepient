@@ -1,12 +1,12 @@
-import 'package:flutter_application/model/comment.dart';
-import 'package:flutter_application/model/ingredient.dart';
+import 'package:flutter_application/data/model/comment.dart';
+import 'package:flutter_application/data/model/ingredient.dart';
 
 class Recipe {
   String title;
   Ingredient ingredient;
   String description;
   List<String> preparation;
-  DateTime datetime;
+  DateTime estimatedTime;
   List<String> category;
   String imageUrl;
   String videoUrl;
@@ -22,7 +22,7 @@ class Recipe {
     required this.ingredient,
     required this.description,
     required this.preparation,
-    required this.datetime,
+    required this.estimatedTime,
     required this.category,
     required this.imageUrl,
     required this.videoUrl,

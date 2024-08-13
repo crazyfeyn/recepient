@@ -1,4 +1,4 @@
-class User {
+class UserModel {
   String email;
   String name;
   String imageUrl;
@@ -6,7 +6,7 @@ class User {
   List<String> likes;
   List<String> saved;
 
-  User(
+  UserModel(
       {required this.email,
       required this.name,
       required this.imageUrl,
