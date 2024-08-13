@@ -3,10 +3,10 @@ import 'package:flutter_application/data/model/ingredient.dart';
 
 class Recipe {
   String title;
-  Ingredient ingredient;
+  List<Ingredient> ingredient;
   String description;
   List<String> preparation;
-  DateTime estimatedTime;
+  Duration estimatedTime;
   List<String> category;
   String imageUrl;
   String videoUrl;
@@ -16,6 +16,7 @@ class Recipe {
   int likes;
   double rate;
   List<Comment> comments;
+  DateTime createdAt;
 
   Recipe({
     required this.title,
@@ -26,11 +27,12 @@ class Recipe {
     required this.category,
     required this.imageUrl,
     required this.videoUrl,
-    required this.userId, 
-    required this.id, 
+    required this.userId,
+    required this.id,
     required this.isSaved,
     required this.likes,
     required this.rate,
-    required this.comments
+    required this.comments,
+    required this.createdAt,
   });
 }
