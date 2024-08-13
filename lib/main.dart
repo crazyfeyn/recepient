@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,9 @@ class MyApp extends StatelessWidget {
               return AuthBloc(authRepository: context.read<AuthRepository>());
             },
           ),
+          BlocProvider(create: (context) {
+            return HomeScreenCubits();
+          })
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
