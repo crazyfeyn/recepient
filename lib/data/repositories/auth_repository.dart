@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
-
+import 'package:authentication_repository/authentication_repository.dart';
 
 class AuthRepository {
   final FirebaseAuthSerivce _firebaseAuthSerivce;
