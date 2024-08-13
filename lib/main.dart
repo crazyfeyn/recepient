@@ -7,6 +7,8 @@ import 'package:flutter_application/data/services/firebase/firebase_auth_serivce
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
+import 'package:flutter_application/ui/screens/all_navigation_bar.dart';
+import 'package:flutter_application/ui/screens/recipe_details_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/add_new_retsept.dart';
 

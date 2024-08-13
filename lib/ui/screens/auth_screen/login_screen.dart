@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/ui/screens/auth_screen/register_screen.dart';
+import 'package:flutter_application/ui/screens/category_widget.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -35,7 +36,11 @@ class LoginScreen extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) {
+<<<<<<< HEAD
                     return const HomeScreen();
+=======
+                    return CategoryWidget();
+>>>>>>> 4792e788bab2e0709a3ae6003ec56088e88ae947
                   },
                 ),
               );
