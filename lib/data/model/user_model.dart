@@ -14,27 +14,25 @@ class UserModel {
     required this.likes,
     required this.saved,
   });
-
-  // Only include fields that you want to store in Firebase
   Map<String, dynamic> toJson() {
     return {
       'email': email,
       'name': name,
       'imageUrl': imageUrl,
       'uId': uId,
-      'likes': likes, // Excluded from Firebase
-      'saved': saved, // Excluded from Firebase
+      'likes': likes,
+      'saved': saved,
     };
   }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      email: json['email'] ?? '',
-      name: json['name'] ?? '',
-      imageUrl: json['imageUrl'] ?? '',
-      uId: json['uId'] ?? '',
-      likes: json['likes'] != null ? List<String>.from(json['likes']) : [],
-      saved: json['saved'] != null ? List<String>.from(json['saved']) : [],
+      email: json['email'],
+      name: json['name'],
+      imageUrl: json['imageUrl'],
+      uId: json['uId'],
+      likes: List<String>.from(json['likes']),
+      saved: List<String>.from(json['saved']),
     );
   }
 }
