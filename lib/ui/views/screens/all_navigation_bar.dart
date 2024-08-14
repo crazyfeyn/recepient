@@ -16,7 +16,6 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
   final List<Widget> screens = [
     const HomeScreen(),
     const RecipeDetailsScreen(),
-    ProfileScreen(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();
@@ -70,10 +69,12 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     shape: const CircleBorder(),
                     minWidth: 40,
                     onPressed: () {
-                      setState(() {
-                        currentScreen = const RecipeDetailsScreen();
-                        currentTab = 1;
-                      });
+                      setState(
+                        () {
+                          currentScreen = const RecipeDetailsScreen();
+                          currentTab = 1;
+                        },
+                      );
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -108,7 +109,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const RecipeDetailsScreen();
+                        currentScreen = const ProfileScreen();
                         currentTab = 3;
                       });
                     },
