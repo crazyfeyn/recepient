@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
-import 'package:flutter_application/data/services/firebase/firebase_auth_serivce.dart';
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
@@ -13,12 +12,12 @@ import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dar
 import 'package:flutter_application/ui/views/screens/add_new_retsept/add_new_retsept.dart';
 
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
+import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
 import 'package:flutter_application/ui/views/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -61,4 +60,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//sad

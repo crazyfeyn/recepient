@@ -8,7 +8,7 @@ class FirebaseRecipeService {
   final String baseUrl =
       'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes';
 
-  Stream<List<Recipe>?> getRecipes() async* {
+  Future<List<Recipe>?> getRecipes() async {
     try {
       final response = await _dio.get('$baseUrl/recipes.json');
       if (response.data != null) {
@@ -17,9 +17,9 @@ class FirebaseRecipeService {
           final recipeJson = entry.value as Map<String, dynamic>;
           return Recipe.fromJson(recipeJson);
         }).toList();
-        yield recipesList;
+        return recipesList;
       } else {
-        yield null;
+        return null;
       }
     } on DioException catch (e) {
       throw e.response!.data;
