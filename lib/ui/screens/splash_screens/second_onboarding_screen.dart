@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/login_screen.dart';
-import 'package:flutter_application/ui/views/widgets/eleveted_button.dart';
+import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
+import 'package:flutter_application/ui/widgets/eleveted_button.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class SecondOnboardingScreen extends StatefulWidget {

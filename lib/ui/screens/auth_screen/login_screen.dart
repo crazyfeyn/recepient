@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
-import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/register_screen.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
+import 'package:flutter_application/ui/screens/auth_screen/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -18,9 +19,7 @@ class LoginScreen extends StatelessWidget {
   void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context
-          .read<AuthBloc>()
-          .add(LoginEvent(emailcontroller.text, passcontroller.text));
+      context.read<AuthBloc>().add(LoginEvent(emailcontroller.text, passcontroller.text));
     }
   }
 
@@ -35,7 +34,7 @@ class LoginScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>  const AllNavigationBar(),
+                  builder: (context) => CategoryWidget(),
                 ),
               );
             }
@@ -49,7 +48,7 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child:  const Text("ok"),
+                        child: Text("ok"),
                       ),
                     ],
                     title: Text(state.errorMessage),
@@ -73,7 +72,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/login.png'),
                       ),

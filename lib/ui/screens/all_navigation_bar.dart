@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/profile_screen.dart';
-import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
-import 'package:flutter_application/ui/views/screens/recipe_details_screen.dart';
+import 'package:flutter_application/ui/screens/recipe_details_screen.dart';
+import 'package:flutter_application/ui/screens/auth_screen/profile_screen.dart';
+import 'package:flutter_application/ui/screens/home_screen/home_screen.dart';
+import 'package:flutter_application/ui/widgets/recipe_details_widgets/review_page_widget.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllNavigationBar extends StatefulWidget {
@@ -16,6 +17,8 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
   final List<Widget> screens = [
     const HomeScreen(),
     const RecipeDetailsScreen(),
+    const ReviewPageWidget(),
+
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();
@@ -69,12 +72,10 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     shape: const CircleBorder(),
                     minWidth: 40,
                     onPressed: () {
-                      setState(
-                        () {
-                          currentScreen = const RecipeDetailsScreen();
-                          currentTab = 1;
-                        },
-                      );
+                      setState(() {
+                        currentScreen = const RecipeDetailsScreen();
+                        currentTab = 1;
+                      });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
@@ -109,7 +110,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const ProfileScreen();
+                        currentScreen = const RecipeDetailsScreen();
                         currentTab = 3;
                       });
                     },

@@ -7,8 +7,9 @@ import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
-import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
-import 'package:flutter_application/ui/views/screens/splash_screens/welcome_screen.dart';
+import 'package:flutter_application/ui/screens/all_navigation_bar.dart';
+import 'package:flutter_application/ui/screens/recipe_details_screen.dart';
+import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) async {
@@ -45,10 +46,9 @@ class MyApp extends StatelessWidget {
             builder: (context, state) {
               if (state is AuthAuthenticated) {
                 return const AllNavigationBar();
-              } else if (state is AuthUnauthenticated) {
-                return const WelcomeScreen();
               } else {
-                return const Center(child: CircularProgressIndicator());
+                // return const WelcomeScreen();
+                return const RecipeDetailsScreen();
               }
             },
           ),
@@ -57,4 +57,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-//sad
