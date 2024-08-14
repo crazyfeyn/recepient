@@ -65,7 +65,7 @@ class Recipe {
           .toList(),
       description: json['description'],
       preparation: List<String>.from(json['preparation']),
-      estimatedTime: Duration(minutes: ),
+      estimatedTime: Duration(minutes: 10),
       category: List<String>.from(json['category']),
       comments: [Comment.fromJson(json['comments'])],
       imageUrl: json['imageUrl'],
