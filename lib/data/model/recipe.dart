@@ -65,7 +65,7 @@ class Recipe {
           .toList(),
       description: json['description'],
       preparation: List<String>.from(json['preparation']),
-      estimatedTime: _parseDuration(json['estimatedTime']),
+      estimatedTime: parseDuration(json['estimatedTime']),
       category: List<String>.from(json['category']),
       comments: [Comment.fromJson(json['comments'])],
       imageUrl: json['imageUrl'],
@@ -79,7 +79,7 @@ class Recipe {
     );
   }
 
-  static Duration _parseDuration(String s) {
+  static Duration parseDuration(String s) {
     List<String> parts = s.split(':');
     if (parts.length != 3) {
       throw const FormatException('Invalid time string format');
