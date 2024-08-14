@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                               top: 8),
                                                       child: Text(
                                                         recipes[index]
-                                                            .likes
+                                                            .likes.length
                                                             .toString(),
                                                         style: const TextStyle(
                                                           fontSize: 10,

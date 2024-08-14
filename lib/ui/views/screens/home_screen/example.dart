@@ -45,7 +45,7 @@ class Example {
       userId: "user1",
       id: "recipe1",
       isSaved: false,
-      likes: 150,
+      likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
       rate: 4.7,
       comments: [],
       createdAt: DateTime.now());
@@ -84,7 +84,7 @@ class Example {
       userId: "user2",
       id: "recipe2",
       isSaved: true,
-      likes: 200,
+      likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
       rate: 4.8,
       comments: [],
       createdAt: DateTime.now());
@@ -132,7 +132,7 @@ class Example {
       userId: "user3",
       id: "recipe3",
       isSaved: false,
-      likes: 120,
+      likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
       rate: 4.5,
       comments: [],
       createdAt: DateTime.now());
@@ -175,7 +175,7 @@ class Example {
       userId: "user4",
       id: "recipe4",
       isSaved: true,
-      likes: 180,
+      likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
       rate: 4.6,
       comments: [],
       createdAt: DateTime.now());
