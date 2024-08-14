@@ -105,4 +105,24 @@ class Recipe {
       microseconds: microseconds,
     );
   }
+
+  factory Recipe.copy() {
+    return Recipe(
+      title: '',
+      ingredient: [],
+      description: '',
+      preparation: [],
+      estimatedTime: Duration.zero,
+      category: [],
+      comments: [],
+      imageUrl: '',
+      videoUrl: '',
+      userId: '',
+      id: '',
+      isSaved: false,
+      likes: 0,
+      rate: 4,
+      createdAt: DateTime.now(),
+    );
+  }
 }
