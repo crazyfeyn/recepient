@@ -120,7 +120,7 @@ class Recipe {
       userId: '',
       id: '',
       isSaved: false,
-      likes: 0,
+      likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
       rate: 4,
       createdAt: DateTime.now(),
     );
