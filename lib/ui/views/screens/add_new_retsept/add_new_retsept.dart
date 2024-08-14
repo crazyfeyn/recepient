@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:flutter_application/data/model/recipe.dart';
-import 'package:flutter_application/ui/screens/review_widget.dart';
+import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/review_widget.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recip_ingredients.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recip_video.dart';
@@ -59,6 +59,7 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
     if (image != null) {
       setState(() {
         _selectedImage = File(image.path);
+        context.read<RecipeAddController>().recipe.imageUrl = image.path;
       });
     }
   }
