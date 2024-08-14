@@ -4,7 +4,7 @@ import 'package:flutter_application/data/services/recipes/firebase_recipe_servic
 class RecipeRepository {
   final FirebaseRecipeService _firebaseRecipeService = FirebaseRecipeService();
 
-  Stream<List<Recipe>?> getRecipes() {
+  Future<List<Recipe>?> getRecipes() {
     return _firebaseRecipeService.getRecipes();
   }
 }
