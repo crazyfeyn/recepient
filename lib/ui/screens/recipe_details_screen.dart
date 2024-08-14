@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/recipe.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
-  const RecipeDetailsScreen({super.key});
+  final Recipe? recipe;
+  const RecipeDetailsScreen({
+    super.key,
+    this.recipe,
+  });
 
   @override
   State<RecipeDetailsScreen> createState() => _RecipeDetailsScreenState();
@@ -13,8 +18,8 @@ class RecipeDetailsScreen extends StatefulWidget {
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   final List<String> _imageUrls = [
     "https://amiel.club/uploads/posts/2022-03/thumbs/1647740928_29-amiel-club-p-kartinki-salat-32.jpg",
-    "https://cdn.bellinigroup.ru/upload/201711/5a1f9949c5f1a_1080x1080_fit.png",
-    "https://sun1-26.userapi.com/impg/8hwoqz-qLXob_IMnIBRxMkeEXz7zlt1GLHZXEw/G65AZcJSDhA.jpg?size=807x807&quality=96&sign=c72118bd388acf77e3c9b48b56198c4c&c_uniq_tag=D5_IIbFkbaogi8suVxP_xS6Bypm9XmE-pp7OaZm_n90&type=album",
+    "https://i.pinimg.com/originals/0e/ed/c9/0eedc9e9a5104635d84d3b06b3e162b5.jpg",
+    "https://avatars.mds.yandex.net/i?id=309e6015d9c292be9692516ec5801202_l-5450418-images-thumbs&n=13",
   ];
 
   int _currentIndex = 0;
@@ -26,13 +31,16 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   }
 
   late VideoPlayerController _controller;
-  final String videoUrl = "";
+  final String videoUrl =
+      "https://sample-videos.com/video321/mp4/240/big_buck_bunny_240p_30mb.mp4";
 
   @override
   void initState() {
     super.initState();
-    _controller = VideoPlayerController.network(videoUrl)
-      ..initialize().then((_) {
+    _controller = VideoPlayerController.networkUrl(
+      Uri.parse(videoUrl),
+    )..initialize().then((_) {
+        print("INITIALIZED");
         setState(() {});
       });
   }
@@ -541,6 +549,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ),
             ),
+           
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -551,24 +560,33 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(15),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                  clipBehavior: Clip.hardEdge,
+                  child: Stack(
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          setState(() {
-                            _controller.value.isPlaying
-                                ? _controller.pause()
-                                : _controller.play();
-                          });
-                        },
-                        icon: Icon(
-                          _controller.value.isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          size: 50,
-                          color: Colors.amber,
+                      if (_controller.value.isInitialized)
+                        VideoPlayer(_controller),
+                      Align(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _controller.value.isPlaying
+                                      ? _controller.pause()
+                                      : _controller.play();
+                                });
+                              },
+                              icon: Icon(
+                                _controller.value.isPlaying
+                                    ? Icons.pause
+                                    : Icons.play_arrow,
+                                size: 50,
+                                color: Colors.amber,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -576,6 +594,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ],
             ),
+           
             const Gap(20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -59,43 +59,23 @@ class Recipe {
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       title: json['title'],
-      ingredient: (json['ingredient'] as List)
-          .map((e) => Ingredient.fromJson(e))
+      ingredient: (json['ingredient'] as Map<String, dynamic>)
+          .values
+          .map((value) => Ingredient.fromJson(value))
           .toList(),
       description: json['description'],
       preparation: List<String>.from(json['preparation']),
-      estimatedTime: Duration(milliseconds: json['estimatedTime']),
+      estimatedTime: _parseDuration(json['estimatedTime']),
       category: List<String>.from(json['category']),
+      comments: [Comment.fromJson(json['comments'])],
       imageUrl: json['imageUrl'],
       videoUrl: json['videoUrl'],
       userId: json['userId'],
       id: json['id'],
-      isSaved: json['isSaved'],
-      likes: json['likes'],
-      rate: json['rate'],
-      comments:
-          (json['comments'] as List).map((e) => Comment.fromJson(e)).toList(),
+      isSaved: json['isSaved'] ?? false,
+      likes: int.parse(json['likes'].toString()),
+      rate: double.parse(json['rate'].toString()),
       createdAt: DateTime.parse(json['createdAt']),
-    );
-  }
-
-  factory Recipe.copy() {
-    return Recipe(
-      title: "",
-      ingredient: [],
-      description: "",
-      preparation: [],
-      estimatedTime: Duration.zero,
-      category: [],
-      imageUrl: '',
-      videoUrl: '',
-      userId: '',
-      id: '',
-      isSaved: false,
-      likes: 0,
-      rate: 4,
-      comments: [],
-      createdAt: DateTime.now(),
     );
   }
 }
