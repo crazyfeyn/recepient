@@ -13,10 +13,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(const Duration(seconds: 2), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => FirstOnboardingScreen()),
+        MaterialPageRoute(builder: (context) => const FirstOnboardingScreen()),
       );
     });
   }

@@ -30,7 +30,7 @@ class ElevetedButtonWidget extends StatelessWidget {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 17,
-          color: textColor == null ? Colors.white : textColor,
+          color: textColor ?? Colors.white,
         ),
       ),
     );
