@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/login_screen.dart';
-import 'package:flutter_application/ui/views/screens/splash_screens/second_onboarding_screen.dart';
-import 'package:flutter_application/ui/views/widgets/eleveted_button.dart';
+import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
+import 'package:flutter_application/ui/screens/splash_screens/second_onboarding_screen.dart';
+import 'package:flutter_application/ui/widgets/eleveted_button.dart';
 
 class FirstOnboardingScreen extends StatelessWidget {
   const FirstOnboardingScreen({super.key});
