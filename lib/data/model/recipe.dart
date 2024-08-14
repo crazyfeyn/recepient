@@ -96,24 +96,24 @@ class Recipe {
       microseconds: microseconds,
     );
   }
-factory Recipe.copy() {
+
+  factory Recipe.copy() {
     return Recipe(
       title: '',
       ingredient: [],
       description: '',
       preparation: [],
-      estimatedTime: Duration.zero,
+      estimatedTime: Duration(minutes: 0),
       category: [],
       comments: [],
       imageUrl: '',
       videoUrl: '',
       userId: '',
       id: '',
-      isSaved:  false,
+      isSaved: false,
       likes: 0,
       rate: 4,
       createdAt: DateTime.now(),
     );
   }
-
 }

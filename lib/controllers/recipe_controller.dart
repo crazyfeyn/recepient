@@ -1,12 +1,25 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 
 class RecipeController {
   final Dio _dio = Dio();
 
   /// Adds a new recipe to Firebase Realtime Database
-  Future<void> addRecipe(Recipe recipe) async {
+  Future<bool> addRecipe(Recipe recipe) async {
+    FirebaseStorageService firebaseStorageService = FirebaseStorageService();
+    if (recipe.videoUrl.isNotEmpty) {
+      recipe.videoUrl = await firebaseStorageService.uploadVideo(
+              File(recipe.videoUrl), recipe.title) ??
+          "";
+    }
+
+    recipe.imageUrl = await firebaseStorageService.uploadImageToFirebase(
+            File(recipe.imageUrl), recipe.title) ??
+        "";
+
     const url =
         'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json';
 
@@ -23,12 +36,12 @@ class RecipeController {
       );
 
       if (response.statusCode == 200) {
-        print('Recipe added successfully!');
+        return true;
       } else {
-        print('Failed to add recipe: ${response.statusCode}');
+        return false;
       }
     } catch (e) {
-      print('Error adding recipe: $e');
+      return false;
     }
   }
 

@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
               if (user.hasData) {
                 return const WelcomeScreen();
               } else {
-                return ProfileScreen();
+                return AddNewRecipe();
               }
             },
           ),
