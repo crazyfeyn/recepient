@@ -6,7 +6,7 @@ import 'package:flutter_application/data/model/recipe.dart';
 class FirebaseRecipeService {
   final _dio = Dio();
   final String baseUrl =
-      'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes';
+      'https://retsept-app-db287-default-rtdb.firebaseio.com/';
 
   Future<List<Recipe>?> getRecipes() async {
     try {
@@ -28,10 +28,8 @@ class FirebaseRecipeService {
     }
   }
 
-  /// Adds a new recipe to Firebase Realtime Database
   Future<void> addRecipe(Recipe recipe) async {
     try {
-      // Convert the recipe object to JSON
       final response = await _dio.post(
         '$baseUrl.json',
         data: json.encode(recipe.toJson()),
@@ -52,7 +50,6 @@ class FirebaseRecipeService {
     }
   }
 
-  /// Edits an existing recipe in Firebase Realtime Database
   Future<void> editRecipe(String recipeId, Recipe updatedRecipe) async {
     try {
       final response = await _dio.patch(
@@ -75,7 +72,6 @@ class FirebaseRecipeService {
     }
   }
 
-  /// Deletes a recipe from Firebase Realtime Database
   Future<void> deleteRecipe(String recipeId) async {
     try {
       final response = await _dio.delete(
