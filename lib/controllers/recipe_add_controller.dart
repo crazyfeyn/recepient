@@ -4,7 +4,7 @@ import 'package:flutter_application/data/model/ingredient.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 
 class RecipeAddController extends ChangeNotifier {
-  Recipe recipe = Recipe.copy();
+  late Recipe recipe;
   PageController pageController;
   RecipeAddController({required this.pageController});
   addNameandDicription(String name, String descriotion) {
