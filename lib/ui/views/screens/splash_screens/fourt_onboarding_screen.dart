@@ -56,3 +56,4 @@ class FourtOnboardingScreen extends StatelessWidget {
     );
   }
 }
+
