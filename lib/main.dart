@@ -8,6 +8,7 @@ import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/screens/all_navigation_bar.dart';
+import 'package:flutter_application/ui/screens/home_screen/home_screen.dart';
 import 'package:flutter_application/ui/screens/recipe_details_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,7 +52,7 @@ class MyApp extends StatelessWidget {
                 return const AllNavigationBar();
               } else {
                 // return const WelcomeScreen();
-                return const RecipeDetailsScreen();
+                return const HomeScreen();
               }
             },
           ),
