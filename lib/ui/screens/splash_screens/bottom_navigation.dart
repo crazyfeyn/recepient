@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
 
+// ignore: use_key_in_widget_constructors
 class BottomNavigationScreen extends StatefulWidget {
   @override
   State<BottomNavigationScreen> createState() => _BottomNavigationScreenState();
@@ -8,17 +9,17 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   List screens = [
-    HomeScreen(),
-    Center(
+    const HomeScreen(),
+    const Center(
       child: Text("Explre Screen"),
     ),
-    Center(
+    const Center(
       child: Text("Add Screen"),
     ),
-    Center(
+    const Center(
       child: Text("Smth Screen"),
     ),
-    Center(
+    const Center(
       child: Text("Profile Screen"),
     )
   ];
@@ -31,8 +32,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) {
           setState(() {
-            currentIndex =
-                value; // Update currentIndex with the tapped item index
+            currentIndex = value;
           });
         },
         items: const <BottomNavigationBarItem>[
@@ -61,7 +61,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             label: '',
           ),
         ],
-        currentIndex: currentIndex, // Set currentIndex here
+        currentIndex: currentIndex, 
         selectedItemColor: Colors.orange,
         unselectedItemColor: Colors.grey,
         backgroundColor: Colors.white,

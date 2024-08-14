@@ -20,6 +20,7 @@ void main() {
     mockAuthBloc.close();
   });
 
+  // ignore: no_leading_underscores_for_local_identifiers
   Future<void> _buildRegisterScreen(WidgetTester tester) async {
     await tester.pumpWidget(
       MaterialApp(
@@ -62,11 +63,11 @@ void main() {
 
     await _buildRegisterScreen(tester);
 
-    await tester.enterText(find.byKey(Key('nameField')), 'Test User');
-    await tester.enterText(find.byKey(Key('emailField')), 'test@example.com');
-    await tester.enterText(find.byKey(Key('passwordField')), 'password123');
+    await tester.enterText(find.byKey(const Key('nameField')), 'Test User');
+    await tester.enterText(find.byKey(const Key('emailField')), 'test@example.com');
+    await tester.enterText(find.byKey(const Key('passwordField')), 'password123');
     await tester.enterText(
-        find.byKey(Key('confirmPasswordField')), 'password123');
+        find.byKey(const Key('confirmPasswordField')), 'password123');
 
     await tester.tap(find.text('Create an Account'));
     await tester.pump();
