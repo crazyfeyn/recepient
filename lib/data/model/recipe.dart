@@ -65,7 +65,7 @@ class Recipe {
           .toList(),
       description: json['description'],
       preparation: List<String>.from(json['preparation']),
-      estimatedTime: Duration(minutes: 10),
+      estimatedTime: Duration(minutes: ),
       category: List<String>.from(json['category']),
       comments: [Comment.fromJson(json['comments'])],
       imageUrl: json['imageUrl'],
@@ -78,4 +78,7 @@ class Recipe {
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
+
+
+  
 }
