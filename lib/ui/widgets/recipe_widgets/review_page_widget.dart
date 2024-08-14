@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/widgets/recipe_details_widgets/all_comments_widget.dart';
+import 'package:flutter_application/ui/widgets/recipe_widgets/all_comments_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,15 +13,21 @@ class ReviewPageWidget extends StatefulWidget {
 
 class _ReviewPageState extends State<ReviewPageWidget> {
   final TextEditingController _reviewController = TextEditingController();
-  final List<String> _reviews = [];
+  final List<Map<String, dynamic>> _reviews =
+      []; // Update to store reviews with ratings
   final int _truncatedLength = 300; // Qisqartirilgan uzunlik
   bool showAllReviews = false; // "See More" tugmasi holatini saqlash uchun
+  int _selectedRating = 0; // Variable to store selected star rating
 
   void _addReview() {
     if (_reviewController.text.isNotEmpty) {
       setState(() {
-        _reviews.insert(0, _reviewController.text);
+        _reviews.insert(0, {
+          'text': _reviewController.text,
+          'rating': _selectedRating,
+        });
         _reviewController.clear();
+        _selectedRating = 0; // Reset rating
       });
     }
   }
@@ -30,7 +36,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => AllReviewsPage(reviews: _reviews),
+        builder: (context) => AllCommentsWidget(reviews: _reviews),
       ),
     );
   }
@@ -65,13 +71,18 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                   children: List.generate(
                     5,
                     (index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: GestureDetector(
-                          child: const Icon(
-                            Icons.star_border,
-                            color: Colors.grey,
-                          ),
+                      return GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            _selectedRating =
+                                index + 1; // Set rating based on index
+                          });
+                        },
+                        child: Icon(
+                          index < _selectedRating
+                              ? Icons.star
+                              : Icons.star_border,
+                          color: Colors.amber,
                         ),
                       );
                     },
@@ -146,10 +157,10 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                     : _reviews.length,
             (index) {
               final review = _reviews[index];
-              final bool isTruncated = review.length > _truncatedLength;
+              final bool isTruncated = review['text'].length > _truncatedLength;
               final String displayReview = isTruncated
-                  ? review.substring(0, _truncatedLength) + '...'
-                  : review;
+                  ? review['text'].substring(0, _truncatedLength) + '...'
+                  : review['text'];
 
               return Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -169,14 +180,16 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                           ),
                           Row(
                             children: List.generate(5, (index) {
-                              return const Icon(
+                              return Icon(
                                 Icons.star,
                                 size: 13,
-                                color: Colors.amber,
+                                color: index < review['rating']
+                                    ? Colors.amber
+                                    : Colors.grey,
                               );
                             }),
                           ),
-                          const Text("(5)"),
+                          Text("(${review['rating']})"),
                         ],
                       ),
                       subtitle: Text(
