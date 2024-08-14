@@ -3,8 +3,10 @@ import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
+import 'package:flutter_application/ui/views/widgets/toggleLike_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -187,7 +189,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         itemCount: recipes.length,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Share.share('text');
+                            },
                             child: Column(
                               children: [
                                 Container(
@@ -230,45 +234,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: const Color(0xFFFF9B05),
                                               ),
                                             ),
-                                            GestureDetector(
-                                              onTap: () {},
-                                              child: Container(
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadiusDirectional
-                                                          .circular(10),
-                                                  color: Colors.white,
-                                                ),
-                                                width: 59,
-                                                height: 42,
-                                                child: Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    const Icon(
-                                                      Icons
-                                                          .favorite_border_outlined,
-                                                      color: Color(0xFFFF9B05),
-                                                      size: 25,
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 8),
-                                                      child: Text(
-                                                        recipes[index]
-                                                            .likes.length
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                          fontSize: 10,
-                                                        ),
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
+                                            TogglelikeWidget(
+                                                recipe: recipes[index])
                                           ],
                                         )
                                       ],

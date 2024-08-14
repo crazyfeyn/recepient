@@ -57,10 +57,6 @@ class Recipe {
   }
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-    print(json['title']);
-    print(json['description']);
-    print(List<String>.from(json['preparation']));
-    print(parseDuration(json['estimatedTime']));
     return Recipe(
       title: json['title'],
       ingredient: (json['ingredient'] as Map<String, dynamic>?)
