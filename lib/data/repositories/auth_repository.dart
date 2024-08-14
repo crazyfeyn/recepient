@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter_application/data/model/user.dart';
+
 class AuthRepository {
   final FirebaseAuthSerivce authService;
 
@@ -12,7 +13,8 @@ class AuthRepository {
     final user = User(
       email: email,
       id: response['localId'],
-      expiryDate: DateTime.now().add(Duration(seconds: int.parse(response['expiresIn']))),
+      expiryDate: DateTime.now()
+          .add(Duration(seconds: int.parse(response['expiresIn']))),
       password: password,
       token: response['idToken'],
     );
@@ -21,11 +23,13 @@ class AuthRepository {
   }
 
   Future<User> login(String email, String password) async {
-    final response = await authService.authenticate(email, password, 'signInWithPassword');
+    final response =
+        await authService.authenticate(email, password, 'signInWithPassword');
     final user = User(
       email: email,
       id: response['localId'],
-      expiryDate: DateTime.now().add(Duration(seconds: int.parse(response['expiresIn']))),
+      expiryDate: DateTime.now()
+          .add(Duration(seconds: int.parse(response['expiresIn']))),
       password: password,
       token: response['idToken'],
     );
@@ -36,6 +40,7 @@ class AuthRepository {
   Future<void> logout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove('userData');
+    await sharedPreferences.remove('id');
   }
 
   Future<bool> isLoggedIn() async {

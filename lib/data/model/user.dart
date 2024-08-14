@@ -28,5 +28,7 @@ class User {
       'expiryDate': expiryDate.toString()
     };
   }
+
+ String get userId => id;
   
 }

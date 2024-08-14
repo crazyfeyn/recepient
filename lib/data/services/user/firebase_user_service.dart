@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application/data/model/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseUserService {
   final Dio _dio = Dio();
-  final String baseUrl = 'https://retsept-app-db287-default-rtdb.firebaseio.com/';
+  String uId = '';
+  final String baseUrl =
+      'https://retsept-app-db287-default-rtdb.firebaseio.com/';
 
   Future<void> createUser(UserModel user) async {
     try {
@@ -11,7 +14,11 @@ class FirebaseUserService {
         '$baseUrl/users/${user.uId}.json',
         data: user.toJson(),
       );
-      print('User created: ${response.data}');
+      print(response.data['name']);
+      uId = response.data['uId'];
+      final shared = await SharedPreferences.getInstance();
+      shared.setString('id', uId);
+      print('User createdwsedrfghgtredrfgrfvdrfc: ${uId}');
     } catch (e) {
       print('Error creating user: $e');
     }
@@ -42,12 +49,9 @@ class FirebaseUserService {
     }
   }
 
-  Future<void> deleteUser(String uId) async {
-    try {
-      final response = await _dio.delete('$baseUrl/users/$uId.json');
-      print('User deleted: ${response.data}');
-    } catch (e) {
-      print('Error deleting user: $e');
-    }
+  static  getId() async {
+    final shared = await SharedPreferences.getInstance();
+    String? id = shared.getString('id');
+    return id;
   }
 }
