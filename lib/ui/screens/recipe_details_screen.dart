@@ -279,7 +279,6 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
             const Divider(indent: 20, endIndent: 20),
             const Gap(10),
             const ReviewPageWidget(),
-            const Gap(30),
           ],
         ),
       ),

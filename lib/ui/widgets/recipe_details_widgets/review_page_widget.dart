@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/widgets/recipe_details_widgets/all_comments_widget.dart';
 import 'package:gap/gap.dart';
@@ -5,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ReviewPageWidget extends StatefulWidget {
   const ReviewPageWidget({super.key});
+
   @override
   _ReviewPageState createState() => _ReviewPageState();
 }
@@ -12,7 +14,8 @@ class ReviewPageWidget extends StatefulWidget {
 class _ReviewPageState extends State<ReviewPageWidget> {
   final TextEditingController _reviewController = TextEditingController();
   final List<String> _reviews = [];
-  final int _truncatedLength = 300;
+  final int _truncatedLength = 300; // Qisqartirilgan uzunlik
+  bool showAllReviews = false; // "See More" tugmasi holatini saqlash uchun
 
   void _addReview() {
     if (_reviewController.text.isNotEmpty) {
@@ -26,7 +29,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
   void _viewAllReviews() {
     Navigator.push(
       context,
-      MaterialPageRoute(
+      CupertinoPageRoute(
         builder: (context) => AllReviewsPage(reviews: _reviews),
       ),
     );
@@ -119,7 +122,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                   fontSize: 15,
                 ),
               ),
-              if (_reviews.length > 0) // Show "See More" if there are reviews
+              if (_reviews.isNotEmpty) // Show "See More" if there are reviews
                 GestureDetector(
                   onTap: _viewAllReviews,
                   child: Text(
@@ -134,13 +137,19 @@ class _ReviewPageState extends State<ReviewPageWidget> {
             ],
           ),
         ),
-        SizedBox(
-          height: 300,
-          child: ListView.builder(
-            itemCount: _reviews.length,
-            itemBuilder: (context, index) {
+        Column(
+          children: List.generate(
+            showAllReviews
+                ? _reviews.length
+                : _reviews.length > 2
+                    ? 2
+                    : _reviews.length,
+            (index) {
               final review = _reviews[index];
               final bool isTruncated = review.length > _truncatedLength;
+              final String displayReview = isTruncated
+                  ? review.substring(0, _truncatedLength) + '...'
+                  : review;
 
               return Padding(
                 padding: const EdgeInsets.only(left: 15, right: 15),
@@ -178,9 +187,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                     Padding(
                       padding: const EdgeInsets.only(left: 15, top: 8.0),
                       child: Text(
-                        isTruncated
-                            ? review.substring(0, _truncatedLength) + '...'
-                            : review,
+                        displayReview,
                         maxLines: isTruncated ? 4 : null,
                         overflow: isTruncated
                             ? TextOverflow.ellipsis
@@ -188,7 +195,9 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                       ),
                     ),
                     const Gap(10),
-                    const Divider(indent: 15, endIndent: 15),
+                    _reviews.length > 2
+                        ? const Text("")
+                        : const Divider(indent: 15, endIndent: 15),
                   ],
                 ),
               );
