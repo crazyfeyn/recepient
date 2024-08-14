@@ -8,16 +8,21 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(InitialState()) {
     on<FetchRecipesEvent>(fetchRecipes);
+    on<ToggleLikeEvent>(toggleLike);
   }
+  final recipeController = RecipeController();
 
   Future<void> fetchRecipes(event, emit) async {
     try {
-      final recipeController = RecipeController();
       emit(LoadingState());
       List<Recipe> recipes = await recipeController.fetchRecipes();
       emit(LoadedState(recipes));
     } catch (e) {
       emit(ErrorState(e.toString()));
     }
+  }
+
+  Future<void> toggleLike(ToggleLikeEvent event, emit) async {
+    recipeController.toggleLike(event.uId, event.recipeId);
   }
 }

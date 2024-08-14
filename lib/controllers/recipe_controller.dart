@@ -21,4 +21,12 @@ class RecipeController {
       return [];
     }
   }
+
+  Future<void> toggleLike(String uId, String recipeId) async {
+    try {
+      firebaseRecipeService.toggleLike(uId, recipeId);
+    } catch (e) {
+      print(e.toString());
+    }
+  }
 }
