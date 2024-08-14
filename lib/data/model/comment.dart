@@ -20,6 +20,8 @@ class Comment {
   }
 
   factory Comment.fromJson(Map<String, dynamic> json) {
+    print('0----------');
+    print(json['rate']);
     return Comment(
       rate: json['rate'],
       title: json['title'],

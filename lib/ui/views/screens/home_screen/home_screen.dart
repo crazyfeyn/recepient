@@ -195,8 +195,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
                                       image: DecorationImage(
-                                        image: NetworkImage(Example
-                                            .ingredients[index].imageUrl),
+                                        image: NetworkImage(
+                                            recipes[index].imageUrl),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
@@ -257,9 +257,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                             const EdgeInsets
                                                                 .only(top: 8),
                                                         child: Text(
-                                                          Example
-                                                              .ingredients[
-                                                                  index]
+                                                          recipes[index]
                                                               .likes
                                                               .toString(),
                                                           style:

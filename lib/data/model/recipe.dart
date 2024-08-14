@@ -72,6 +72,10 @@ class Recipe {
         microseconds: int.parse(json['estimatedTime'].split('.')[1]),
       ),
       category: List<String>.from(json['category']),
+      comments: (json['comments'] as Map<String, dynamic>)
+          .entries
+          .map((entry) => Comment.fromJson(entry.value))
+          .toList(),
       imageUrl: json['imageUrl'],
       videoUrl: json['videoUrl'],
       userId: json['userId'],
@@ -79,10 +83,6 @@ class Recipe {
       isSaved: json['isSaved'],
       likes: json['likes'],
       rate: double.parse(json['rate'].toString()),
-      comments: (json['comments'] as Map<String, dynamic>)
-          .entries
-          .map((entry) => Comment.fromJson(entry.value))
-          .toList(),
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
