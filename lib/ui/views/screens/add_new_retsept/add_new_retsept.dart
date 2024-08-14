@@ -79,13 +79,19 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
             children: [
               EasyStepper(
                 activeStep: activeStep,
-                activeStepBackgroundColor: const Color(0xffFF9B05),
-                finishedStepBackgroundColor: const Color(0xffFF9B05),
+                activeStepBackgroundColor: activeStep == 5
+                    ? const Color(0xff00C337)
+                    : const Color(0xffFF9B05),
+                finishedStepBackgroundColor: activeStep == 5
+                    ? const Color(0xff00C337)
+                    : const Color(0xffFF9B05),
                 finishedStepIconColor: const Color(0xff00C337),
                 enableStepTapping: true,
                 lineStyle: LineStyle(
                   lineThickness: 3,
-                  finishedLineColor: const Color(0xffFF9B05),
+                  finishedLineColor: activeStep == 5
+                      ? const Color(0xff00C337)
+                      : const Color(0xffFF9B05),
                   defaultLineColor: Colors.grey.shade300,
                   lineType: LineType.normal,
                 ),
