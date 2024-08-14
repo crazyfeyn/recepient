@@ -22,7 +22,8 @@ class RegisterScreen extends StatelessWidget {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<AuthBloc>().add(
-            RegisterEvent(emailcontroller.text, passcontroller.text),
+            RegisterEvent(
+                emailcontroller.text, passcontroller.text, namecontroller.text),
           );
     }
   }
