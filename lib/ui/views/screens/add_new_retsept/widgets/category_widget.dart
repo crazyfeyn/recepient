@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/review_widget.dart';
+import 'package:flutter_application/ui/screens/review_widget.dart';
 
 class CategoryWidget extends StatelessWidget {
   CategoryWidget({super.key});

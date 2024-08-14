@@ -2,10 +2,11 @@ import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/controllers/recipe_controller.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/ui/screens/review_widget.dart';
+import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recip_ingredients.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recip_video.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recipe_name.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/review_widget.dart';
 import 'package:flutter_application/ui/widgets/upload_image_widget%20.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
@@ -27,6 +28,7 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
     RecipeName(),
     RecipeStepsWidget(),
     VideoUploadWidget(),
+    CategoryWidget(),
     ReviewWidget(),
   ];
 

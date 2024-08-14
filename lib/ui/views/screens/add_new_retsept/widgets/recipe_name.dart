@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/controllers/recipe_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
 class RecipeName extends StatefulWidget {
@@ -9,6 +11,29 @@ class RecipeName extends StatefulWidget {
 }
 
 class _RecipeNameState extends State<RecipeName> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose of the controllers when the widget is disposed to free up resources
+    _nameController.dispose();
+    _descriptionController.dispose();
+    super.dispose();
+  }
+
+  void _onContinuePressed() {
+    final recipeAddController = context.read<RecipeAddController>();
+    String name = _nameController.text;
+    String description = _descriptionController.text;
+
+    if (name.isNotEmpty && description.isNotEmpty) {
+      recipeAddController.addNameandDicription(name, description);
+      recipeAddController.pageController.nextPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -32,8 +57,9 @@ class _RecipeNameState extends State<RecipeName> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _nameController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
               ),
             ),
@@ -45,31 +71,35 @@ class _RecipeNameState extends State<RecipeName> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _descriptionController,
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: "Enter the detail of your recipe",
               ),
               minLines: 5,
               maxLines: 5,
             ),
-            Container(
-              margin: const EdgeInsets.all(15),
-              padding: const EdgeInsets.all(10),
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(18),
-                color: const Color(0xffFF9B05),
+            GestureDetector(
+              onTap: _onContinuePressed,
+              child: Container(
+                margin: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(10),
+                width: double.infinity,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  color: const Color(0xffFF9B05),
+                ),
+                child: const Text(
+                  "Continue",
+                  style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
               ),
-              child: const Text(
-                "Continue",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-            )
+            ),
           ],
         ),
       ),

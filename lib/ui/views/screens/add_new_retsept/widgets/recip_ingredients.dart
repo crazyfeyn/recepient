@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/controllers/recipe_controller.dart';
 import 'package:flutter_application/data/model/ingredient.dart';
+import 'package:provider/provider.dart';
 
 class RecipeStepsWidget extends StatefulWidget {
   @override
@@ -39,16 +41,18 @@ class _RecipeStepsWidgetState extends State<RecipeStepsWidget> {
   }
 
   void onContinuePressed() {
+    final recipeAddController = context.read<RecipeAddController>();
+
     List<Ingredient> ingredients =
         ingredientFields.map((field) => field.getIngredientData()).toList();
     List<String> instructions =
         instructionControllers.map((controller) => controller.text).toList();
-
-    // Print the collected data for now
-    print("Ingredients: $ingredients");
-    print("Instructions: $instructions");
-
-    // You can perform further actions with the collected data here
+    if (instructions.isNotEmpty && ingredients.isNotEmpty) {
+      recipeAddController.addIngredientAndInstruction(
+          ingredients, instructions);
+      recipeAddController.pageController.nextPage(
+          duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
+    }
   }
 
   @override
