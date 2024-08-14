@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/views/screens/auth_screen/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,14 +18,11 @@ class RegisterScreen extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
-  submit(BuildContext context) {
+  void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<AuthBloc>().add(
-            RegisterUserEvent(
-                name: namecontroller.text,
-                email: emailcontroller.text,
-                password: passcontroller.text),
+            RegisterEvent(emailcontroller.text, passcontroller.text),
           );
     }
   }
@@ -35,43 +34,53 @@ class RegisterScreen extends StatelessWidget {
         key: _formKey,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            print(state);
-            if (state is AuthenticatedState) {
+            if (state is AuthAuthenticated) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
-                    return CategoryWidget();
-                  },
+                  builder: (context) => CategoryWidget(),
                 ),
+              );
+            } else if (state is AuthError) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("OK"),
+                      ),
+                    ],
+                    title: Text(state.errorMessage),
+                  );
+                },
               );
             }
           },
           builder: (context, state) {
-            if (state is LoadingAuthState) {
+            if (state is AuthLoading) {
               return Center(
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: Lottie.asset(
-                    'assets/images/loading.json',
-                  ),
+                  child: Lottie.asset('assets/images/loading.json'),
                 ),
               );
             }
-            if (state is ErrorAuthState) {
-              return Center(
-                child: Text(state.errorMessage),
-              );
-            }
+
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  Image.asset('assets/images/login.png',
-                      height: 450,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      color: Colors.orange),
+                  Image.asset(
+                    'assets/images/login.png',
+                    height: 450,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    color: Colors.orange,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
@@ -80,140 +89,130 @@ class RegisterScreen extends StatelessWidget {
                         const Text(
                           'SIGN UP',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 40,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 40,
+                            color: Colors.orange,
+                          ),
                         ),
                         Container(
                           width: 100,
                           height: 2,
                           color: Colors.orange,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Name',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Colors.orange,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextFormField(
                           controller: namecontroller,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Input name';
+                              return 'Please enter your name';
                             }
                             return null;
                           },
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.person),
-                            label: const Text('name'),
+                            labelText: 'Name',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Email',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Colors.orange,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextFormField(
                           controller: emailcontroller,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Input email';
+                              return 'Please enter your email';
                             }
+                            // Additional email validation can be added here
                             return null;
                           },
                           decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.email_outlined),
-                            label: const Text('email'),
+                            labelText: 'Email',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Password',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Colors.orange,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextFormField(
+                          controller: passcontroller,
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Input pass';
+                              return 'Please enter a password';
                             }
                             return null;
                           },
-                          controller: passcontroller,
                           decoration: InputDecoration(
                             suffixIcon: const Icon(CupertinoIcons.eye_slash),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
-                            label: const Text('password'),
+                            labelText: 'Password',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Confirm Password',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Colors.orange,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextFormField(
+                          controller: passconfirmcontroller,
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Input pass';
+                              return 'Please confirm your password';
                             }
                             if (passcontroller.text !=
                                 passconfirmcontroller.text) {
-                              return 'BIr hil emas';
+                              return 'Passwords do not match';
                             }
                             return null;
                           },
-                          controller: passconfirmcontroller,
                           decoration: InputDecoration(
                             suffixIcon: const Icon(CupertinoIcons.eye_slash),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
-                            label: const Text('password'),
+                            labelText: 'Confirm Password',
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         ZoomTapAnimation(
                           onTap: () => submit(context),
                           child: Card(
@@ -229,9 +228,10 @@ class RegisterScreen extends StatelessWidget {
                               child: const Text(
                                 "Create an Account",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.white),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -239,20 +239,20 @@ class RegisterScreen extends StatelessWidget {
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) {
-                                    return LoginScreen();
-                                  },
+                                  builder: (context) => LoginScreen(),
                                 ),
                               );
                             },
                             child: RichText(
                               text: TextSpan(
-                                text: "Already have an Account ! ",
+                                text: "Already have an account? ",
                                 style: const TextStyle(
-                                    color: Colors.black, fontSize: 15),
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                ),
                                 children: [
                                   TextSpan(
                                     text: 'Login',
@@ -265,10 +265,10 @@ class RegisterScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             );

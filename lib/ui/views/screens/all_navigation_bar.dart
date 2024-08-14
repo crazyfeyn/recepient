@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/ui/views/screens/auth_screen/profile_screen.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
 import 'package:flutter_application/ui/views/screens/recipe_details_screen.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +16,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
   final List<Widget> screens = [
     const HomeScreen(),
     const RecipeDetailsScreen(),
+    ProfileScreen(),
   ];
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();

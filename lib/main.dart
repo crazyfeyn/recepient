@@ -6,10 +6,8 @@ import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
-import 'package:flutter_application/ui/screens/home_screen.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/add_new_retsept.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/profile_screen.dart';
-
+import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
+import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
 import 'package:flutter_application/ui/views/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +16,7 @@ void main(List<String> args) async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   runApp(const MyApp());
 }
 
@@ -27,8 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) =>
-          AuthRepository(firebaseAuthService: FirebaseAuthSerivce()),
+      create: (context) => AuthRepository(authService: FirebaseAuthSerivce()),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
@@ -44,11 +42,11 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           home: StreamBuilder<User?>(
             stream: FirebaseAuth.instance.authStateChanges(),
-            builder: (context, user) {
-              if (user.hasData) {
-                return const WelcomeScreen();
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data != null) {
+                return const AllNavigationBar();
               } else {
-                return ProfileScreen();
+                return const WelcomeScreen();
               }
             },
           ),
@@ -57,3 +55,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+//sad
