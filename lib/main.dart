@@ -51,7 +51,6 @@ class MyApp extends StatelessWidget {
               if (snapshot.hasData && snapshot.data != null) {
                 return const AllNavigationBar();
               } else {
-                // return const WelcomeScreen();
                 return const HomeScreen();
               }
             },
