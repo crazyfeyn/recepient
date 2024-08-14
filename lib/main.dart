@@ -8,7 +8,6 @@ import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
-import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) async {
@@ -51,8 +50,6 @@ class MyApp extends StatelessWidget {
               }
             },
           ),
-
-          home: const WelcomeScreen(), // Always start with WelcomeScreen
         ),
       ),
     );
