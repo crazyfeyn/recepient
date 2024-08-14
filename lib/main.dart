@@ -14,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
               if (user.hasData) {
                 return const WelcomeScreen();
               } else {
-                return const AllNavigationBar();
+                return HomeScreen();
               }
             },
           ),
