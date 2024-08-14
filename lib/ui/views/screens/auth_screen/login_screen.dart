@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/views/screens/auth_screen/register_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,13 +16,10 @@ class LoginScreen extends StatelessWidget {
   final passcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
-  submit(BuildContext context) {
+  void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<AuthBloc>().add(
-            LoginUserEvent(
-                email: emailcontroller.text, password: passcontroller.text),
-          );
+      context.read<AuthBloc>().add(LoginEvent(emailcontroller.text, passcontroller.text));
     }
   }
 
@@ -30,35 +30,15 @@ class LoginScreen extends StatelessWidget {
         key: _formKey,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is AuthenticatedState) {
+            if (state is AuthAuthenticated) {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) {
-                    return CategoryWidget();
-                  },
+                  builder: (context) => CategoryWidget(),
                 ),
               );
             }
-            if (state is RestPasswordState) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return AlertDialog(
-                    actions: [
-                      ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text("ok"),
-                      ),
-                    ],
-                    title: Text("we send a confirm text to your gmail"),
-                  );
-                },
-              );
-            }
-            if (state is ErrorAuthState) {
+            if (state is AuthError) {
               showDialog(
                 context: context,
                 builder: (context) {
@@ -78,14 +58,12 @@ class LoginScreen extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            if (state is LoadingAuthState) {
+            if (state is AuthLoading) {
               return Center(
                 child: SizedBox(
                   height: 100,
                   width: 100,
-                  child: Lottie.asset(
-                    'assets/images/loading.json',
-                  ),
+                  child: Lottie.asset('assets/images/loading.json'),
                 ),
               );
             }
@@ -95,8 +73,10 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Container(
                     decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/login.png'))),
+                      image: DecorationImage(
+                        image: AssetImage('assets/images/login.png'),
+                      ),
+                    ),
                   ),
                   Image.asset(
                     'assets/images/login.png',
@@ -113,28 +93,26 @@ class LoginScreen extends StatelessWidget {
                         const Text(
                           'LOGIN',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 40,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 40,
+                            color: Colors.orange,
+                          ),
                         ),
                         Container(
                           width: 100,
                           height: 2,
                           color: Colors.orange,
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Email',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Colors.orange,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextFormField(
                           controller: emailcontroller,
                           validator: (value) {
@@ -151,28 +129,25 @@ class LoginScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
+                        const SizedBox(height: 20),
                         const Text(
                           'Password',
                           style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 17,
+                            color: Colors.orange,
+                          ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         TextFormField(
+                          controller: passcontroller,
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Input pass';
+                              return 'Input password';
                             }
                             return null;
                           },
-                          controller: passcontroller,
-                          obscureText: true,
                           decoration: InputDecoration(
                             suffixIcon: const Icon(CupertinoIcons.eye_slash),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -186,7 +161,8 @@ class LoginScreen extends StatelessWidget {
                           onPressed: () {
                             context.read<AuthBloc>().add(
                                   ResetPasswordEvent(
-                                      email: emailcontroller.text),
+                                    email: emailcontroller.text,
+                                  ),
                                 );
                           },
                           child: const Text(
@@ -194,9 +170,7 @@ class LoginScreen extends StatelessWidget {
                             style: TextStyle(color: Colors.orange),
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         ZoomTapAnimation(
                           onTap: () => submit(context),
                           child: Card(
@@ -212,9 +186,10 @@ class LoginScreen extends StatelessWidget {
                               child: const Text(
                                 "Login",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.white),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
                               ),
                             ),
                           ),
@@ -225,17 +200,17 @@ class LoginScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) {
-                                    return RegisterScreen();
-                                  },
+                                  builder: (context) => RegisterScreen(),
                                 ),
                               );
                             },
                             child: RichText(
                               text: TextSpan(
-                                text: "Don't have an Account ? ",
+                                text: "Don't have an Account? ",
                                 style: const TextStyle(
-                                    color: Colors.black, fontSize: 15),
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                ),
                                 children: [
                                   TextSpan(
                                     text: 'Sign up',
@@ -248,10 +223,10 @@ class LoginScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                        )
+                        ),
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             );
