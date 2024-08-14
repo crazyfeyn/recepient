@@ -28,12 +28,12 @@ class UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      email: json['email'],
-      name: json['name'],
-      imageUrl: json['imageUrl'],
-      uId: json['uId'],
-      likes: List<String>.from(json['likes']),
-      saved: List<String>.from(json['saved']),
+      email: json['email'] ?? '',
+      name: json['name'] ?? '',
+      imageUrl: json['imageUrl'] ?? '',
+      uId: json['uId'] ?? '',
+      likes: json['likes'] != null ? List<String>.from(json['likes']) : [],
+      saved: json['saved'] != null ? List<String>.from(json['saved']) : [],
     );
   }
 }

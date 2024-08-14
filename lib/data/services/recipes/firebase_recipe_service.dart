@@ -19,6 +19,8 @@ class FirebaseRecipeService {
       } else {
         yield null;
       }
+    } on DioException catch (e) {
+      throw e.response!.data;
     } catch (e) {
       rethrow;
     }
