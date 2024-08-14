@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/ui/screens/resipe_screens/my_resipes_screen.dart';
+import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoAndActionWidget extends StatefulWidget {
@@ -29,6 +33,45 @@ class _VideoAndActionWidgetState extends State<VideoAndActionWidget> {
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+
+  Future<void> _saveVideoUrl(String videoUrl) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('saved_video', videoUrl);
+  }
+
+  void _showBottomDialog() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) => SizedBox(
+        width: double.infinity,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Icon(Icons.check_circle, color: Colors.green, size: 50),
+            const SizedBox(height: 10),
+            Text(
+              "Recipe added to My Recipes!",
+              style: GoogleFonts.montserrat(
+                  fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+            const Gap(20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _addToMyRecipes() async{
+    await _saveVideoUrl("https://sample-videos.com/video321/mp4/240/big_buck_bunny_240p_30mb.mp4");
+    _showBottomDialog();
+    Future.delayed(const Duration(seconds: 2), () {
+      Navigator.push(context, CupertinoPageRoute(builder: (ctx) {
+        return const MyResipesScreen();
+      }));
+    });
   }
 
   @override
@@ -81,7 +124,7 @@ class _VideoAndActionWidgetState extends State<VideoAndActionWidget> {
               width: widget.size * 0.9,
               height: 50,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: _addToMyRecipes, 
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.amber,
                 ),
