@@ -38,7 +38,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
     userId: '',
     id: '',
     isSaved: false,
-    likes: 0,
+    likes: [],
     rate: 5,
     comments: [
       Comment(

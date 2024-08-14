@@ -13,7 +13,7 @@ class Recipe {
   String userId;
   String id;
   bool isSaved;
-  int likes;
+  List<String> likes;
   double rate;
   List<Comment> comments;
   DateTime createdAt;
@@ -57,24 +57,33 @@ class Recipe {
   }
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
+    print(json['title']);
+    print(json['description']);
+    print(List<String>.from(json['preparation']));
+    print(parseDuration(json['estimatedTime']));
     return Recipe(
       title: json['title'],
-      ingredient: (json['ingredient'] as Map<String, dynamic>)
-          .values
-          .map((value) => Ingredient.fromJson(value))
-          .toList(),
+      ingredient: (json['ingredient'] as Map<String, dynamic>?)
+              ?.values
+              .map(
+                  (value) => Ingredient.fromJson(value as Map<String, dynamic>))
+              .toList() ??
+          [],
       description: json['description'],
-      preparation: List<String>.from(json['preparation']),
+      preparation: List<String>.from(json['preparation'] ?? []),
       estimatedTime: parseDuration(json['estimatedTime']),
       category: List<String>.from(json['category']),
-      comments: [Comment.fromJson(json['comments'])],
+      comments: [
+        if (json['comments'] != null)
+          Comment.fromJson(json['comments'] as Map<String, dynamic>)
+      ],
       imageUrl: json['imageUrl'],
       videoUrl: json['videoUrl'],
       userId: json['userId'],
       id: json['id'],
       isSaved: json['isSaved'] ?? false,
-      likes: int.parse(json['likes'].toString()),
-      rate: double.parse(json['rate'].toString()),
+      likes: List<String>.from(json['likes'] ?? []),
+      rate: double.tryParse(json['rate'].toString()) ?? 0.0,
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
@@ -97,5 +106,23 @@ class Recipe {
     );
   }
 
-  
+  factory Recipe.copy() {
+    return Recipe(
+      title: '',
+      ingredient: [],
+      description: '',
+      preparation: [],
+      estimatedTime: Duration.zero,
+      category: [],
+      comments: [],
+      imageUrl: '',
+      videoUrl: '',
+      userId: '',
+      id: '',
+      isSaved: false,
+      likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
+      rate: 4,
+      createdAt: DateTime.now(),
+    );
+  }
 }

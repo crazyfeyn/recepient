@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(create: (context) {
             return HomeScreenCubits();
+          }),
+          BlocProvider(create: (context) {
+            return HomeBloc();
           })
         ],
         child: MaterialApp(
