@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/ui/screens/recipe_details_screen.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
-import 'package:flutter_application/ui/views/screens/recipe_details_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllNavigationBar extends StatefulWidget {

@@ -549,7 +549,6 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ),
             ),
-           
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -594,7 +593,6 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ],
             ),
-           
             const Gap(20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
