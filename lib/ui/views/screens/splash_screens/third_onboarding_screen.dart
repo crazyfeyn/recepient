@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
-import 'package:flutter_application/ui/screens/splash_screens/third_onboarding_screen.dart';
-import 'package:flutter_application/ui/widgets/eleveted_button.dart';
+import 'package:flutter_application/ui/views/screens/auth_screen/login_screen.dart';
+import 'package:flutter_application/ui/views/screens/splash_screens/fourt_onboarding_screen.dart';
+import 'package:flutter_application/ui/views/widgets/eleveted_button.dart';
 
-class SecondOnboardingScreen extends StatelessWidget {
-  const SecondOnboardingScreen({super.key});
+class ThirdOnboardingScreen extends StatelessWidget {
+  const ThirdOnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,12 @@ class SecondOnboardingScreen extends StatelessWidget {
                 thickness: 1.5,
               ),
               const Text(
-                '1.Browse thousands of recipe',
+                '2.Personalized your feed',
                 style: TextStyle(color: Colors.orange, fontSize: 20),
               ),
               Image.asset(
-                'assets/images/splash/second.png',
+                'assets/images/splash/third.png',
               ),
-              const Spacer(),
               ElevetedButtonWidget(
                 color: Colors.orange,
                 title: 'Next',
@@ -43,7 +42,7 @@ class SecondOnboardingScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return ThirdOnboardingScreen();
+                        return FourtOnboardingScreen();
                       },
                     ),
                   );
@@ -57,7 +56,7 @@ class SecondOnboardingScreen extends StatelessWidget {
                 title: 'Skip',
                 textColor: Colors.black,
                 onPressed: () {
-                  Navigator.push(
+                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {

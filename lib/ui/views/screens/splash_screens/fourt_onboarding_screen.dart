@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/widgets/eleveted_button.dart';
+import 'package:flutter_application/ui/views/screens/auth_screen/login_screen.dart';
+import 'package:flutter_application/ui/views/widgets/eleveted_button.dart';
 
-class FifthOnboardingScreen extends StatelessWidget {
-  const FifthOnboardingScreen({super.key});
+class FourtOnboardingScreen extends StatelessWidget {
+  const FourtOnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,37 +26,28 @@ class FifthOnboardingScreen extends StatelessWidget {
                 thickness: 1.5,
               ),
               const Text(
-                '3.Save your favorite recipe',
+                '4.Share with friends!',
                 style: TextStyle(color: Colors.orange, fontSize: 20),
               ),
               Image.asset(
-                'assets/images/splash/fifth.png',
+                'assets/images/splash/fourt.png',
               ),
               const SizedBox(
                 height: 20,
               ),
               ElevetedButtonWidget(
                 color: Colors.orange,
-                title: 'Next',
+                title: 'Continue',
                 onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (context) {
-                  //       return FifthOnboardingScreen();
-                  //     },
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return LoginScreen();
+                      },
+                    ),
+                  );
                 },
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              ElevetedButtonWidget(
-                color: Colors.white,
-                title: 'Skip',
-                textColor: Colors.black,
-                onPressed: () {},
               ),
             ],
           ),
