@@ -20,12 +20,10 @@ class Comment {
   }
 
   factory Comment.fromJson(Map<String, dynamic> json) {
-    print('0----------');
-    print(json['rate']);
     return Comment(
       rate: json['rate'],
       title: json['title'],
-      user: UserModel.fromJson(json['user']),
+      user: UserModel.fromJson(json['user_1_name']),
     );
   }
 }
