@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_application/controllers/recipe_add_controller.dart';
+import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoUploadWidget extends StatefulWidget {
@@ -32,6 +34,13 @@ class _VideoUploadWidgetState extends State<VideoUploadWidget> {
           setState(() {}); // Refresh the UI to show the video player
         });
     }
+  }
+
+  _onContinuePressed() {
+    final recipeAddController = context.read<RecipeAddController>();
+    recipeAddController.addVideo(_videoPath ?? "");
+    recipeAddController.pageController.nextPage(
+        duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
   }
 
   @override
@@ -76,9 +85,9 @@ class _VideoUploadWidgetState extends State<VideoUploadWidget> {
                 ? 'Pause'
                 : 'Play'),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           GestureDetector(
-            onTap: () {},
+            onTap: _onContinuePressed,
             child: Container(
               margin: const EdgeInsets.all(15),
               padding: const EdgeInsets.all(20),

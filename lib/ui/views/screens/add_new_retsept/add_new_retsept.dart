@@ -1,6 +1,8 @@
+import 'dart:io';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/controllers/recipe_controller.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/ui/screens/review_widget.dart';
 import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/category_widget.dart';
@@ -23,6 +25,7 @@ class AddNewRecipe extends StatefulWidget {
 class _AddNewRecipeState extends State<AddNewRecipe> {
   final PageController _pageController = PageController();
   int activeStep = 0;
+  File? _selectedImage;
 
   final List<Widget> create = [
     RecipeName(),
@@ -36,6 +39,28 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
   void dispose() {
     _pageController.dispose();
     super.dispose();
+  }
+
+  void _onPageChanged(int index) {
+    setState(() {
+      activeStep = index;
+    });
+    if (index == create.length - 1) {
+      // When on the last page, mark all steps as finished
+      // This will also ensure that the final step shows as completed
+      activeStep = create.length;
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
   }
 
   @override
@@ -76,7 +101,6 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
                   ),
                 ),
                 onStepReached: (index) {
-                  setState(() => activeStep = index);
                   _pageController.animateToPage(
                     index,
                     duration: const Duration(milliseconds: 300),
@@ -85,18 +109,23 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
                 },
               ),
               const Gap(20),
-              UploadImageWidget(),
+              GestureDetector(
+                onTap: _pickImage,
+                child: _selectedImage != null
+                    ? Image.file(
+                        _selectedImage!,
+                        height: 200, // Adjust the height based on your design
+                        fit: BoxFit.cover,
+                      )
+                    : UploadImageWidget(),
+              ),
               const Gap(10),
               SizedBox(
                 height: 400, // Adjust based on your content height
                 child: PageView.builder(
                   controller: _pageController,
                   itemCount: create.length,
-                  onPageChanged: (index) {
-                    setState(() {
-                      activeStep = index;
-                    });
-                  },
+                  onPageChanged: _onPageChanged,
                   itemBuilder: (context, index) => create[index],
                 ),
               ),
