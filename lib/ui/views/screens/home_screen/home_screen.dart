@@ -3,10 +3,8 @@ import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
-import 'package:flutter_application/ui/views/screens/home_screen/example.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:intl/intl.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -158,195 +156,193 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 19,
                   ),
                 ),
-                StreamBuilder(
-                    stream: _firebaseRecipeService.getRecipes(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      if (snapshot.hasError) {
-                        print(snapshot.error.toString());
-                        return Center(
-                          child: Text(
-                              'Error has been occured ${snapshot.error.toString()}'),
-                        );
-                      }
-                      if (snapshot.data!.isEmpty) {
-                        return const Center(
-                          child: Text('No data'),
-                        );
-                      }
-                      List<Recipe> recipes = snapshot.data!;
-                      return Expanded(
-                        child: ListView.builder(
-                          itemCount: recipes.length,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {},
-                              child: Column(
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 15),
-                                    height: 250,
-                                    width: double.maxFinite,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                            recipes[index].imageUrl),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12.0),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          CircleAvatar(
-                                            backgroundColor: Colors.white,
-                                            child: Image.asset(
-                                              'assets/images/share_icon.png',
-                                              height: 22,
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                child: Image.asset(
-                                                  'assets/images/comment_icon.png',
-                                                  height: 22,
-                                                  color:
-                                                      const Color(0xFFFF9B05),
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {},
-                                                child: Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadiusDirectional
-                                                            .circular(10),
-                                                    color: Colors.white,
-                                                  ),
-                                                  width: 59,
-                                                  height: 42,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      const Icon(
-                                                        Icons
-                                                            .favorite_border_outlined,
-                                                        color:
-                                                            Color(0xFFFF9B05),
-                                                        size: 25,
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 8),
-                                                        child: Text(
-                                                          recipes[index]
-                                                              .likes
-                                                              .toString(),
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 10,
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      ),
+                FutureBuilder(
+                  future: _firebaseRecipeService
+                      .getRecipes(), // Use Future instead of Stream
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    if (snapshot.hasError) {
+                      print(snapshot.error.toString());
+                      return Center(
+                        child: Text(
+                            'Error has been occurred ${snapshot.error.toString()}'),
+                      );
+                    }
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      return const Center(
+                        child: Text('No data'),
+                      );
+                    }
+                    List<Recipe> recipes = snapshot.data!;
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: recipes.length,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () {},
+                            child: Column(
+                              children: [
+                                Container(
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  height: 250,
+                                  width: double.maxFinite,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    image: DecorationImage(
+                                      image:
+                                          NetworkImage(recipes[index].imageUrl),
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            recipes[index].title,
-                                            style: const TextStyle(
-                                              color: Color(0xFF1E1E1E),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Image.asset(
-                                                'assets/images/time_icon.png',
-                                                height: 20,
-                                                color: const Color(0xFFFF9B05),
-                                              ),
-                                              Text(
-                                                ' ${recipes[index].estimatedTime.inMinutes} min',
-                                                style: const TextStyle(
-                                                  color: Color(0xFF1E1E1E),
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 14,
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          Row(
-                                            children: [
-                                              const Icon(
-                                                Icons.star,
-                                                size: 20,
-                                                color: Color(0xFFFF9B05),
-                                              ),
-                                              Text(
-                                                ' ${recipes[index].rate}',
-                                                style: const TextStyle(
-                                                  color: Color(0xFF1E1E1E),
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 14,
-                                                ),
-                                              )
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: CircleAvatar(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.end,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        CircleAvatar(
                                           backgroundColor: Colors.white,
                                           child: Image.asset(
-                                            'assets/images/saved_icon.png',
+                                            'assets/images/share_icon.png',
                                             height: 22,
                                           ),
                                         ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              child: Image.asset(
+                                                'assets/images/comment_icon.png',
+                                                height: 22,
+                                                color: const Color(0xFFFF9B05),
+                                              ),
+                                            ),
+                                            GestureDetector(
+                                              onTap: () {},
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadiusDirectional
+                                                          .circular(10),
+                                                  color: Colors.white,
+                                                ),
+                                                width: 59,
+                                                height: 42,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    const Icon(
+                                                      Icons
+                                                          .favorite_border_outlined,
+                                                      color: Color(0xFFFF9B05),
+                                                      size: 25,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              top: 8),
+                                                      child: Text(
+                                                        recipes[index]
+                                                            .likes
+                                                            .toString(),
+                                                        style: const TextStyle(
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          recipes[index].title,
+                                          style: const TextStyle(
+                                            color: Color(0xFF1E1E1E),
+                                            fontWeight: FontWeight.w500,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            Image.asset(
+                                              'assets/images/time_icon.png',
+                                              height: 20,
+                                              color: const Color(0xFFFF9B05),
+                                            ),
+                                            Text(
+                                              ' ${recipes[index].estimatedTime.inMinutes} min',
+                                              style: const TextStyle(
+                                                color: Color(0xFF1E1E1E),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.star,
+                                              size: 20,
+                                              color: Color(0xFFFF9B05),
+                                            ),
+                                            Text(
+                                              ' ${recipes[index].rate}',
+                                              style: const TextStyle(
+                                                color: Color(0xFF1E1E1E),
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 14,
+                                              ),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: CircleAvatar(
+                                        backgroundColor: Colors.white,
+                                        child: Image.asset(
+                                          'assets/images/saved_icon.png',
+                                          height: 22,
+                                        ),
                                       ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    })
+                                    ),
+                                  ],
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+                    );
+                  },
+                )
               ],
             ),
           ),
