@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/model/user_model.dart';
-import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
+import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,6 +15,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    context.read<HomeBloc>().add(FetchRecipesEvent());
+  }
+
   final user = UserModel(
     email: 'golibtoramurodov@gmail.com',
     name: 'Malfoy',
@@ -35,7 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final _firebaseRecipeService = FirebaseRecipeService();
     return Scaffold(
       body: BlocBuilder<HomeScreenCubits, int>(builder: (
         context,
@@ -156,28 +161,27 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontSize: 19,
                   ),
                 ),
-                FutureBuilder(
-                  future: _firebaseRecipeService
-                      .getRecipes(), // Use Future instead of Stream
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (snapshot.hasError) {
-                      print(snapshot.error.toString());
-                      return Center(
-                        child: Text(
-                            'Error has been occurred ${snapshot.error.toString()}'),
-                      );
-                    }
-                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
-                      return const Center(
-                        child: Text('No data'),
-                      );
-                    }
-                    List<Recipe> recipes = snapshot.data!;
+                BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+                  if (state is InitialState) {
+                    return const Expanded(
+                        child: Center(
+                      child: Text('Welcome'),
+                    ));
+                  }
+                  if (state is LoadingState) {
+                    return const Expanded(
+                        child: Center(
+                      child: CircularProgressIndicator(),
+                    ));
+                  }
+                  if (state is ErrorState) {
+                    return Expanded(
+                        child: Center(
+                      child: Text('Error has been occurred ${state.message}'),
+                    ));
+                  }
+                  if (state is LoadedState) {
+                    final List<Recipe> recipes = state.recipes;
                     return Expanded(
                       child: ListView.builder(
                         itemCount: recipes.length,
@@ -341,8 +345,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         },
                       ),
                     );
-                  },
-                )
+                  }
+                  return const SizedBox();
+                })
               ],
             ),
           ),
