@@ -5,8 +5,7 @@ import 'package:flutter_application/data/model/recipe.dart';
 
 class RecipeAddController extends ChangeNotifier {
   Recipe recipe = Recipe.copy();
-  PageController pageController;
-  RecipeAddController({required this.pageController});
+  late PageController pageController;
   addNameandDicription(String name, String descriotion, int cookingtime) {
     recipe.title = name;
     recipe.description = descriotion;
@@ -31,4 +30,6 @@ class RecipeAddController extends ChangeNotifier {
     recipe.category = category;
     notifyListeners();
   }
+
+  void updateRecipeImage(String path) {}
 }

@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/data/utils/app_constants.dart';
+import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_application/ui/screens/splash_screens/first_onboarding_screen.dart';
-import 'package:flutter_application/ui/screens/all_navigation_bar.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});

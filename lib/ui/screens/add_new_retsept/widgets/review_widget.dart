@@ -1,11 +1,9 @@
 import 'dart:async';
-import 'dart:isolate';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:flutter_application/controllers/recipe_controller.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart'; // Import compute for isolates
 
 class ReviewWidget extends StatefulWidget {
   const ReviewWidget({Key? key}) : super(key: key);
@@ -17,42 +15,49 @@ class ReviewWidget extends StatefulWidget {
 class _ReviewWidgetState extends State<ReviewWidget> {
   bool _isExpanded = false;
   late Recipe recipe;
+  bool _isAddingRecipe = false;
 
-  // Isolate function to handle adding a recipe
-  static Future<void> _addRecipeIsolate(Recipe recipe) async {
+  Future<void> _onFinishPressed() async {
     RecipeController recipeController = RecipeController();
-    recipeController.addRecipe(recipe);
-  }
 
-  _onFinshPressed() async {
+    setState(() {
+      _isAddingRecipe = true;
+    });
+
     try {
-      // Using compute to run addRecipe in an isolate
-      await compute(_addRecipeIsolate, recipe);
-
-      // After recipe is added, navigate back and show a snackbar
-      if (mounted) {
-        Navigator.pop(context); // Go back to the previous screen
+      final bool isAdded = await recipeController.addRecipe(recipe);
+      if (isAdded && mounted) {
+        Navigator.pop(context);
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Recipe added successfully!'),
             duration: Duration(seconds: 2),
           ),
         );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to add recipe. Please try again.'),
+            duration: Duration(seconds: 2),
+          ),
+        );
       }
     } catch (e) {
-      // Handle any errors during isolate execution
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Failed to add recipe. Please try again.'),
           duration: Duration(seconds: 2),
         ),
       );
+    } finally {
+      setState(() {
+        _isAddingRecipe = false;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // Accessing the RecipeAddController using Provider
     final recipeAddController = context.watch<RecipeAddController>();
     recipe = recipeAddController.recipe;
 
@@ -70,7 +75,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
               const SizedBox(height: 20),
               buildCategorySection(),
               GestureDetector(
-                onTap: _onFinshPressed,
+                onTap: _isAddingRecipe ? null : _onFinishPressed,
                 child: Container(
                   margin: const EdgeInsets.all(15),
                   padding: const EdgeInsets.all(10),
@@ -78,15 +83,19 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(18),
-                    color: const Color(0xffFF9B05),
+                    color:
+                        _isAddingRecipe ? Colors.grey : const Color(0xffFF9B05),
                   ),
-                  child: const Text(
-                    "Finish",
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white),
-                  ),
+                  child: _isAddingRecipe
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          "Finish",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
                 ),
               ),
             ],
@@ -127,7 +136,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
             'Estimated Time',
             style: TextStyle(
               fontWeight: FontWeight.w500,
-              fontSize: 12,
+              fontSize: 10,
               color: Colors.grey,
             ),
           ),
@@ -135,7 +144,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
             '${recipe.estimatedTime.inMinutes} minutes',
             style: const TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 17,
             ),
           ),
         ],
@@ -196,18 +205,9 @@ class _ReviewWidgetState extends State<ReviewWidget> {
                 ],
               );
             },
-            separatorBuilder: (context, index) => const Divider(),
+            separatorBuilder: (context, index) => const Divider(height: 20),
             itemCount: recipe.ingredient.length,
           ),
-          if (recipe.ingredient.length > 4)
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _isExpanded = !_isExpanded;
-                });
-              },
-              child: Text(_isExpanded ? "View less" : "View more"),
-            ),
         ],
       ),
     );
@@ -225,57 +225,20 @@ class _ReviewWidgetState extends State<ReviewWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'How to',
+            'Preparation',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
             ),
           ),
           const SizedBox(height: 10),
-          buildPreparationList(),
-        ],
-      ),
-    );
-  }
-
-  Widget buildPreparationList() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: Colors.grey),
-      ),
-      child: Column(
-        children: [
-          ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: (context, index) {
-              return Row(
-                children: [
-                  const Text('°'),
-                  Text(
-                    recipe.preparation[index],
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                    ),
-                  ),
-                ],
-              );
-            },
-            separatorBuilder: (context, index) => const Divider(),
-            itemCount: recipe.preparation.length,
-          ),
-          if (recipe.preparation.length > 4)
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _isExpanded = !_isExpanded;
-                });
-              },
-              child: Text(_isExpanded ? "View less" : "View more"),
+          for (int i = 0; i < recipe.preparation.length; i++)
+            Text(
+              recipe.preparation[i],
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
             ),
         ],
       ),
@@ -284,7 +247,6 @@ class _ReviewWidgetState extends State<ReviewWidget> {
 
   Widget buildCategorySection() {
     return Container(
-      height: 200,
       padding: const EdgeInsets.all(20),
       width: double.infinity,
       decoration: BoxDecoration(
@@ -295,39 +257,21 @@ class _ReviewWidgetState extends State<ReviewWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Categories',
+            'Category',
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 14,
-              color: Colors.grey,
             ),
           ),
           const SizedBox(height: 10),
-          Wrap(
-            spacing: 10.0,
-            runSpacing: 10.0,
-            children: recipe.category.map(
-              (category) {
-                return Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 8.0,
-                    horizontal: 12.0,
-                  ),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.orange),
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Text(
-                    category,
-                    style: const TextStyle(
-                      color: Colors.orange,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                );
-              },
-            ).toList(),
-          ),
+          for (int i = 0; i < recipe.category.length; i++)
+            Text(
+              recipe.category[i],
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
         ],
       ),
     );
