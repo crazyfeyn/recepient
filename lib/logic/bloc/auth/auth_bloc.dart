@@ -1,8 +1,9 @@
 import 'dart:convert';
 
-
 import 'package:flutter_application/data/model/user.dart';
+import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
+import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       final user = await authRepository.register(event.email, event.password);
+      FirebaseUserService().createUser(UserModel(
+          email: event.email,
+          name: event.name,
+          imageUrl: '',
+          uId: user.id,
+          likes: [],
+          saved: []));
+
       emit(AuthAuthenticated(user));
     } catch (e) {
       emit(AuthError(_handleError(e)));
