@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/screens/recipe_details_screen.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/profile_screen.dart';
-import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
-import 'package:flutter_application/ui/views/widgets/recipe_details_widgets/review_page_widget.dart';
+import 'package:flutter_application/ui/screens/auth_screen/profile_screen.dart';
+import 'package:flutter_application/ui/screens/home_screen/home_screen.dart';
+import 'package:flutter_application/ui/widgets/recipe_details_widgets/review_page_widget.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllNavigationBar extends StatefulWidget {

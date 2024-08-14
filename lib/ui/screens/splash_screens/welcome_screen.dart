@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/splash_screens/first_onboarding_screen.dart';
+import 'package:flutter_application/ui/screens/splash_screens/first_onboarding_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({super.key});
