@@ -22,6 +22,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
       // After the splash screen duration, check if user is authenticated
       Timer(const Duration(seconds: 2), () {
         if (id != null && id.isNotEmpty) {
+          print('kirfdi---------');
           AppConstants.uId = id;
 
           // Navigate to the main app if authenticated

@@ -20,7 +20,9 @@ class LoginScreen extends StatelessWidget {
   void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<AuthBloc>().add(LoginEvent(emailcontroller.text, passcontroller.text));
+      context
+          .read<AuthBloc>()
+          .add(LoginEvent(emailcontroller.text, passcontroller.text));
     }
   }
 
@@ -32,6 +34,7 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthAuthenticated) {
+              print('kirdi---11');
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
