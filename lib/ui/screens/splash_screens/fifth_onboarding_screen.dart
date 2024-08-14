@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/widgets/eleveted_button.dart';
+import 'package:flutter_application/ui/widgets/eleveted_button.dart';
 
 class FifthOnboardingScreen extends StatelessWidget {
   const FifthOnboardingScreen({super.key});

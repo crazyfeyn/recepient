@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/widgets/recipe_details_widgets/all_comments_widget.dart';
+import 'package:flutter_application/ui/widgets/recipe_details_widgets/all_comments_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
