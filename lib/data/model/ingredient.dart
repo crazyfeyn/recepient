@@ -20,7 +20,6 @@ class Ingredient {
   }
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
-    print('-------');
     return Ingredient(
       name: json['name'] ?? '',
       quantity: json['quantity'] ?? 0,
