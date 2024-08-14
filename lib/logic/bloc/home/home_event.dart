@@ -1,11 +1,12 @@
-// part of 'home_bloc.dart'
+part of 'home_bloc.dart';
 
-// sealed class HomeEvent{}
+sealed class HomeEvent {}
 
-// final class FetchUserEvent extends HomeEvent {
-//   final String userId;
+final class FetchRecipesEvent extends HomeEvent {}
 
-//   FetchUserEvent(this.userId);
-// }
+final class ToggleLikeEvent extends HomeEvent {
+  String uId;
+  String recipeId;
 
-
+  ToggleLikeEvent(this.uId, this.recipeId);
+}

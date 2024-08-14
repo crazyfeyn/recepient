@@ -20,11 +20,11 @@ class Ingredient {
   }
 
   factory Ingredient.fromJson(Map<String, dynamic> json) {
-    print('0-------------');
     return Ingredient(
-        name: json['name'],
-        quantity: json['quantity'],
-        type: json['type'],
-        isSelected: json['isSelected']);
+      name: json['name'] ?? '',
+      quantity: json['quantity'] ?? 0,
+      type: json['type'] ?? '',
+      isSelected: json['isSelected'] ?? false,
+    );
   }
 }

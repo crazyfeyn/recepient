@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
-import 'package:flutter_application/ui/views/screens/recipe_details_screen.dart';
+import 'package:flutter_application/ui/screens/auth_screen/profile_screen.dart';
+import 'package:flutter_application/ui/screens/resipe_screens/my_resipes_screen.dart';
+import 'package:flutter_application/ui/screens/home_screen/home_screen.dart';
+import 'package:flutter_application/ui/screens/resipe_screens/recipe_details_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllNavigationBar extends StatefulWidget {
@@ -12,10 +14,7 @@ class AllNavigationBar extends StatefulWidget {
 
 class _AllNavigationBarState extends State<AllNavigationBar> {
   int currentTab = 0;
-  final List<Widget> screens = [
-    const HomeScreen(),
-    const RecipeDetailsScreen(),
-  ];
+
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = const HomeScreen();
 
@@ -59,9 +58,11 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: SvgPicture.asset(currentTab == 0
-                          ? "assets/icons/home-active.svg"
-                          : "assets/icons/home.svg"),
+                      child: SvgPicture.asset(
+                        currentTab == 0
+                            ? "assets/icons/home-active.svg"
+                            : "assets/icons/home.svg",
+                      ),
                     ),
                   ),
                   MaterialButton(
@@ -75,9 +76,11 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: SvgPicture.asset(currentTab == 1
-                          ? "assets/icons/bookmark_active.svg"
-                          : "assets/icons/bookmark.svg"),
+                      child: SvgPicture.asset(
+                        currentTab == 1
+                            ? "assets/icons/bookmark_active.svg"
+                            : "assets/icons/bookmark.svg",
+                      ),
                     ),
                   )
                 ],
@@ -90,15 +93,17 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const RecipeDetailsScreen();
+                        currentScreen = const MyResipesScreen();
                         currentTab = 2;
                       });
                     },
                     child: Padding(
                       padding: const EdgeInsets.all(10.0),
-                      child: SvgPicture.asset(currentTab == 2
-                          ? "assets/icons/notification-active.svg"
-                          : "assets/icons/notification.svg"),
+                      child: SvgPicture.asset(
+                        currentTab == 2
+                            ? "assets/icons/notification-active.svg"
+                            : "assets/icons/notification.svg",
+                      ),
                     ),
                   ),
                   MaterialButton(
@@ -106,7 +111,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const RecipeDetailsScreen();
+                        currentScreen = const ProfileScreen();
                         currentTab = 3;
                       });
                     },

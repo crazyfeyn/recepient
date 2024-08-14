@@ -1,21 +1,31 @@
-part of 'auth_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_application/data/model/user.dart';
 
-@immutable
-sealed class AuthState {}
+sealed class AuthState extends Equatable {
+  @override
+  List<Object?> get props => [];
+}
 
-final class InitialAuthState extends AuthState {}
+class AuthInitial extends AuthState {}
 
-final class LoadingAuthState extends AuthState {}
+class AuthLoading extends AuthState {}
 
-final class UnauthenticatedState extends AuthState {}
+class AuthUnauthenticated extends AuthState {}
 
-final class AuthenticatedState extends AuthState {}
-final class RestPasswordState extends AuthState {}
+class AuthAuthenticated extends AuthState {
+  final User user;
 
+  AuthAuthenticated(this.user);
 
+  @override
+  List<Object?> get props => [user];
+}
 
-final class ErrorAuthState extends AuthState {
+class AuthError extends AuthState {
   final String errorMessage;
 
-  ErrorAuthState({required this.errorMessage});
+  AuthError(this.errorMessage);
+
+  @override
+  List<Object?> get props => [errorMessage];
 }

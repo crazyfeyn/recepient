@@ -1,15 +1,15 @@
 import 'dart:io';
 import 'package:easy_stepper/easy_stepper.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/widgets/upload_image_widget%20.dart';
+import 'package:flutter_application/ui/widgets/upload_image_widget%20.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:flutter_application/data/model/recipe.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/review_widget.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/category_widget.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recip_ingredients.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recip_video.dart';
-import 'package:flutter_application/ui/views/screens/add_new_retsept/widgets/recipe_name.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/widgets/review_widget.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/widgets/recip_ingredients.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/widgets/recip_video.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/widgets/recipe_name.dart';
 import 'package:gap/gap.dart';
 import 'package:provider/provider.dart';
 

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application/ui/views/screens/auth_screen/login_screen.dart';
-import 'package:flutter_application/ui/views/widgets/eleveted_button.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
+import 'package:flutter_application/ui/screens/splash_screens/fourt_onboarding_screen.dart';
+import 'package:flutter_application/ui/widgets/eleveted_button.dart';
 
-class FourtOnboardingScreen extends StatelessWidget {
-  const FourtOnboardingScreen({super.key});
+class ThirdOnboardingScreen extends StatelessWidget {
+  const ThirdOnboardingScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +28,35 @@ class FourtOnboardingScreen extends StatelessWidget {
                 thickness: 1.5,
               ),
               const Text(
-                '4.Share with friends!',
+                '2.Personalized your feed',
                 style: TextStyle(color: Colors.orange, fontSize: 20),
               ),
               Image.asset(
-                'assets/images/splash/fourt.png',
+                'assets/images/splash/third.png',
+              ),
+              ElevetedButtonWidget(
+                color: Colors.orange,
+                title: 'Next',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return FourtOnboardingScreen();
+                      },
+                    ),
+                  );
+                },
               ),
               const SizedBox(
                 height: 20,
               ),
               ElevetedButtonWidget(
-                color: Colors.orange,
-                title: 'Continue',
+                color: Colors.white,
+                title: 'Skip',
+                textColor: Colors.black,
                 onPressed: () {
-                  Navigator.push(
+                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
@@ -56,4 +73,3 @@ class FourtOnboardingScreen extends StatelessWidget {
     );
   }
 }
-
