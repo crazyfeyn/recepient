@@ -19,11 +19,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
 
     // Get the user ID and store it in AppConstants
     FirebaseUserService.getId().then((id) {
-      AppConstants.uId = id;
-
       // After the splash screen duration, check if user is authenticated
       Timer(const Duration(seconds: 2), () {
         if (id != null && id.isNotEmpty) {
+          AppConstants.uId = id;
+
           // Navigate to the main app if authenticated
           Navigator.pushReplacement(
             context,
@@ -33,7 +33,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           // Navigate to the onboarding screen if not authenticated
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => const FirstOnboardingScreen()),
+            MaterialPageRoute(
+                builder: (context) => const FirstOnboardingScreen()),
           );
         }
       });
