@@ -59,12 +59,18 @@ class Recipe {
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       title: json['title'],
-      ingredient: (json['ingredient'] as List)
-          .map((e) => Ingredient.fromJson(e))
+      ingredient: (json['ingredient'] as Map<String, dynamic>)
+          .entries
+          .map((entry) => Ingredient.fromJson(entry.value))
           .toList(),
       description: json['description'],
       preparation: List<String>.from(json['preparation']),
-      estimatedTime: Duration(milliseconds: json['estimatedTime']),
+      estimatedTime: Duration(
+        hours: int.parse(json['estimatedTime'].split(':')[0]),
+        minutes: int.parse(json['estimatedTime'].split(':')[1]),
+        seconds: int.parse(json['estimatedTime'].split(':')[2].split('.')[0]),
+        microseconds: int.parse(json['estimatedTime'].split('.')[1]),
+      ),
       category: List<String>.from(json['category']),
       imageUrl: json['imageUrl'],
       videoUrl: json['videoUrl'],
@@ -72,11 +78,12 @@ class Recipe {
       id: json['id'],
       isSaved: json['isSaved'],
       likes: json['likes'],
-      rate: json['rate'],
-      comments:
-          (json['comments'] as List).map((e) => Comment.fromJson(e)).toList(),
+      rate: double.parse(json['rate'].toString()),
+      comments: (json['comments'] as Map<String, dynamic>)
+          .entries
+          .map((entry) => Comment.fromJson(entry.value))
+          .toList(),
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
-}
 }

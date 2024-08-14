@@ -162,13 +162,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     stream: _firebaseRecipeService.getRecipes(),
                     builder: (context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
                       if (snapshot.hasError) {
+                        print(snapshot.error.toString());
                         return Center(
-                          child: Text('Error has been occured'),
+                          child: Text(
+                              'Error has been occured ${snapshot.error.toString()}'),
+                        );
+                      }
+                      if (snapshot.data!.isEmpty) {
+                        return const Center(
+                          child: Text('No data'),
                         );
                       }
                       List<Recipe> recipes = snapshot.data!;
