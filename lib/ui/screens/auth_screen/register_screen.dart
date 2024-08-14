@@ -4,6 +4,7 @@ import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
+import 'package:flutter_application/ui/screens/all_navigation_bar.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -39,7 +40,7 @@ class RegisterScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => CategoryWidget(),
+                  builder: (context) => AllNavigationBar(),
                 ),
               );
             } else if (state is AuthError) {
