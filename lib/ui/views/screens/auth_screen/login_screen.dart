@@ -1,29 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
-import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
-import 'package:flutter_application/ui/screens/category_widget.dart';
+import 'package:flutter_application/ui/views/screens/auth_screen/register_screen.dart';
+import 'package:flutter_application/ui/views/screens/category_widget.dart';
+import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class RegisterScreen extends StatelessWidget {
-  RegisterScreen({super.key});
+class LoginScreen extends StatelessWidget {
+  LoginScreen({super.key});
   final emailcontroller = TextEditingController();
   final passcontroller = TextEditingController();
-  final passconfirmcontroller = TextEditingController();
-  final namecontroller = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
 
   submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.read<AuthBloc>().add(
-            RegisterUserEvent(
-                name: namecontroller.text,
-                email: emailcontroller.text,
-                password: passcontroller.text),
+            LoginUserEvent(
+                email: emailcontroller.text, password: passcontroller.text),
           );
     }
   }
@@ -45,6 +41,42 @@ class RegisterScreen extends StatelessWidget {
                 ),
               );
             }
+            if (state is RestPasswordState) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("ok"),
+                      ),
+                    ],
+                    title: Text("we send a confirm text to your gmail"),
+                  );
+                },
+              );
+            }
+            if (state is ErrorAuthState) {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    actions: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("ok"),
+                      ),
+                    ],
+                    title: Text(state.errorMessage),
+                  );
+                },
+              );
+            }
           },
           builder: (context, state) {
             if (state is LoadingAuthState) {
@@ -58,26 +90,29 @@ class RegisterScreen extends StatelessWidget {
                 ),
               );
             }
-            if (state is ErrorAuthState) {
-              return Center(
-                child: Text(state.errorMessage),
-              );
-            }
+
             return SingleChildScrollView(
               child: Column(
                 children: [
-                  Image.asset('assets/images/login.png',
-                      height: 450,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                      color: Colors.orange),
+                  Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/login.png'))),
+                  ),
+                  Image.asset(
+                    'assets/images/login.png',
+                    height: 450,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                    color: Colors.orange,
+                  ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Text(
-                          'SIGN UP',
+                          'LOGIN',
                           style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 40,
@@ -87,35 +122,6 @@ class RegisterScreen extends StatelessWidget {
                           width: 100,
                           height: 2,
                           color: Colors.orange,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Name',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextFormField(
-                          controller: namecontroller,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Input name';
-                            }
-                            return null;
-                          },
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.person),
-                            label: const Text('name'),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
                         ),
                         const SizedBox(
                           height: 20,
@@ -160,7 +166,6 @@ class RegisterScreen extends StatelessWidget {
                           height: 10,
                         ),
                         TextFormField(
-                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Input pass';
@@ -168,6 +173,7 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                           controller: passcontroller,
+                          obscureText: true,
                           decoration: InputDecoration(
                             suffixIcon: const Icon(CupertinoIcons.eye_slash),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
@@ -177,43 +183,20 @@ class RegisterScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        const Text(
-                          'Confirm Password',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 17,
-                              color: Colors.orange),
+                        TextButton(
+                          onPressed: () {
+                            context.read<AuthBloc>().add(
+                                  ResetPasswordEvent(
+                                      email: emailcontroller.text),
+                                );
+                          },
+                          child: const Text(
+                            "Forgot Password?",
+                            style: TextStyle(color: Colors.orange),
+                          ),
                         ),
                         const SizedBox(
                           height: 10,
-                        ),
-                        TextFormField(
-                          obscureText: true,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Input pass';
-                            }
-                            if (passcontroller.text !=
-                                passconfirmcontroller.text) {
-                              return 'BIr hil emas';
-                            }
-                            return null;
-                          },
-                          controller: passconfirmcontroller,
-                          decoration: InputDecoration(
-                            suffixIcon: const Icon(CupertinoIcons.eye_slash),
-                            prefixIcon: const Icon(Icons.lock_outline_rounded),
-                            label: const Text('password'),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
                         ),
                         ZoomTapAnimation(
                           onTap: () => submit(context),
@@ -228,7 +211,7 @@ class RegisterScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: const Text(
-                                "Create an Account",
+                                "Login",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 18,
@@ -240,23 +223,23 @@ class RegisterScreen extends StatelessWidget {
                         Center(
                           child: TextButton(
                             onPressed: () {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return LoginScreen();
+                                    return RegisterScreen();
                                   },
                                 ),
                               );
                             },
                             child: RichText(
                               text: TextSpan(
-                                text: "Already have an Account ! ",
+                                text: "Don't have an Account ? ",
                                 style: const TextStyle(
                                     color: Colors.black, fontSize: 15),
                                 children: [
                                   TextSpan(
-                                    text: 'Login',
+                                    text: 'Sign up',
                                     style: TextStyle(
                                       color: Colors.red.shade300,
                                       fontWeight: FontWeight.bold,
