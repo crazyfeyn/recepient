@@ -7,6 +7,11 @@ import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
+import 'package:flutter_application/ui/screens/home_screen.dart';
+import 'package:flutter_application/ui/views/screens/add_new_retsept/add_new_retsept.dart';
+import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
+import 'package:flutter_application/ui/views/screens/auth_screen/profile_screen.dart';
+
 import 'package:flutter_application/ui/views/screens/all_navigation_bar.dart';
 import 'package:flutter_application/ui/views/screens/home_screen/home_screen.dart';
 import 'package:flutter_application/ui/views/screens/splash_screens/welcome_screen.dart';
