@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/model/user_model.dart';
-import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
-import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
-import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
+import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
