@@ -10,9 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final FirebaseUserService firebaseUserService;
   final AuthRepository authRepository;
 
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+  AuthBloc({
+    required this.authRepository,
+    required this.firebaseUserService,
+  }) : super(AuthInitial()) {
     on<RegisterEvent>(_onRegister);
     on<AppStartedEvent>(_onAppStarted);
     on<LoginEvent>(_onLogin);
@@ -26,13 +30,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       final user = await authRepository.register(event.email, event.password);
-      FirebaseUserService().createUser(UserModel(
+      firebaseUserService.createUser(
+        UserModel(
           email: event.email,
           name: event.name,
           imageUrl: '',
           uId: user.id,
           likes: [],
-          saved: []));
+          saved: [],
+        ),
+      );
 
       emit(AuthAuthenticated(user));
     } catch (e) {

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AllReviewsPage extends StatelessWidget {
-  final List<String> reviews;
+class AllCommentsWidget extends StatelessWidget {
+  final List<Map<String, dynamic>> reviews;
 
-  const AllReviewsPage({super.key, required this.reviews});
+  const AllCommentsWidget({super.key, required this.reviews});
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,16 @@ class AllReviewsPage extends StatelessWidget {
                       ),
                       Row(
                         children: List.generate(5, (index) {
-                          return const Icon(
+                          return Icon(
                             Icons.star,
                             size: 13,
-                            color: Colors.amber,
+                            color: index < review['rating']
+                                ? Colors.amber
+                                : Colors.grey,
                           );
                         }),
                       ),
-                      const Text("(5)"),
+                      Text("(${review['rating']})"),
                     ],
                   ),
                   subtitle: Text(
@@ -54,7 +56,7 @@ class AllReviewsPage extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15, top: 8.0),
                   child: Text(
-                    review,
+                    review['text'],
                   ),
                 ),
                 const Gap(10),

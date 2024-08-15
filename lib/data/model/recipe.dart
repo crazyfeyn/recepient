@@ -42,7 +42,7 @@ class Recipe {
       'ingredient': ingredient.map((e) => e.toJson()).toList(),
       'description': description,
       'preparation': preparation,
-      'estimatedTime': estimatedTime.inMilliseconds,
+      'estimatedTime': estimatedTime,
       'category': category,
       'imageUrl': imageUrl,
       'videoUrl': videoUrl,
@@ -59,20 +59,18 @@ class Recipe {
   factory Recipe.fromJson(Map<String, dynamic> json) {
     return Recipe(
       title: json['title'],
-      ingredient: (json['ingredient'] as Map<String, dynamic>?)
-              ?.values
-              .map(
-                  (value) => Ingredient.fromJson(value as Map<String, dynamic>))
+      ingredient: (json['ingredient'] as List<dynamic>?)
+              ?.map((e) => Ingredient.fromJson(e as Map<String, dynamic>))
               .toList() ??
           [],
       description: json['description'],
       preparation: List<String>.from(json['preparation'] ?? []),
       estimatedTime: parseDuration(json['estimatedTime']),
       category: List<String>.from(json['category']),
-      comments: [
-        if (json['comments'] != null)
-          Comment.fromJson(json['comments'] as Map<String, dynamic>)
-      ],
+      comments: (json['comments'] as List<dynamic>?)
+              ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       imageUrl: json['imageUrl'],
       videoUrl: json['videoUrl'],
       userId: json['userId'],
@@ -108,7 +106,7 @@ class Recipe {
       ingredient: [],
       description: '',
       preparation: [],
-      estimatedTime: Duration.zero,
+      estimatedTime: Duration(minutes: 0),
       category: [],
       comments: [],
       imageUrl: '',
