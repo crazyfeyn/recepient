@@ -222,44 +222,40 @@ class _HomeScreenState extends State<HomeScreen> {
                                           fit: BoxFit.cover,
                                         ),
                                       ),
-                                      child: GestureDetector(
-                                        onTap: () => Share.share('text'),
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(12.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.end,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              CircleAvatar(
-                                                backgroundColor: Colors.white,
-                                                child: Image.asset(
-                                                  'assets/images/share_icon.png',
-                                                  height: 22,
-                                                ),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              child: Image.asset(
+                                                'assets/images/share_icon.png',
+                                                height: 22,
                                               ),
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  CircleAvatar(
-                                                    backgroundColor:
-                                                        Colors.white,
-                                                    child: Image.asset(
-                                                      'assets/images/comment_icon.png',
-                                                      height: 22,
-                                                      color: const Color(
-                                                          0xFFFF9B05),
-                                                    ),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                CircleAvatar(
+                                                  backgroundColor: Colors.white,
+                                                  child: Image.asset(
+                                                    'assets/images/comment_icon.png',
+                                                    height: 22,
+                                                    color:
+                                                        const Color(0xFFFF9B05),
                                                   ),
-                                                  TogglelikeWidget(
-                                                      recipe: recipes[index]),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
+                                                ),
+                                                TogglelikeWidget(
+                                                    recipe: recipes[index]),
+                                              ],
+                                            ),
+                                          ],
                                         ),
                                       ),
                                     ),

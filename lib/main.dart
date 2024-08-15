@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
                   FirebaseAuth.instance.currentUser!.uid;
                   return const AllNavigationBar();
                 } else {
-                  return const WelcomeScreen();
+                  return const AllNavigationBar();
                 }
               },
             ),
