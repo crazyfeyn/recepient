@@ -47,9 +47,9 @@ class MyApp extends StatelessWidget {
             return HomeBloc();
           })
         ],
-        child: MaterialApp(
+        child: const MaterialApp(
           debugShowCheckedModeBanner: false,
-          home: const WelcomeScreen(),
+          home: WelcomeScreen(),
 
         ),
       ),
