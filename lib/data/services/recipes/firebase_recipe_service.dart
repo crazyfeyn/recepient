@@ -13,9 +13,9 @@ class FirebaseRecipeService {
       final recipes = await getRecipes();
       if (recipes != null) {
         recipes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        print(recipes);
         return recipes;
       }
-      return null;
     } catch (e) {
       return null;
     }
@@ -25,7 +25,7 @@ class FirebaseRecipeService {
     try {
       final recipes = await getRecipes();
       if (recipes != null) {
-        recipes.sort((a, b) => b.rate.compareTo(a.rate));
+        // recipes.sort((a, b) => b.rate.compareTo(a.rate));
         return recipes;
       }
       return null;
@@ -164,5 +164,13 @@ class FirebaseRecipeService {
     } catch (e) {
       print('Error deleting recipe: $e');
     }
+  }
+
+  static double calculateRating(List<int> rate) {
+    int sum = 0;
+    for (var i in rate) {
+      sum += i;
+    }
+    return sum / rate.length;
   }
 }

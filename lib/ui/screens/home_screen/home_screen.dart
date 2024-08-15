@@ -5,6 +5,7 @@ import 'package:flutter_application/data/services/user/firebase_user_service.dar
 import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
+import 'package:flutter_application/ui/screens/resipe_screens/recipe_details_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:share_plus/share_plus.dart';
@@ -28,17 +29,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getCurrentUserInfo() async {
-    user = await FirebaseUserService().getUser(AppConstants.uId);
-    setState(() {
-      user ??= UserModel(
-        email: 'golibtoramurodov@gmail.com',
-        name: 'Malfoy',
-        imageUrl: 'assets/images/malfoy.png',
-        uId: 'testid1',
-        likes: [],
-        saved: [],
-      );
-    });
+    var uId = await FirebaseUserService.getId();
+    user = await FirebaseUserService().getUser(uId ?? '-O4IXSJTsQHmGrM-Oovx');
+    AppConstants.uId = uId!;
+    AppConstants.userModel = user;
+    setState(() {});
   }
 
   List<String> categories = [
@@ -207,7 +202,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, index) {
                               return GestureDetector(
                                 onTap: () {
-                                  Share.share('text');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              RecipeDetailsScreen(
+                                                  recipe: recipes[index])));
                                 },
                                 child: Column(
                                   children: [

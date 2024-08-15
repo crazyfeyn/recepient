@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
+import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 
 class RecipeController {
   final firebaseRecipeService = FirebaseRecipeService();
@@ -11,15 +12,18 @@ class RecipeController {
 
   Future<bool> addRecipe(Recipe recipe) async {
     recipe.id = recipe.title;
-    recipe.userId = "sdfvcv";
+
 
     FirebaseStorageService firebaseStorageService = FirebaseStorageService();
+    String? userId = await FirebaseUserService.getId();
+    recipe.userId = userId!; // Replace with FirebaseAuth instance
 
     if (recipe.videoUrl.isNotEmpty) {
       recipe.videoUrl = await firebaseStorageService.uploadVideo(
               File(recipe.videoUrl), recipe.title) ??
           "";
     }
+    print(recipe.imageUrl);
 
     recipe.imageUrl = await firebaseStorageService.uploadImageToFirebase(
             File(recipe.imageUrl), recipe.title) ??

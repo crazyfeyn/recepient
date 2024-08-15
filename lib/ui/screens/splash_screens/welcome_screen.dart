@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
+import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_application/ui/screens/splash_screens/first_onboarding_screen.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
