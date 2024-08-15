@@ -49,7 +49,7 @@ class FirebaseUserService {
     }
   }
 
-  static  getId() async {
+  static Future<String?> getId() async {
     final shared = await SharedPreferences.getInstance();
     String? id = shared.getString('id');
     return id;
