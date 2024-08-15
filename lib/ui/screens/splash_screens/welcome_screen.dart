@@ -45,7 +45,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          // Navigate based on the authentication state after the delay
+
           Future.delayed(const Duration(seconds: 2), () {
             _navigateBasedOnState(state);
           });
