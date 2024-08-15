@@ -34,7 +34,6 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthAuthenticated) {
-              print('kirdi---11');
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

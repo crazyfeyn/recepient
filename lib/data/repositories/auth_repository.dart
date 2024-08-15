@@ -37,10 +37,10 @@ class AuthRepository {
     return user;
   }
   Future<void> logout() async {
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    await sharedPreferences.remove('userData');
-    await sharedPreferences.remove('id');
-  }
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+  await sharedPreferences.clear();
+}
+
 
   Future<bool> isLoggedIn() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

@@ -18,59 +18,58 @@ class WelcomeScreen extends StatefulWidget {
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
+  Future<void> _toTheNextScreen() async {
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return BlocBuilder<AuthBloc, AuthState>(
+            bloc: context.read<AuthBloc>()..add(AppStartedEvent()),
+            builder: (context, state) {
+              if (state is AuthAuthenticated) {
+                return const AllNavigationBar();
+              } else {
+                return FirstOnboardingScreen();
+              }
+            },
+          );
+        },
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      context.read<AuthBloc>().add(AppStartedEvent());
-    });
-  }
-
-  void _navigateBasedOnState(AuthState state) {
-    if (state is AuthAuthenticated) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => AllNavigationBar()),
-      );
-    } else if (state is AuthUnauthenticated) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const FirstOnboardingScreen()),
-      );
-    }
+    Future.delayed(Duration(seconds: 2)).then(
+      (value) {
+        _toTheNextScreen();
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocListener<AuthBloc, AuthState>(
-        listener: (context, state) {
-
-          Future.delayed(const Duration(seconds: 2), () {
-            _navigateBasedOnState(state);
-          });
-        },
-        child: Container(
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            color: Colors.orange.shade300,
-            image: const DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage(
-                'assets/images/splash/image.png',
-              ),
+      body: Container(
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Colors.orange.shade300,
+          image: const DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+              'assets/images/splash/image.png',
             ),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/splash/logo.png',
-                width: 150,
-                height: 150,
-              ),
-            ],
-          ),
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/images/splash/logo.png',
+              width: 150,
+              height: 150,
+            ),
+          ],
         ),
       ),
     );
