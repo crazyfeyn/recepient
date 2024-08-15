@@ -36,7 +36,6 @@ class AuthRepository {
     await _saveUserToLocalStorage(user);
     return user;
   }
-
   Future<void> logout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove('userData');
@@ -47,7 +46,6 @@ class AuthRepository {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? userData = sharedPreferences.getString('userData');
     if (userData == null) return false;
-
     final user = User.fromMap(jsonDecode(userData));
     return DateTime.now().isBefore(user.expiryDate);
   }
