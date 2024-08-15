@@ -5,7 +5,9 @@ import 'package:flutter_application/data/services/user/firebase_user_service.dar
 import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/ui/screens/profiles_screen/edit_screen.dart';
+import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -53,7 +55,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         title: const Text('Profile Screen'),
         actions: [
           IconButton(
-            onPressed: () {
+            onPressed: () async {
               context.read<AuthBloc>().add(LogoutEvent());
             },
             icon: const Icon(
@@ -62,86 +64,99 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          children: [
-            Center(
-              child: Column(
-                children: [
-                  const Text(
-                    'My Profile',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  const SizedBox(height: 20),
-                  Container(
-                    width: 120,
-                    height: 120,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        fit: BoxFit.cover,
-                        image: user?.imageUrl != null
-                            ? NetworkImage(user!.imageUrl!)
-                            : const AssetImage('assets/images/malfoy.png')
-                                as ImageProvider,
+      body: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthUnauthenticated) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                (route) => false,
+              );
+            });
+          }
+
+          return Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      const Text(
+                        'My Profile',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
-                    ),
+                      const SizedBox(height: 20),
+                      Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: user?.imageUrl != null
+                                ? NetworkImage(user!.imageUrl)
+                                : const AssetImage('assets/images/malfoy.png')
+                                    as ImageProvider,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      Text(
+                        user?.name ?? 'Malfoy',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                  Text(
-                    user?.name ?? 'Malfoy',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 20),
+                _buildMenuItem(
+                  icon: CupertinoIcons.settings,
+                  title: "Settings",
+                  onTap: () {},
+                ),
+                _buildMenuItem(
+                  icon: Icons.logout,
+                  title: "Logout",
+                  onTap: () {
+                    context.read<AuthBloc>().add(LogoutEvent());
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.person,
+                  title: "Edit Profile",
+                  onTap: () async {
+                    final response = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfilePage(),
+                      ),
+                    );
+                    if (response != null) {
+                      setState(() {
+                        user!.imageUrl = response['image'];
+                        user!.name = response['name'];
+                      });
+                      print(user!.name);
+                    }
+                  },
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            _buildMenuItem(
-              icon: CupertinoIcons.settings,
-              title: "Settings",
-              onTap: () {
-                // Handle settings tap
-              },
-            ),
-            _buildMenuItem(
-              icon: Icons.logout,
-              title: "Logout",
-              onTap: () {
-                print(AppConstants.uId);
-                context.read<AuthBloc>().add(LogoutEvent());
-              },
-            ),
-            _buildMenuItem(
-              icon: Icons.person,
-              title: "Edit Profile",
-              onTap: () async {
-                final response = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditProfilePage(),
-                  ),
-                );
-                if (response != null) {
-                  setState(() {
-                    user!.imageUrl = response['image'];
-                    user!.name = response['name'];
-                  });
-                  print(user!.name);
-                }
-              },
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildMenuItem(
-      {required IconData icon,
-      required String title,
-      required VoidCallback onTap}) {
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String title,
+    required VoidCallback onTap,
+  }) {
     return ZoomTapAnimation(
       onTap: onTap,
       child: ListTile(

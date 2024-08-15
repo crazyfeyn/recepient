@@ -24,13 +24,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    super.initState();
     getCurrentUserInfo();
+    super.initState();
   }
 
   void getCurrentUserInfo() async {
     var uId = await FirebaseUserService.getId();
-    user = await FirebaseUserService().getUser(uId ?? '-O4IXSJTsQHmGrM-Oovx');
+    user = await FirebaseUserService()
+        .getUser(uId ?? '9SjFRAq9AJSIqIshJmFA1kAHtjr1');
     AppConstants.uId = uId!;
     AppConstants.userModel = user;
     setState(() {});
@@ -46,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+    
     context.read<HomeBloc>().add(FetchRecipesEvent());
   }
 
@@ -143,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     .read<HomeBloc>()
                                     .add(GetShortPreparedRecipesEvent());
                               } else {
-                                 context
+                                context
                                     .read<HomeBloc>()
                                     .add(FetchRecipesEvent());
                               }

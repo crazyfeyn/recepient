@@ -27,6 +27,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void _navigateBasedOnState(AuthState state) {
+    print(state);
     if (state is AuthAuthenticated) {
       Navigator.pushReplacement(
         context,
@@ -45,7 +46,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-
           Future.delayed(const Duration(seconds: 2), () {
             _navigateBasedOnState(state);
           });
