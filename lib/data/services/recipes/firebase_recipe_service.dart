@@ -205,13 +205,15 @@ class FirebaseRecipeService {
       );
 
       if (response.statusCode == 200) {
-        final Map<String, dynamic> data = json.decode(response.data);
-        final List<Comment> comments = data.entries.map((entry) {
-          final Map<String, dynamic> commentData = entry.value as Map<String, dynamic>;
-          return Comment.fromJson(commentData);
-        }).toList();
-        print("//////////////////////////////////////");
-        print(comments);
+        final Map<String, dynamic> data = response.data;
+
+        final List<Comment> comments = [];
+        data.forEach(
+          (key, value) {
+            comments.add(Comment.fromJson(value));
+          },
+        );
+
         return comments;
       } else {
         print("Failed to fetch reviews: ${response.statusCode}");
@@ -222,4 +224,12 @@ class FirebaseRecipeService {
       return [];
     }
   }
+}
+
+void main(List<String> args) async {
+  FirebaseRecipeService firebaseRecipeService = FirebaseRecipeService();
+  final res =
+      await firebaseRecipeService.getReviewComments("-O4Hc-aCEm__wEGVxdGn");
+
+  print(res);
 }
