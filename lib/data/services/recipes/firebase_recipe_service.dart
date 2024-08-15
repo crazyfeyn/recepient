@@ -19,6 +19,7 @@ class FirebaseRecipeService {
     } catch (e) {
       return null;
     }
+    return null;
   }
 
   Future<List<Recipe>?> getTrendingRecipes() async {
@@ -40,7 +41,7 @@ class FirebaseRecipeService {
       final recipes = await getRecipes();
       if (recipes != null) {
         final shortRecipes = recipes
-            .where((recipe) => recipe.estimatedTime.inMinutes <= 30)
+            .where((recipe) => recipe.estimatedTime.inMinutes <= 15)
             .toList();
         return shortRecipes;
       }
