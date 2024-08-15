@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/user_model.dart';
@@ -14,7 +13,7 @@ import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({super.key});
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -62,7 +61,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AllNavigationBar(),
+                  builder: (context) => const AllNavigationBar(),
                 ),
               );
             } else if (state is AuthError) {
@@ -75,7 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("OK"),
+                        child: const Text("OK"),
                       ),
                     ],
                     title: Text(state.errorMessage),

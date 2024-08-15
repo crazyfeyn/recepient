@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
@@ -36,7 +35,7 @@ class LoginScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AllNavigationBar(),
+                  builder: (context) => const AllNavigationBar(),
                 ),
               );
             }
@@ -50,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("ok"),
+                        child: const Text("ok"),
                       ),
                     ],
                     title: Text(state.errorMessage),
@@ -74,7 +73,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/login.png'),
                       ),
@@ -202,7 +201,7 @@ class LoginScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
+                                  builder: (context) => const RegisterScreen(),
                                 ),
                               );
                             },

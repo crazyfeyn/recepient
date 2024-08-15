@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application/ui/widgets/modalshet_forLang.dart';
 import 'package:flutter_application/ui/widgets/modalshet_forMode.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -27,45 +26,45 @@ void _showModalBottomSheetForMode(BuildContext context) {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Settings screen"),
+        title: const Text("Settings screen"),
       ),
-      body: Padding(padding: EdgeInsets.all(20),child: Column(
+      body: Padding(padding: const EdgeInsets.all(20),child: Column(
         children: [
             ZoomTapAnimation(
                 onTap: () {
                   _showModalBottomSheetForMode(context);
                 },
-                child: ListTile(
+                child: const ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.dark_mode_outlined,
                     size: 40,
                   ),
                   title: Text(
                   'Cahnge mode',
-                    style: const TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                  trailing: Icon(Icons.arrow_forward_ios_rounded),
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               ZoomTapAnimation(
                 onTap: () {
                   _showModalBottomSheet(context);
                 },
-                child: ListTile(
+                child: const ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: const Icon(
+                  leading: Icon(
                     Icons.language,
                     size: 40,
                   ),
                   title: Text(
                    'Language',
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                     ),
                   ),
-                  trailing: const Icon(Icons.arrow_forward_ios_rounded),
+                  trailing: Icon(Icons.arrow_forward_ios_rounded),
                 ),
               ),
 

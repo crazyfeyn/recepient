@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
@@ -26,6 +28,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String? uId;
   File? _selectedImage;
 
+  // ignore: unused_element
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -51,7 +54,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       setState(() {});
     } catch (e) {
-      print('Error fetching user info: $e');
     }
   }
 
@@ -74,7 +76,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               context,
               MaterialPageRoute(
                 builder: (context) {
-                  return WelcomeScreen();
+                  return const WelcomeScreen();
                 },
               ),
             );
@@ -139,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final response = await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditProfilePage(),
+                        builder: (context) => const EditProfilePage(),
                       ),
                     );
                     if (response != null) {

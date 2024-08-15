@@ -31,6 +31,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
           Navigator.push(
               context,
               MaterialPageRoute(
+                // ignore: prefer_const_constructors
                 builder: (context) => AddNewRecipe(),
               ));
         },
@@ -103,7 +104,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                         currentScreen = const Center(
                           child: Text("Hali bu sahifa aniqlanmagan"),
                         );
-                        ;
+
                         currentTab = 2;
                       });
                     },

@@ -1,3 +1,4 @@
+// ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
 import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/logic/bloc/user-update/user_update_event.dart';

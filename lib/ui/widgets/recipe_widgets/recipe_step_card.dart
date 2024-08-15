@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,10 +26,8 @@ class _RecipeStepCardState extends State<RecipeStepCard> {
     final size = widget.size;
     final preparationSteps = widget.recipe?.preparation ?? [];
 
-    print("Preparation Steps: ${preparationSteps.length}");
-
-    final itemHeight = 40.0;
-    final initialItemCount = 2;
+    const itemHeight = 40.0;
+    const initialItemCount = 2;
     final visibleItemCount = _showAll
         ? preparationSteps.length
         : (preparationSteps.length > initialItemCount
@@ -67,6 +67,7 @@ class _RecipeStepCardState extends State<RecipeStepCard> {
                                 bottom: 5,
                               ),
                               child: Text(
+                                // ignore: unnecessary_brace_in_string_interps
                                 "${index + 1}. ${step}",
                                 style: GoogleFonts.montserrat(
                                   fontSize: 12,

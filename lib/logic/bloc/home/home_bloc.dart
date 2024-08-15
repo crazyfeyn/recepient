@@ -63,7 +63,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(LoadingState());
       List<Comment> comments =
           await recipeController.getReviewComments(event.recipedId);
-      print("object");
       emit(LoadedReviewState(comments: comments));
     } catch (e) {
       emit(ErrorState(e.toString()));

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
 
+// ignore: use_key_in_widget_constructors
 class VideoUploadWidget extends StatefulWidget {
   @override
   _VideoUploadWidgetState createState() => _VideoUploadWidgetState();

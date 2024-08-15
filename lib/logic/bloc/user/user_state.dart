@@ -1,5 +1,6 @@
 part of 'user_bloc.dart';
 
+// ignore: must_be_immutable
 final class UserState extends Equatable {
   UserModel? currentUser;
  

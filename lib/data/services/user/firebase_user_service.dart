@@ -10,6 +10,7 @@ class FirebaseUserService {
 
   Future<void> createUser(UserModel user) async {
     try {
+      // ignore: unused_local_variable
       final response = await _dio.put(
         '$baseUrl/users/${user.uId}.json',
         data: user.toJson(),
@@ -35,6 +36,7 @@ class FirebaseUserService {
 
   Future<void> updateUserNameAndPhoto(String name, String imageUrl) async {
     try {
+      // ignore: unused_local_variable
       final response = await _dio.patch(
         '$baseUrl/users/${AppConstants.uId}.json',
         data: {
@@ -42,9 +44,9 @@ class FirebaseUserService {
           'imageUrl': imageUrl,
         },
       );
-      print('User name and photo updated: ${response.data}');
+    // ignore: empty_catches
     } catch (e) {
-      print('Error updating user name and photo: $e');
+      
     }
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/ui/widgets/toggleLike_widget.dart';
-import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class BuildRecipeCardWidget extends StatelessWidget {

@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 class EditProfilePage extends StatefulWidget {
+  const EditProfilePage({super.key});
+
   @override
   State<EditProfilePage> createState() => _EditProfilePageState();
 }
@@ -18,6 +20,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   final _formKey = GlobalKey<FormState>();
 
+  // ignore: unused_field
   File? _selectedImage;
 
   Future<void> _pickImage() async {
@@ -47,7 +50,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Profile'),
+        title: const Text('Edit Profile'),
         centerTitle: true,
         elevation: 0,
       ),
@@ -63,10 +66,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 child: CircleAvatar(
                   radius: 50,
                   backgroundImage: imageController.text.isEmpty
-                      ? AssetImage('assets/images/malfoy.png')
+                      ? const AssetImage('assets/images/malfoy.png')
                       : NetworkImage(imageController.text) as ImageProvider,
                   child: imageController.text.isEmpty
-                      ? Icon(Icons.person, size: 50)
+                      ? const Icon(Icons.person, size: 50)
                       : null,
                 ),
               ),
@@ -97,7 +100,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                 },
                 controller: imageController,
                 decoration: InputDecoration(
-                  prefixIcon: Icon(Icons.photo),
+                  prefixIcon: const Icon(Icons.photo),
                   labelText: 'Image URL',
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -107,26 +110,26 @@ class _EditProfilePageState extends State<EditProfilePage> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () => _pickImage,
-                child: Text('Open Gallery'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 50),
                 ),
+                child: const Text('Open Gallery'),
               ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () => submit(context),
-                child: Text('Save'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  minimumSize: Size(double.infinity, 50),
+                  minimumSize: const Size(double.infinity, 50),
                 ),
+                child: const Text('Save'),
               ),
             ],
           ),

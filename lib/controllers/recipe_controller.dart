@@ -5,7 +5,6 @@ import 'package:flutter_application/data/model/comment.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
-import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/data/utils/app_constants.dart';
 
 class RecipeController {
@@ -24,7 +23,6 @@ class RecipeController {
               File(recipe.videoUrl), recipe.title) ??
           "";
     }
-    print(recipe.imageUrl);
 
     recipe.imageUrl = await firebaseStorageService.uploadImageToFirebase(
             File(recipe.imageUrl), recipe.title) ??

@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,8 +25,8 @@ class _IngredientsSectionWidgetState extends State<IngredientsSectionWidget> {
     final size = MediaQuery.of(context).size.width;
     final ingredients = widget.recipe!.ingredient;
 
-    final itemHeight = 40.0;
-    final initialItemCount = 4;
+    const itemHeight = 40.0;
+    const initialItemCount = 4;
     final visibleItemCount = _showAll
         ? ingredients.length
         : (ingredients.length > initialItemCount

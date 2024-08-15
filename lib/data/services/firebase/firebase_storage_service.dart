@@ -15,10 +15,8 @@ class FirebaseStorageService {
 
       final TaskSnapshot snapshot = await uploadTask;
       final String downloadUrl = await snapshot.ref.getDownloadURL();
-      print('Video uploaded successfully: $downloadUrl');
       return downloadUrl;
     } catch (e) {
-      print('Error uploading video: $e');
       return null;
     }
   }
@@ -34,10 +32,8 @@ class FirebaseStorageService {
 
       final TaskSnapshot snapshot = await uploadTask;
       final String downloadUrl = await snapshot.ref.getDownloadURL();
-      print('Image uploaded successfully: $downloadUrl');
       return downloadUrl;
     } catch (e) {
-      print('Error uploading image: $e');
       return null;
     }
   }

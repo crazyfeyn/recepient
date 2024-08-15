@@ -1,5 +1,5 @@
+// ignore_for_file: file_names
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -34,10 +34,10 @@ class _BottomformodeState extends State<Bottomformode> {
                         )
                       : null,
               leading: const Icon(CupertinoIcons.device_phone_portrait),
-              title: Text(
+              title: const Text(
                 '',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
           ),
@@ -56,10 +56,10 @@ class _BottomformodeState extends State<Bottomformode> {
                         )
                       : null,
               leading: const Icon(Icons.light_mode),
-              title: Text(
+              title: const Text(
                 'Light',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
           ),
@@ -77,10 +77,10 @@ class _BottomformodeState extends State<Bottomformode> {
                     )
                   : null,
               leading: const Icon(Icons.dark_mode),
-              title: Text(
+              title: const Text(
                 'dark',
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
           ),

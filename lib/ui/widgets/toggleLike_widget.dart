@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/utils/app_constants.dart';
