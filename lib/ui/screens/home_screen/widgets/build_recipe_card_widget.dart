@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/ui/widgets/toggleLike_widget.dart';
@@ -64,8 +65,11 @@ class BuildRecipeCardWidget extends StatelessWidget {
               children: [
                 Text(
                   recipe.title,
-                  style: const TextStyle(
-                    color: Color(0xFF1E1E1E),
+                  style: TextStyle(
+                    color: AdaptiveTheme.of(context).mode ==
+                            AdaptiveThemeMode.light
+                        ? Colors.black
+                        : Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
@@ -79,8 +83,11 @@ class BuildRecipeCardWidget extends StatelessWidget {
                     ),
                     Text(
                       ' ${recipe.estimatedTime.inMinutes} min',
-                      style: const TextStyle(
-                        color: Color(0xFF1E1E1E),
+                      style: TextStyle(
+                        color: AdaptiveTheme.of(context).mode ==
+                                AdaptiveThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
@@ -96,8 +103,11 @@ class BuildRecipeCardWidget extends StatelessWidget {
                     ),
                     Text(
                       ' ${recipe.rate}',
-                      style: const TextStyle(
-                        color: Color(0xFF1E1E1E),
+                      style: TextStyle(
+                        color: AdaptiveTheme.of(context).mode ==
+                                AdaptiveThemeMode.light
+                            ? Colors.black
+                            : Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),

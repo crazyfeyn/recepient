@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
@@ -208,8 +209,11 @@ class LoginScreen extends StatelessWidget {
                             child: RichText(
                               text: TextSpan(
                                 text: "Don't have an Account? ",
-                                style: const TextStyle(
-                                  color: Colors.black,
+                                style: TextStyle(
+                                  color: AdaptiveTheme.of(context).mode ==
+                                          AdaptiveThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                                   fontSize: 15,
                                 ),
                                 children: [

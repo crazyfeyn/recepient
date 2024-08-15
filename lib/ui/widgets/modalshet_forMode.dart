@@ -35,9 +35,8 @@ class _BottomformodeState extends State<Bottomformode> {
                       : null,
               leading: const Icon(CupertinoIcons.device_phone_portrait),
               title: const Text(
-                '',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                'System',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
           ),
@@ -58,8 +57,7 @@ class _BottomformodeState extends State<Bottomformode> {
               leading: const Icon(Icons.light_mode),
               title: const Text(
                 'Light',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
           ),
@@ -79,8 +77,7 @@ class _BottomformodeState extends State<Bottomformode> {
               leading: const Icon(Icons.dark_mode),
               title: const Text(
                 'dark',
-                style:
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
             ),
           ),

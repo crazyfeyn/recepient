@@ -22,8 +22,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-  // Load the saved theme mode
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
   runApp(

@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -286,8 +287,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             child: RichText(
                               text: TextSpan(
                                 text: "Already have an account? ",
-                                style: const TextStyle(
-                                  color: Colors.black,
+                                style: TextStyle(
+                                  color: AdaptiveTheme.of(context).mode ==
+                                          AdaptiveThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                                   fontSize: 15,
                                 ),
                                 children: [

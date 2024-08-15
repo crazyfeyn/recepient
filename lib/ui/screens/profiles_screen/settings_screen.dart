@@ -5,7 +5,7 @@ import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
-void _showModalBottomSheetForMode(BuildContext context) {
+  void _showModalBottomSheetForMode(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
@@ -22,54 +22,59 @@ void _showModalBottomSheetForMode(BuildContext context) {
       },
     );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Settings screen"),
       ),
-      body: Padding(padding: const EdgeInsets.all(20),child: Column(
-        children: [
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
             ZoomTapAnimation(
-                onTap: () {
-                  _showModalBottomSheetForMode(context);
-                },
-                child: const ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: Icon(
-                    Icons.dark_mode_outlined,
-                    size: 40,
-                  ),
-                  title: Text(
-                  'Cahnge mode',
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios_rounded),
+              onTap: () {
+                _showModalBottomSheetForMode(context);
+              },
+              child: const ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(
+                  Icons.dark_mode_outlined,
+                  size: 40,
                 ),
-              ),
-              const SizedBox(height: 20,),
-              ZoomTapAnimation(
-                onTap: () {
-                  _showModalBottomSheet(context);
-                },
-                child: const ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: Icon(
-                    Icons.language,
-                    size: 40,
-                  ),
-                  title: Text(
-                   'Language',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                  trailing: Icon(Icons.arrow_forward_ios_rounded),
+                title: Text(
+                  'Change mode',
+                  style: TextStyle(fontSize: 20),
                 ),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
               ),
-
-        ],
-      ),),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            ZoomTapAnimation(
+              onTap: () {
+                _showModalBottomSheet(context);
+              },
+              child: const ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: Icon(
+                  Icons.language,
+                  size: 40,
+                ),
+                title: Text(
+                  'Language',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+                trailing: Icon(Icons.arrow_forward_ios_rounded),
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
