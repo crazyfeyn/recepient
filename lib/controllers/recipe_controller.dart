@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:flutter_application/data/model/comment.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
@@ -100,10 +101,18 @@ class RecipeController {
 
   Future<void> addReviewComment(
     String recipeId,
-    Map<String, dynamic> review,
+    Comment review,
   ) async {
     try {
       await firebaseRecipeService.addReviewComment(recipeId, review);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<List<Comment>> getReviewComments(String recipeId) async {
+    try {
+     return await firebaseRecipeService.getReviewComments(recipeId);
     } catch (e) {
       rethrow;
     }

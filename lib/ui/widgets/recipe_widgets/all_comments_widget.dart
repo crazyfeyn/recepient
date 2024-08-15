@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/comment.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:gap/gap.dart';
@@ -7,7 +8,7 @@ import 'package:intl/intl.dart';
 
 class AllCommentsWidget extends StatelessWidget {
   final Recipe? recipe;
-  final List<Map<String, dynamic>> reviews;
+  final List<Comment> reviews;
 
   const AllCommentsWidget({
     super.key,
@@ -52,13 +53,13 @@ class AllCommentsWidget extends StatelessWidget {
                           return Icon(
                             Icons.star,
                             size: 13,
-                            color: index < review['rating']
+                            color: index < review.rate
                                 ? Colors.amber
                                 : Colors.grey,
                           );
                         }),
                       ),
-                      Text("(${review['rating']})"),
+                      Text("(${review.rate})"),
                     ],
                   ),
                   subtitle: Text(
@@ -69,7 +70,7 @@ class AllCommentsWidget extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 15, top: 8.0),
                   child: Text(
-                    review['text'],
+                    review.title,
                   ),
                 ),
                 const Gap(10),

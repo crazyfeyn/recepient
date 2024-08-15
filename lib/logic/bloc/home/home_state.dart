@@ -23,3 +23,10 @@ final class ReviewAddedState extends HomeState {
 
   ReviewAddedState({this.message = "Review added successfully!"});
 }
+
+final class LoadedReviewState extends HomeState {
+  final List<Comment> comments;
+
+  LoadedReviewState({required this.comments});
+}
+
