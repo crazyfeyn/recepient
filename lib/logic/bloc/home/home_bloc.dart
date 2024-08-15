@@ -1,4 +1,5 @@
 import 'package:flutter_application/controllers/recipe_controller.dart';
+import 'package:flutter_application/data/model/comment.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<ToggleLikeEvent>(toggleLike);
     on<GetLatestRecipesEvent>(getLatestRecipes);
     on<AddReviewEvent>(addReviewComment);
+    on<GetReviewEvent>(getReviewComment);
   }
   final recipeController = RecipeController();
 
@@ -48,6 +50,19 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(LoadingState());
       await recipeController.addReviewComment(event.recipeId, event.review);
       emit(ReviewAddedState());
+    } catch (e) {
+      emit(ErrorState(e.toString()));
+    }
+  }
+
+  Future<void> getReviewComment(
+      GetReviewEvent event, Emitter<HomeState> emit) async {
+    try {
+      emit(LoadingState());
+      List<Comment> comments =
+          await recipeController.getReviewComments(event.recipedId);
+      print("object");
+      emit(LoadedReviewState(comments: comments));
     } catch (e) {
       emit(ErrorState(e.toString()));
     }
