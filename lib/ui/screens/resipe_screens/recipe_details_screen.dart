@@ -70,7 +70,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                   left: 16, // Yoki kerakli qiymat
                   child: IconButton(
                     icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
               ],
