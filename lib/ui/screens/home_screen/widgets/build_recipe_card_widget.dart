@@ -1,7 +1,9 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
+import 'package:flutter_application/ui/screens/home_screen/widgets/book_mark_widget.dart';
 import 'package:flutter_application/ui/widgets/toggleLike_widget.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class BuildRecipeCardWidget extends StatelessWidget {
@@ -29,16 +31,16 @@ class BuildRecipeCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // GestureDetector(
-                //   onTap: () => Share.share('hello from Hogwarts'),
-                //   child: CircleAvatar(
-                //     backgroundColor: Colors.white,
-                //     child: Image.asset(
-                //       'assets/images/share_icon.png',
-                //       height: 22,
-                //     ),
-                //   ),
-                // ),
+                GestureDetector(
+                  onTap: () => Share.share('hello from Hogwarts'),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Image.asset(
+                      'assets/images/share_icon.png',
+                      height: 22,
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -65,11 +67,8 @@ class BuildRecipeCardWidget extends StatelessWidget {
               children: [
                 Text(
                   recipe.title,
-                  style: TextStyle(
-                    color: AdaptiveTheme.of(context).mode ==
-                            AdaptiveThemeMode.light
-                        ? Colors.black
-                        : Colors.white,
+                  style: const TextStyle(
+                    color: Color(0xFF1E1E1E),
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
@@ -83,11 +82,8 @@ class BuildRecipeCardWidget extends StatelessWidget {
                     ),
                     Text(
                       ' ${recipe.estimatedTime.inMinutes} min',
-                      style: TextStyle(
-                        color: AdaptiveTheme.of(context).mode ==
-                                AdaptiveThemeMode.light
-                            ? Colors.black
-                            : Colors.white,
+                      style: const TextStyle(
+                        color: Color(0xFF1E1E1E),
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
@@ -102,12 +98,9 @@ class BuildRecipeCardWidget extends StatelessWidget {
                       color: Color(0xFFFF9B05),
                     ),
                     Text(
-                      ' ${recipe.rate}',
-                      style: TextStyle(
-                        color: AdaptiveTheme.of(context).mode ==
-                                AdaptiveThemeMode.light
-                            ? Colors.black
-                            : Colors.white,
+                      ' ${FirebaseRecipeService.calculateRating(recipe.rate).toStringAsFixed(1)}',
+                      style: const TextStyle(
+                        color: Color(0xFF1E1E1E),
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
@@ -116,6 +109,7 @@ class BuildRecipeCardWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const BookMarkWidget()
           ],
         ),
       ],

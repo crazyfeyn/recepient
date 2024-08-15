@@ -9,22 +9,24 @@ class BookMarkWidget extends StatefulWidget {
 
 class _BookMarkWidgetState extends State<BookMarkWidget> {
   bool flag = false;
+
   void toggleBookMark() {
     setState(() {
-      flag != flag;
+      flag = !flag;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: toggleBookMark,
       child: CircleAvatar(
-          backgroundColor: Colors.white,
-          child: Icon(
-            flag? Icons.bookmark: Icons.bookmark_outline,
-            color: Colors.blue,
-          )),
+        backgroundColor: Colors.white,
+        child: Icon(
+          flag ? Icons.bookmark : Icons.bookmark_outline,
+          color: Colors.blue,
+        ),
+      ),
     );
   }
 }

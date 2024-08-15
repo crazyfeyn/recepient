@@ -5,12 +5,12 @@ import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/ui/screens/home_screen/widgets/tripple_widget.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -59,7 +59,24 @@ class _HomeScreenState extends State<HomeScreen> {
               bloc: context.read<HomeBloc>(),
               builder: (context, state) {
                 if (state is LoadingState) {
-                  return const Center(child: CircularProgressIndicator());
+                  return ListView.builder(
+                    itemCount: 6,
+                    itemBuilder: (context, index) => Shimmer.fromColors(
+                      baseColor: Colors.grey[300]!,
+                      highlightColor: Colors.grey[100]!,
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Container(
+                          height: 120,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
                 }
                 if (state is ErrorState) {
                   return Center(child: Text(state.message));
