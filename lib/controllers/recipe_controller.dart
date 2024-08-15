@@ -5,6 +5,7 @@ import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 import 'package:flutter_application/data/services/user/firebase_user_service.dart';
+import 'package:flutter_application/data/utils/app_constants.dart';
 
 class RecipeController {
   final firebaseRecipeService = FirebaseRecipeService();
@@ -14,8 +15,8 @@ class RecipeController {
     recipe.id = recipe.title;
 
     FirebaseStorageService firebaseStorageService = FirebaseStorageService();
-    String? userId = await FirebaseUserService.getId();
-    recipe.userId = userId!; // Replace with FirebaseAuth instance
+    String? userId =  AppConstants.uId;
+    recipe.userId = userId; // Replace with FirebaseAuth instance
 
     if (recipe.videoUrl.isNotEmpty) {
       recipe.videoUrl = await firebaseStorageService.uploadVideo(

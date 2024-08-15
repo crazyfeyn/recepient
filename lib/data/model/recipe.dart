@@ -42,7 +42,7 @@ class Recipe {
       'ingredient': ingredient.map((e) => e.toJson()).toList(),
       'description': description,
       'preparation': preparation,
-      'estimatedTime': estimatedTime,
+      'estimatedTime': estimatedTime.inMinutes,
       'category': category,
       'imageUrl': imageUrl,
       'videoUrl': videoUrl,
