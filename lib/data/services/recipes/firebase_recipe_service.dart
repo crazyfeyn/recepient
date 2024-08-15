@@ -165,4 +165,12 @@ class FirebaseRecipeService {
       print('Error deleting recipe: $e');
     }
   }
+
+  static double calculateRating(List<int> rate) {
+    int sum = 0;
+    for (var i in rate) {
+      sum += i;
+    }
+    return sum / rate.length;
+  }
 }

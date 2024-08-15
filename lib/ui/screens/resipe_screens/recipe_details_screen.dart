@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/ingredients_section_widget.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/recipe_step_card.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/review_page_widget.dart';
@@ -21,19 +22,7 @@ class RecipeDetailsScreen extends StatefulWidget {
 }
 
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
-  final List<String> _imageUrls = [
-    "https://amiel.club/uploads/posts/2022-03/thumbs/1647740928_29-amiel-club-p-kartinki-salat-32.jpg",
-    "https://i.pinimg.com/originals/0e/ed/c9/0eedc9e9a5104635d84d3b06b3e162b5.jpg",
-    "https://avatars.mds.yandex.net/i?id=309e6015d9c292be9692516ec5801202_l-5450418-images-thumbs&n=13",
-  ];
-
   int _currentIndex = 0;
-
-  void _nextImage() {
-    setState(() {
-      _currentIndex = (_currentIndex + 1) % _imageUrls.length;
-    });
-  }
 
   late VideoPlayerController _controller;
   final String videoUrl =
@@ -51,6 +40,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.recipe!.imageUrl);
     final size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -58,57 +48,23 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: size,
-                  height: 262,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: NetworkImage(_imageUrls[_currentIndex]),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+            Container(
+              width: size,
+              height: 262,
+              decoration: BoxDecoration(
+                color: Colors.amber,
+                image: DecorationImage(
+                  image: NetworkImage(widget.recipe!.imageUrl),
+                  fit: BoxFit.cover,
                 ),
-                Positioned(
-                  bottom: 80,
-                  right: 10,
-                  child: IconButton(
-                    onPressed: _nextImage,
-                    icon: const Icon(
-                      Icons.arrow_circle_right,
-                      color: Colors.white,
-                      size: 50,
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 10,
-                  right: (size / 2) - 60 / 2,
-                  child: Row(
-                    children: List.generate(_imageUrls.length, (index) {
-                      return Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        width: 13,
-                        height: 13,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: _currentIndex == index
-                              ? Colors.white
-                              : Colors.grey,
-                        ),
-                      );
-                    }),
-                  ),
-                ),
-              ],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 10),
               child: Row(
                 children: [
                   Text(
-                    "Sausage Nasi Goreng ",
+                    widget.recipe!.title,
                     style: GoogleFonts.montserrat(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -131,7 +87,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                           color: Colors.amber,
                         ),
                         Text(
-                          "4.9",
+                          "4.5",
                           style: GoogleFonts.montserrat(fontSize: 13),
                         ),
                       ],
@@ -145,7 +101,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
               child: Row(
                 children: [
                   Text(
-                    "21 May 2024",
+                    widget.recipe!.createdAt.toString(),
                     style: GoogleFonts.montserrat(fontSize: 12),
                   ),
                   const Gap(10),
@@ -156,89 +112,36 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                   ),
                   const Gap(5),
                   Text(
-                    "30 Minutes",
+                    "${widget.recipe!.estimatedTime.inMinutes.toString()}Min",
                     style: GoogleFonts.montserrat(fontSize: 12),
                   ),
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15, top: 20),
-              child: Row(
-                children: [
-                  Container(
-                    width: 55,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Asian",
-                        style: GoogleFonts.montserrat(
-                          color: Colors.orange,
-                          fontSize: 13,
+            Row(
+              children: List.generate(widget.recipe!.category.length, (index) {
+                return Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.all(10),
+                      height: 40,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.orange),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Center(
+                        child: Text(
+                          widget.recipe!.category[index],
+                          style: GoogleFonts.montserrat(
+                            color: Colors.orange,
+                            fontSize: 13,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  const Gap(10),
-                  Container(
-                    width: 90,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Indonesian",
-                        style: GoogleFonts.montserrat(
-                          color: Colors.orange,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Gap(10),
-                  Container(
-                    width: 50,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Rice",
-                        style: GoogleFonts.montserrat(
-                          color: Colors.orange,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const Gap(10),
-                  Container(
-                    width: 70,
-                    height: 20,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.orange),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Oriental",
-                        style: GoogleFonts.montserrat(
-                          color: Colors.orange,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                  ],
+                );
+              }),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 30),
