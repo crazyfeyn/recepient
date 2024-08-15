@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,8 +20,9 @@ class _TogglelikeWidgetState extends State<TogglelikeWidget> {
   @override
   void initState() {
     super.initState();
-    isLiked = widget.recipe.likes.contains('-O4HZBl8WZ1K8zv0Pj2E');
+    isLiked = widget.recipe.likes.contains(AppConstants.uId);
     likeCount = widget.recipe.likes.length;
+    setState(() {});
   }
 
   void toggleLike() {
@@ -35,7 +37,7 @@ class _TogglelikeWidgetState extends State<TogglelikeWidget> {
 
     context
         .read<HomeBloc>()
-        .add(ToggleLikeEvent('9SjFRAq9AJSIqIshJmFA1kAHtjr1', widget.recipe.id));
+        .add(ToggleLikeEvent(AppConstants.uId, widget.recipe.id));
   }
 
   @override
