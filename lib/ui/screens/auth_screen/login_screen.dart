@@ -1,10 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
-import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/screens/auth_screen/register_screen.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

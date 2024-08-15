@@ -28,19 +28,22 @@ class AuthRepository {
     final user = User(
       email: email,
       id: response['localId'],
-      expiryDate: DateTime.now()
-          .add(Duration(seconds: int.parse(response['expiresIn']))),
+      expiryDate: DateTime.now().add(
+        Duration(
+          seconds: int.parse(response['expiresIn']),
+        ),
+      ),
       password: password,
       token: response['idToken'],
     );
     await _saveUserToLocalStorage(user);
     return user;
   }
-  Future<void> logout() async {
-  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-  await sharedPreferences.clear();
-}
 
+  Future<void> logout() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.clear();
+  }
 
   Future<bool> isLoggedIn() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
