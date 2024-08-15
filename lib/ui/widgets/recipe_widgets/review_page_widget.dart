@@ -84,6 +84,9 @@ class _ReviewPageState extends State<ReviewPageWidget> {
       if (state is LoadedReviewState) {
         _reviews.addAll(state.comments);
       }
+
+      /// Tekshirib ko'rsatish uchun
+      final hasReviews = _reviews.isNotEmpty;
       return Column(
         children: [
           Padding(
@@ -173,7 +176,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                     fontSize: 15,
                   ),
                 ),
-                if (_reviews.isNotEmpty)
+                if (hasReviews)
                   GestureDetector(
                     onTap: _viewAllReviews,
                     child: Text(
@@ -188,74 +191,89 @@ class _ReviewPageState extends State<ReviewPageWidget> {
               ],
             ),
           ),
-          Column(
-            children: List.generate(
-              showAllReviews
-                  ? _reviews.length
-                  : _reviews.length > 2
-                      ? 2
-                      : _reviews.length,
-              (index) {
-                final review = _reviews[index];
-                final bool isTruncated = review.title.length > _truncatedLength;
-                final String displayReview = isTruncated
-                    ? review.title.substring(0, _truncatedLength) + '...'
-                    : review.title;
-                return Padding(
-                  padding: const EdgeInsets.only(left: 15, right: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage:
-                              NetworkImage(widget.recipe!.imageUrl),
-                        ),
-                        title: Row(
-                          children: [
-                            Text(
-                              AppConstants.userModel!.name,
-                              style: GoogleFonts.montserrat(fontSize: 13),
-                            ),
-                            Row(
-                              children: List.generate(5, (index) {
-                                return Icon(
-                                  Icons.star,
-                                  size: 13,
-                                  color: index < review.rate
-                                      ? Colors.amber
-                                      : Colors.grey,
-                                );
-                              }),
-                            ),
-                            Text("(${review.rate})"),
-                          ],
-                        ),
-                        subtitle: Text(
-                          formatDate(widget.recipe!.createdAt),
-                          style: GoogleFonts.montserrat(fontSize: 10),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 15, top: 8.0),
-                        child: Text(
-                          displayReview,
-                          maxLines: isTruncated ? 4 : null,
-                          overflow: isTruncated
-                              ? TextOverflow.ellipsis
-                              : TextOverflow.visible,
-                        ),
-                      ),
-                      const Gap(10),
-                      _reviews.length > 2
-                          ? const Text("")
-                          : const Divider(indent: 15, endIndent: 15),
-                    ],
+          if (!hasReviews)
+            Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Center(
+                child: Text(
+                  "Hali kommentlar mavjud emas",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 15,
+                    color: Colors.grey,
                   ),
-                );
-              },
+                ),
+              ),
+            )
+          else
+            Column(
+              children: List.generate(
+                showAllReviews
+                    ? _reviews.length
+                    : _reviews.length > 2
+                        ? 2
+                        : _reviews.length,
+                (index) {
+                  final review = _reviews[index];
+                  final bool isTruncated =
+                      review.title.length > _truncatedLength;
+                  final String displayReview = isTruncated
+                      ? review.title.substring(0, _truncatedLength) + '...'
+                      : review.title;
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          leading: CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(widget.recipe!.imageUrl),
+                          ),
+                          title: Row(
+                            children: [
+                              Text(
+                                AppConstants.userModel!.name,
+                                style: GoogleFonts.montserrat(fontSize: 13),
+                              ),
+                              Row(
+                                children: List.generate(5, (index) {
+                                  return Icon(
+                                    Icons.star,
+                                    size: 13,
+                                    color: index < review.rate
+                                        ? Colors.amber
+                                        : Colors.grey,
+                                  );
+                                }),
+                              ),
+                              Text("(${review.rate})"),
+                            ],
+                          ),
+                          subtitle: Text(
+                            formatDate(widget.recipe!.createdAt),
+                            style: GoogleFonts.montserrat(fontSize: 10),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15, top: 8.0),
+                          child: Text(
+                            displayReview,
+                            maxLines: isTruncated ? 4 : null,
+                            overflow: isTruncated
+                                ? TextOverflow.ellipsis
+                                : TextOverflow.visible,
+                          ),
+                        ),
+                        const Gap(10),
+                        _reviews.length > 2
+                            ? const Text("")
+                            : const Divider(indent: 15, endIndent: 15),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
         ],
       );
     });
