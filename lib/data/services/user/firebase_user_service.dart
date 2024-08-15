@@ -14,11 +14,9 @@ class FirebaseUserService {
         '$baseUrl/users/${user.uId}.json',
         data: user.toJson(),
       );
-      print(response.data['name']);
       uId = response.data['uId'];
       final shared = await SharedPreferences.getInstance();
       shared.setString('id', uId);
-      print('User createdwsedrfghgtredrfgrfvdrfc: ${uId}');
     } catch (e) {
       print('Error creating user: $e');
     }
@@ -32,7 +30,6 @@ class FirebaseUserService {
       }
       return null;
     } catch (e) {
-      print('Error fetching user: $e');
       return null;
     }
   }
@@ -49,9 +46,8 @@ class FirebaseUserService {
     }
   }
 
-  static  getId() async {
+  static Future<String?> getId() async {
     final shared = await SharedPreferences.getInstance();
-    String? id = shared.getString('id');
-    return id;
+    return shared.getString('id');
   }
 }

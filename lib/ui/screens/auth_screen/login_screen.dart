@@ -5,8 +5,8 @@ import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
-import 'package:flutter_application/ui/screens/all_navigation_bar.dart';
 import 'package:flutter_application/ui/screens/auth_screen/register_screen.dart';
+import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
@@ -20,7 +20,9 @@ class LoginScreen extends StatelessWidget {
   void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.read<AuthBloc>().add(LoginEvent(emailcontroller.text, passcontroller.text));
+      context
+          .read<AuthBloc>()
+          .add(LoginEvent(emailcontroller.text, passcontroller.text));
     }
   }
 
@@ -32,6 +34,7 @@ class LoginScreen extends StatelessWidget {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthAuthenticated) {
+              print('kirdi---11');
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/fourt_onboarding_screen.dart';
 import 'package:flutter_application/ui/widgets/eleveted_button.dart';
@@ -42,7 +41,7 @@ class ThirdOnboardingScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return FourtOnboardingScreen();
+                        return const FourtOnboardingScreen();
                       },
                     ),
                   );
