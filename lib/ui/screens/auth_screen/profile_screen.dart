@@ -54,28 +54,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
         title: const Text('Profile Screen'),
         actions: [
-          IconButton(
-            onPressed: () async {
-              context.read<AuthBloc>().add(LogoutEvent());
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthUnauthenticated) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
+                  (route) => false,
+                );
+              }
             },
-            icon: const Icon(
-              Icons.logout,
+            child: IconButton(
+              onPressed: () async {
+                context.read<AuthBloc>().add(LogoutEvent());
+              },
+              icon: const Icon(
+                Icons.logout,
+              ),
             ),
           ),
         ],
       ),
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          if (state is AuthUnauthenticated) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                (route) => false,
-              );
-            });
-          }
-
           return Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
