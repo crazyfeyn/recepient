@@ -206,9 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: recipes.length,
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                                onTap: () {
-                                  Share.share('text');
-                                },
+                                onTap: () {},
                                 child: Column(
                                   children: [
                                     Container(

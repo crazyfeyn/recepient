@@ -13,9 +13,9 @@ class FirebaseRecipeService {
       final recipes = await getRecipes();
       if (recipes != null) {
         recipes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        print(recipes);
         return recipes;
       }
-      return null;
     } catch (e) {
       return null;
     }
