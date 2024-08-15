@@ -25,7 +25,7 @@ class FirebaseRecipeService {
     try {
       final recipes = await getRecipes();
       if (recipes != null) {
-        recipes.sort((a, b) => b.rate.compareTo(a.rate));
+        // recipes.sort((a, b) => b.rate.compareTo(a.rate));
         return recipes;
       }
       return null;

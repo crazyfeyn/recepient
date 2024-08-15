@@ -14,7 +14,7 @@ class Recipe {
   String id;
   bool isSaved;
   List<String> likes;
-  double rate;
+  List<double> rate;
   List<Comment> comments;
   DateTime createdAt;
 
@@ -77,7 +77,7 @@ class Recipe {
       id: json['id'],
       isSaved: json['isSaved'] ?? false,
       likes: List<String>.from(json['likes'] ?? []),
-      rate: double.tryParse(json['rate'].toString()) ?? 0.0,
+      rate: List<double>.from(json['rate']),
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
@@ -106,7 +106,7 @@ class Recipe {
       ingredient: [],
       description: '',
       preparation: [],
-      estimatedTime: Duration(minutes: 0),
+      estimatedTime: const Duration(minutes: 0),
       category: [],
       comments: [],
       imageUrl: '',
@@ -115,7 +115,7 @@ class Recipe {
       id: '',
       isSaved: false,
       likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
-      rate: 4,
+      rate: [4,5,2],
       createdAt: DateTime.now(),
     );
   }
