@@ -21,6 +21,7 @@ class RecipeController {
               File(recipe.videoUrl), recipe.title) ??
           "";
     }
+    print(recipe.imageUrl);
 
     recipe.imageUrl = await firebaseStorageService.uploadImageToFirebase(
             File(recipe.imageUrl), recipe.title) ??
@@ -47,7 +48,8 @@ class RecipeController {
 
   Future<List<Recipe>> fetchRecipes() async {
     try {
-      final response = await _dio.get('https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json');
+      final response = await _dio.get(
+          'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json');
       final data = response.data as Map<String, dynamic>;
 
       final List<Recipe> recipes = [];
