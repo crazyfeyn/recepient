@@ -31,5 +31,8 @@ class RecipeAddController extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateRecipeImage(String path) {}
+  void updateRecipeImage(String path) {
+    recipe.imageUrl = path;
+    notifyListeners();
+  }
 }

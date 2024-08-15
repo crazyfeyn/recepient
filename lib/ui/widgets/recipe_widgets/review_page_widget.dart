@@ -13,8 +13,9 @@ class ReviewPageWidget extends StatefulWidget {
 
 class _ReviewPageState extends State<ReviewPageWidget> {
   final TextEditingController _reviewController = TextEditingController();
-  final List<Map<String, dynamic>> _reviews =
-      []; // Update to store reviews with ratings
+
+  /// Update to store reviews with ratings
+  final List<Map<String, dynamic>> _reviews = [];
   final int _truncatedLength = 300; // Qisqartirilgan uzunlik
   bool showAllReviews = false; // "See More" tugmasi holatini saqlash uchun
   int _selectedRating = 0; // Variable to store selected star rating

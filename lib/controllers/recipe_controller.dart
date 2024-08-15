@@ -20,6 +20,7 @@ class RecipeController {
               File(recipe.videoUrl), recipe.title) ??
           "";
     }
+    print(recipe.imageUrl);
 
     recipe.imageUrl = await firebaseStorageService.uploadImageToFirebase(
             File(recipe.imageUrl), recipe.title) ??

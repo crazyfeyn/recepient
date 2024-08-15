@@ -29,7 +29,7 @@ class FirebaseStorageService {
 
       final UploadTask uploadTask = storageRef.putFile(
         imageFile,
-        SettableMetadata(contentType: 'image/jpeg'), // Specify MIME type
+        SettableMetadata(contentType: 'image/jpg'), // Specify MIME type
       );
 
       final TaskSnapshot snapshot = await uploadTask;
