@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/controllers/recipe_add_controller.dart';
@@ -6,14 +8,14 @@ import 'package:flutter_application/data/model/recipe.dart';
 import 'package:provider/provider.dart';
 
 class ReviewWidget extends StatefulWidget {
-  const ReviewWidget({Key? key}) : super(key: key);
+  const ReviewWidget({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ReviewWidgetState createState() => _ReviewWidgetState();
 }
 
 class _ReviewWidgetState extends State<ReviewWidget> {
-  bool _isExpanded = false;
   late Recipe recipe;
   bool _isAddingRecipe = false;
 
@@ -35,6 +37,7 @@ class _ReviewWidgetState extends State<ReviewWidget> {
           ),
         );
       } else {
+        // ignore: duplicate_ignore
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Failed to add recipe. Please try again.'),

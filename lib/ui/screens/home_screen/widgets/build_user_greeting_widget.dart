@@ -1,3 +1,5 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application/data/model/user_model.dart';
 
@@ -16,8 +18,10 @@ class BuildUserGreetingWidget extends StatelessWidget {
           children: [
             Text(
               'Hello ${user?.name ?? 'Guest'}',
-              style: const TextStyle(
-                color: Color(0xFF1E1E1E),
+              style: TextStyle(
+                color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                    ? Colors.black
+                    : Colors.white,
                 fontWeight: FontWeight.w600,
                 fontSize: 19,
               ),

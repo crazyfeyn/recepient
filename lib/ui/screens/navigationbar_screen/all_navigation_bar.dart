@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/screens/add_new_retsept/add_new_retsept.dart';
 import 'package:flutter_application/ui/screens/auth_screen/profile_screen.dart';
@@ -31,6 +32,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
           Navigator.push(
               context,
               MaterialPageRoute(
+                // ignore: prefer_const_constructors
                 builder: (context) => AddNewRecipe(),
               ));
         },
@@ -41,7 +43,9 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: Colors.white,
+        color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+            ? Colors.black
+            : Colors.white,
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(
@@ -103,7 +107,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                         currentScreen = const Center(
                           child: Text("Hali bu sahifa aniqlanmagan"),
                         );
-                        ;
+
                         currentTab = 2;
                       });
                     },

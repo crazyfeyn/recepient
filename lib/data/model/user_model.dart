@@ -36,4 +36,7 @@ class UserModel {
       saved: json['saved'] != null ? List<String>.from(json['saved']) : [],
     );
   }
+
+
+  
 }

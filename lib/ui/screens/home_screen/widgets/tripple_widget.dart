@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
@@ -103,10 +104,12 @@ class _TrippleWidgetState extends State<TrippleWidget> {
           ),
         ),
         const SizedBox(height: 10),
-        const Text(
+        Text(
           'All recipes',
           style: TextStyle(
-            color: Color(0xFF1E1E1E),
+            color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+                ? Colors.black
+                : Colors.white,
             fontWeight: FontWeight.w600,
             fontSize: 19,
           ),

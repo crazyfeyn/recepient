@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/widgets/eleveted_button.dart';

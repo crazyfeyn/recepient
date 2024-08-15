@@ -1,15 +1,19 @@
+// ignore_for_file: empty_catches
+
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/data/services/user/firebase_user_service.dart';
-import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/ui/screens/profiles_screen/edit_screen.dart';
+import 'package:flutter_application/ui/screens/profiles_screen/settings_screen.dart';
 import 'package:flutter_application/ui/screens/splash_screens/welcome_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -22,11 +26,23 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   UserModel? user;
   String? uId;
+  File? _selectedImage;
+
+  // ignore: unused_element
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      setState(() {
+        _selectedImage = File(image.path);
+      });
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    print(AppConstants.uId);
     getCurrentUserInfo();
   }
 
@@ -38,7 +54,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       }
       setState(() {});
     } catch (e) {
-      print('Error fetching user info: $e');
     }
   }
 
@@ -53,29 +68,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ),
         title: const Text('Profile Screen'),
-        actions: [
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {
-              if (state is AuthUnauthenticated) {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(builder: (context) => WelcomeScreen()),
-                  (route) => false,
-                );
-              }
-            },
-            child: IconButton(
-              onPressed: () async {
-                context.read<AuthBloc>().add(LogoutEvent());
-              },
-              icon: const Icon(
-                Icons.logout,
-              ),
-            ),
-          ),
-        ],
       ),
-      body: BlocBuilder<AuthBloc, AuthState>(
+      body: BlocConsumer<AuthBloc, AuthState>(
+        listener: (context, state) {
+          if (state is AuthUnauthenticated) {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) {
+                  return const WelcomeScreen();
+                },
+              ),
+            );
+          }
+        },
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.all(20),
@@ -87,28 +93,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'My Profile',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                       const SizedBox(height: 20),
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: user?.imageUrl != null
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage: _selectedImage != null
+                            ? FileImage(_selectedImage!)
+                            : user?.imageUrl != null
                                 ? NetworkImage(user!.imageUrl)
                                 : const AssetImage('assets/images/malfoy.png')
                                     as ImageProvider,
-                          ),
-                        ),
+                        backgroundColor: Colors.grey.shade200,
                       ),
                       const SizedBox(height: 20),
                       Text(
                         user?.name ?? 'Malfoy',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ],
                   ),
@@ -117,13 +123,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 _buildMenuItem(
                   icon: CupertinoIcons.settings,
                   title: "Settings",
-                  onTap: () {},
-                ),
-                _buildMenuItem(
-                  icon: Icons.logout,
-                  title: "Logout",
                   onTap: () {
-                    context.read<AuthBloc>().add(LogoutEvent());
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const SettingsScreen();
+                        },
+                      ),
+                    );
                   },
                 ),
                 _buildMenuItem(
@@ -133,7 +141,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     final response = await Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => EditProfilePage(),
+                        builder: (context) => const EditProfilePage(),
                       ),
                     );
                     if (response != null) {
@@ -141,8 +149,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         user!.imageUrl = response['image'];
                         user!.name = response['name'];
                       });
-                      print(user!.name);
                     }
+                  },
+                ),
+                _buildMenuItem(
+                  icon: Icons.logout,
+                  title: "Logout",
+                  onTap: () {
+                    context.read<AuthBloc>().add(LogoutEvent());
                   },
                 ),
               ],

@@ -4,7 +4,10 @@ import 'package:flutter_application/data/model/ingredient.dart';
 import 'package:provider/provider.dart';
 
 class RecipeStepsWidget extends StatefulWidget {
+  const RecipeStepsWidget({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _RecipeStepsWidgetState createState() => _RecipeStepsWidgetState();
 }
 
@@ -177,7 +180,7 @@ class IngredientField extends StatelessWidget {
   final TextEditingController ingredientController = TextEditingController();
   final TextEditingController quantityController = TextEditingController();
 
-  IngredientField({required this.onDelete});
+  IngredientField({super.key, required this.onDelete});
 
   Ingredient getIngredientData() {
     return Ingredient(

@@ -1,3 +1,5 @@
+// ignore_for_file: empty_catches
+
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
@@ -96,9 +98,7 @@ class FirebaseRecipeService {
           },
         ),
       );
-      print('Successfully updated likes');
     } catch (e) {
-      print('Error toggling like: $e');
       rethrow;
     }
   }
@@ -116,12 +116,9 @@ class FirebaseRecipeService {
       );
 
       if (response.statusCode == 200) {
-        print('Recipe added successfully!');
       } else {
-        print('Failed to add recipe: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error adding recipe: $e');
     }
   }
 
@@ -138,12 +135,9 @@ class FirebaseRecipeService {
       );
 
       if (response.statusCode == 200) {
-        print('Recipe updated successfully!');
       } else {
-        print('Failed to update recipe: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error updating recipe: $e');
     }
   }
 
@@ -159,12 +153,9 @@ class FirebaseRecipeService {
       );
 
       if (response.statusCode == 200) {
-        print('Recipe deleted successfully!');
       } else {
-        print('Failed to delete recipe: ${response.statusCode}');
       }
     } catch (e) {
-      print('Error deleting recipe: $e');
     }
   }
 
@@ -188,9 +179,7 @@ class FirebaseRecipeService {
       );
 
       if (response.statusCode == 200) {
-        print("Review added successfully");
       } else {
-        print("Failed to add review: ${response.statusCode}");
       }
     } catch (e) {
       rethrow;
@@ -217,7 +206,6 @@ class FirebaseRecipeService {
 
         return comments;
       } else {
-        print("Failed to fetch reviews: ${response.statusCode}");
         return [];
       }
     } catch (e) {

@@ -1,10 +1,9 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
-import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/screens/auth_screen/register_screen.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,8 +27,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    emailcontroller.text = 'opers@gmail.com';
-    passcontroller.text = '12345678';
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -39,7 +36,7 @@ class LoginScreen extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AllNavigationBar(),
+                  builder: (context) => const AllNavigationBar(),
                 ),
               );
             }
@@ -53,7 +50,7 @@ class LoginScreen extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("ok"),
+                        child: const Text("ok"),
                       ),
                     ],
                     title: Text(state.errorMessage),
@@ -77,7 +74,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/login.png'),
                       ),
@@ -205,15 +202,18 @@ class LoginScreen extends StatelessWidget {
                               Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
+                                  builder: (context) => const RegisterScreen(),
                                 ),
                               );
                             },
                             child: RichText(
                               text: TextSpan(
                                 text: "Don't have an Account? ",
-                                style: const TextStyle(
-                                  color: Colors.black,
+                                style: TextStyle(
+                                  color: AdaptiveTheme.of(context).mode ==
+                                          AdaptiveThemeMode.light
+                                      ? Colors.black
+                                      : Colors.white,
                                   fontSize: 15,
                                 ),
                                 children: [

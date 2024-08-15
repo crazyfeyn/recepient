@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 class AddNewRecipe extends StatefulWidget {
   final Recipe? recipe;
 
-  AddNewRecipe({Key? key, this.recipe}) : super(key: key);
+  const AddNewRecipe({super.key, this.recipe});
 
   @override
   State<AddNewRecipe> createState() => _AddNewRecipeState();
@@ -29,11 +29,12 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
 
   // List of steps widgets
   final List<Widget> create = [
-    RecipeName(),
+    const RecipeName(),
+    // ignore: prefer_const_constructors
     RecipeStepsWidget(),
     VideoUploadWidget(),
-    CategoryWidget(),
-    ReviewWidget(),
+    const CategoryWidget(),
+    const ReviewWidget(),
   ];
 
   @override
@@ -51,15 +52,13 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
-    print("Image path ->>>> ${image!.path}");
-        context.read<RecipeAddController>().updateRecipeImage(image.path);
+    // ignore: use_build_context_synchronously
+    context.read<RecipeAddController>().updateRecipeImage(image!.path);
 
-    if (image != null) {
-      setState(() {
-        _selectedImage = File(image.path);
-        // Update the Recipe model with the image path using the RecipeAddController
-      });
-    }
+    setState(() {
+      _selectedImage = File(image.path);
+      // Update the Recipe model with the image path using the RecipeAddController
+    });
   }
 
   @override

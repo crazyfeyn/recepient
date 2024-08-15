@@ -65,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: Text(state.message));
                 }
                 if (state is LoadedState) {
-                  print(state.recipes);
                   return TrippleWidget(
                     recipes: state.recipes,
                   );

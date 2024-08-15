@@ -1,24 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application/data/model/user_model.dart';
+import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseUserService {
   final Dio _dio = Dio();
-  String uId = '';
   final String baseUrl =
       'https://retsept-app-db287-default-rtdb.firebaseio.com/';
 
   Future<void> createUser(UserModel user) async {
     try {
+      // ignore: unused_local_variable
       final response = await _dio.put(
         '$baseUrl/users/${user.uId}.json',
         data: user.toJson(),
       );
-      uId = response.data['uId'];
       final shared = await SharedPreferences.getInstance();
-      shared.setString('id', uId);
+      shared.setString('id', user.uId);
     } catch (e) {
-      print('Error creating user: $e');
+      throw Exception('Error creating user: $e');
     }
   }
 
@@ -30,24 +30,33 @@ class FirebaseUserService {
       }
       return null;
     } catch (e) {
-      return null;
+      throw Exception('Error fetching user: $e');
     }
   }
 
-  Future<void> updateUser(UserModel user) async {
+  Future<void> updateUserNameAndPhoto(String name, String imageUrl) async {
     try {
+      // ignore: unused_local_variable
       final response = await _dio.patch(
-        '$baseUrl/users/${user.uId}.json',
-        data: user.toJson(),
+        '$baseUrl/users/${AppConstants.uId}.json',
+        data: {
+          'name': name,
+          'imageUrl': imageUrl,
+        },
       );
-      print('User updated: ${response.data}');
+    // ignore: empty_catches
     } catch (e) {
-      print('Error updating user: $e');
+      
     }
   }
 
   static Future<String?> getId() async {
     final shared = await SharedPreferences.getInstance();
     return shared.getString('id');
+  }
+
+  static Future<void> clearUserData() async {
+    final shared = await SharedPreferences.getInstance();
+    await shared.clear();
   }
 }
