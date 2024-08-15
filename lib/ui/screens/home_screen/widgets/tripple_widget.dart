@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
-import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 import 'package:flutter_application/data/utils/app_constants.dart';
+import 'package:flutter_application/ui/screens/home_screen/widgets/build_recipe_card_widget.dart';
+import 'package:flutter_application/ui/screens/home_screen/widgets/build_user_greeting_widget.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:share_plus/share_plus.dart';
-
-import '../../../widgets/toggleLike_widget.dart';
 import '../../resipe_screens/recipe_details_screen.dart';
 
 class TrippleWidget extends StatefulWidget {
@@ -19,6 +17,7 @@ class TrippleWidget extends StatefulWidget {
 
 class _TrippleWidgetState extends State<TrippleWidget> {
   late List<Recipe> _filteredRecipes;
+  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -61,7 +60,9 @@ class _TrippleWidgetState extends State<TrippleWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildUserGreeting(AppConstants.userModel),
+        BuildUserGreetingWidget(
+          user: AppConstants.userModel,
+        ),
         const SizedBox(height: 20),
         _buildSearchBar(),
         const SizedBox(height: 20),
@@ -124,7 +125,7 @@ class _TrippleWidgetState extends State<TrippleWidget> {
                     ),
                   );
                 },
-                child: _buildRecipeCard(recipe),
+                child: BuildRecipeCardWidget(recipe: recipe),
               );
             },
           ),
@@ -133,166 +134,12 @@ class _TrippleWidgetState extends State<TrippleWidget> {
     );
   }
 
-  Widget _buildRecipeCard(Recipe recipe) {
-    return Column(
-      children: [
-        Container(
-          margin: const EdgeInsets.symmetric(vertical: 15),
-          height: 250,
-          width: double.maxFinite,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              image: NetworkImage(recipe.imageUrl),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: () => Share.share('hello from Hogwarts'),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Image.asset(
-                      'assets/images/share_icon.png',
-                      height: 22,
-                    ),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    CircleAvatar(
-                      backgroundColor: Colors.white,
-                      child: Image.asset(
-                        'assets/images/comment_icon.png',
-                        height: 22,
-                        color: const Color(0xFFFF9B05),
-                      ),
-                    ),
-                    TogglelikeWidget(recipe: recipe),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  recipe.title,
-                  style: const TextStyle(
-                    color: Color(0xFF1E1E1E),
-                    fontWeight: FontWeight.w500,
-                    fontSize: 16,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Image.asset(
-                      'assets/images/time_icon.png',
-                      height: 20,
-                      color: const Color(0xFFFF9B05),
-                    ),
-                    Text(
-                      ' ${recipe.estimatedTime.inMinutes} min',
-                      style: const TextStyle(
-                        color: Color(0xFF1E1E1E),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.star,
-                      size: 20,
-                      color: Color(0xFFFF9B05),
-                    ),
-                    Text(
-                      ' ${recipe.rate}',
-                      style: const TextStyle(
-                        color: Color(0xFF1E1E1E),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            GestureDetector(
-              onTap: () {},
-              child: CircleAvatar(
-                backgroundColor: Colors.white,
-                child: Image.asset(
-                  'assets/images/saved_icon.png',
-                  height: 22,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  Widget _buildUserGreeting(UserModel? user) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hello ${user?.name ?? 'Guest'}',
-              style: const TextStyle(
-                color: Color(0xFF1E1E1E),
-                fontWeight: FontWeight.w600,
-                fontSize: 19,
-              ),
-            ),
-            const Text(
-              'What are you cooking today?',
-              style: TextStyle(
-                color: Color(0xFFA9A9A9),
-                fontWeight: FontWeight.w500,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
-        Container(
-          height: 47,
-          width: 47,
-          clipBehavior: Clip.hardEdge,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            image: DecorationImage(
-              image: (user?.imageUrl == null || user!.imageUrl.isEmpty)
-                  ? const AssetImage('assets/images/malfoy.png')
-                      as ImageProvider
-                  : NetworkImage(user!.imageUrl) as ImageProvider,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildSearchBar() {
     return TextField(
+      controller: _searchController,
+      onChanged: (query) {
+        _searchRecipes(query);
+      },
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(7),
@@ -307,5 +154,16 @@ class _TrippleWidgetState extends State<TrippleWidget> {
         ),
       ),
     );
+  }
+
+  void _searchRecipes(String query) {
+    if (query.isEmpty) {
+      _filteredRecipes = widget.recipes;
+    } else {
+      _filteredRecipes = widget.recipes.where((recipe) {
+        return recipe.title.toLowerCase().contains(query.toLowerCase());
+      }).toList();
+    }
+    setState(() {});
   }
 }

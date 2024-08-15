@@ -23,13 +23,13 @@ class RecipeDetailsScreen extends StatefulWidget {
 }
 
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
-  int _currentIndex = 0;
-
   late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
+
+    /// firebasedan video olish
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.recipe!.videoUrl),
     )..initialize().then((_) {
@@ -37,7 +37,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       });
   }
 
-// Sana formatlash funksiyasi
+  /// Sana formatlash funksiyasi
   String formatDate(DateTime date) {
     final DateFormat formatter = DateFormat('dd MMMM yyyy');
     return formatter.format(date);
@@ -52,16 +52,28 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: size,
-              height: 262,
-              decoration: BoxDecoration(
-                color: Colors.amber,
-                image: DecorationImage(
-                  image: NetworkImage(widget.recipe!.imageUrl),
-                  fit: BoxFit.cover,
+            Stack(
+              children: [
+                Container(
+                  width: size,
+                  height: 262,
+                  decoration: BoxDecoration(
+                    color: Colors.amber,
+                    image: DecorationImage(
+                      image: NetworkImage(widget.recipe!.imageUrl),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
-              ),
+                Positioned(
+                  top: 16, // Yoki kerakli qiymat
+                  left: 16, // Yoki kerakli qiymat
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 10),
@@ -92,8 +104,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                         ),
                         Text(
                           FirebaseRecipeService.calculateRating(
-                                  widget.recipe!.rate)
-                              .toStringAsFixed(1),
+                            widget.recipe!.rate,
+                          ).toStringAsFixed(1),
                           style: GoogleFonts.montserrat(fontSize: 13),
                         ),
                       ],
