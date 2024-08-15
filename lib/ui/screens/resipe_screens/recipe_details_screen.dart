@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
-import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/ingredients_section_widget.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/recipe_step_card.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/review_page_widget.dart';
@@ -118,33 +117,36 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ],
               ),
             ),
-            Row(
-              children: List.generate(widget.recipe!.category.length, (index) {
-                return Row(
-                  children: [
-                    Container(
-                      margin: EdgeInsets.all(10),
-                      height: 40,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.orange),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Center(
-                        child: Text(
-                          widget.recipe!.category[index],
-                          style: GoogleFonts.montserrat(
-                            color: Colors.orange,
-                            fontSize: 13,
-                          ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, top: 10),
+              child: Row(
+                children:
+                    List.generate(widget.recipe!.category.length, (index) {
+                  final category = widget.recipe!.category[index];
+
+                  return Container(
+                    margin: const EdgeInsets.all(5),
+                    padding: const EdgeInsets.all(5),
+                    height: 30,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.orange),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: Text(
+                        category,
+                        style: GoogleFonts.montserrat(
+                          color: Colors.orange,
+                          fontSize: 13,
                         ),
                       ),
                     ),
-                  ],
-                );
-              }),
+                  );
+                }),
+              ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 15, top: 30),
+              padding: const EdgeInsets.only(left: 15, top: 10),
               child: Text(
                 "Ingredients",
                 style: GoogleFonts.montserrat(
@@ -153,7 +155,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ),
             ),
-            const IngredientsSectionWidget(),
+            IngredientsSectionWidget(recipe: widget.recipe),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 30),
               child: Text(
@@ -164,7 +166,10 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ),
             ),
-            RecipeStepCard(size: size),
+            RecipeStepCard(
+              size: size,
+              recipe: widget.recipe,
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 30, bottom: 10),
               child: Text(
