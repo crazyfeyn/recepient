@@ -19,7 +19,7 @@ class _TogglelikeWidgetState extends State<TogglelikeWidget> {
   @override
   void initState() {
     super.initState();
-    isLiked = widget.recipe.likes.contains('9SjFRAq9AJSIqIshJmFA1kAHtjr1');
+    isLiked = widget.recipe.likes.contains('-O4HZBl8WZ1K8zv0Pj2E');
     likeCount = widget.recipe.likes.length;
   }
 
@@ -35,7 +35,7 @@ class _TogglelikeWidgetState extends State<TogglelikeWidget> {
 
     context
         .read<HomeBloc>()
-        .add(ToggleLikeEvent('-O4HZBl8WZ1K8zv0Pj2E', widget.recipe.id));
+        .add(ToggleLikeEvent('9SjFRAq9AJSIqIshJmFA1kAHtjr1', widget.recipe.id));
   }
 
   @override
