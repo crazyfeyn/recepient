@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter_application/data/model/user.dart';
 import 'package:flutter_application/data/model/user_model.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
