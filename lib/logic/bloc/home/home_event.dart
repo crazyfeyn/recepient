@@ -20,6 +20,7 @@ final class GetTrendingRecipesEvent extends HomeEvent {
 final class GetShortPreparedRecipesEvent extends HomeEvent {
 }
 
+/// firebasega kommentlarni qo'shish uchun event
 final class AddReviewEvent extends HomeEvent {
   final String recipeId;
   final Comment review;
@@ -27,6 +28,7 @@ final class AddReviewEvent extends HomeEvent {
   AddReviewEvent(this.recipeId, this.review);
 }
 
+/// firebasedan kommentlarni olish uchun event
 final class GetReviewEvent extends HomeEvent {
   final String recipedId;
 

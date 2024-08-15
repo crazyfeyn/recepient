@@ -16,7 +16,7 @@ class RecipeController {
     recipe.id = recipe.title;
 
     FirebaseStorageService firebaseStorageService = FirebaseStorageService();
-    String? userId =  AppConstants.uId;
+    String? userId = AppConstants.uId;
     recipe.userId = userId; // Replace with FirebaseAuth instance
 
     if (recipe.videoUrl.isNotEmpty) {
@@ -102,6 +102,7 @@ class RecipeController {
     return null;
   }
 
+  /// kommentlarni firebasega qo'shish
   Future<void> addReviewComment(
     String recipeId,
     Comment review,
@@ -113,9 +114,10 @@ class RecipeController {
     }
   }
 
+  /// kommentlarni firebasedan olish
   Future<List<Comment>> getReviewComments(String recipeId) async {
     try {
-     return await firebaseRecipeService.getReviewComments(recipeId);
+      return await firebaseRecipeService.getReviewComments(recipeId);
     } catch (e) {
       rethrow;
     }

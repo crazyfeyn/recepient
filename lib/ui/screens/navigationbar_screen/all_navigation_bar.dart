@@ -75,7 +75,9 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Center();
+                        currentScreen = const Center(
+                          child: Text("Hali bu sahifa aniqlanmagan"),
+                        );
                         currentTab = 1;
                       });
                     },
@@ -98,7 +100,10 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = Center();
+                        currentScreen = const Center(
+                          child: Text("Hali bu sahifa aniqlanmagan"),
+                        );
+                        ;
                         currentTab = 2;
                       });
                     },

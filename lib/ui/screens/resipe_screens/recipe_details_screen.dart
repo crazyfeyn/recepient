@@ -23,13 +23,13 @@ class RecipeDetailsScreen extends StatefulWidget {
 }
 
 class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
-  int _currentIndex = 0;
-
   late VideoPlayerController _controller;
 
   @override
   void initState() {
     super.initState();
+
+    /// firebasedan video olish
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(widget.recipe!.videoUrl),
     )..initialize().then((_) {
@@ -37,7 +37,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       });
   }
 
-// Sana formatlash funksiyasi
+  /// Sana formatlash funksiyasi
   String formatDate(DateTime date) {
     final DateFormat formatter = DateFormat('dd MMMM yyyy');
     return formatter.format(date);
@@ -92,8 +92,8 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                         ),
                         Text(
                           FirebaseRecipeService.calculateRating(
-                                  widget.recipe!.rate)
-                              .toStringAsFixed(1),
+                            widget.recipe!.rate,
+                          ).toStringAsFixed(1),
                           style: GoogleFonts.montserrat(fontSize: 13),
                         ),
                       ],

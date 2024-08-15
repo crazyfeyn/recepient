@@ -18,12 +18,15 @@ final class ErrorState extends HomeState {
   ErrorState(this.message);
 }
 
+/// kommentlar firebasega saqlanganini tekshirish uchun state
 final class ReviewAddedState extends HomeState {
   final String message;
 
   ReviewAddedState({this.message = "Review added successfully!"});
 }
 
+
+/// firebasedan malumotlar kelganiga ishonch hosil qilish
 final class LoadedReviewState extends HomeState {
   final List<Comment> comments;
 
