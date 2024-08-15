@@ -9,11 +9,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final emailcontroller = TextEditingController();
+
   final passcontroller = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  bool isObscure = false;
 
   void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
@@ -142,7 +152,7 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: passcontroller,
-                          obscureText: true,
+                          obscureText: isObscure,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Input password';
@@ -150,7 +160,14 @@ class LoginScreen extends StatelessWidget {
                             return null;
                           },
                           decoration: InputDecoration(
-                            suffixIcon: const Icon(CupertinoIcons.eye_slash),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  isObscure = !isObscure;
+                                  setState(() {});
+                                },
+                                icon: Icon(isObscure
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash)),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
                             label: const Text('password'),
                             border: OutlineInputBorder(

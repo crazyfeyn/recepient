@@ -24,6 +24,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   UserModel? user;
   String? uId;
   File? _selectedImage;
+
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
@@ -77,28 +78,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       const Text(
                         'My Profile',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                       const SizedBox(height: 20),
-                      Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: user?.imageUrl != null
+                      CircleAvatar(
+                        radius: 60,
+                        backgroundImage: _selectedImage != null
+                            ? FileImage(_selectedImage!)
+                            : user?.imageUrl != null
                                 ? NetworkImage(user!.imageUrl)
                                 : const AssetImage('assets/images/malfoy.png')
                                     as ImageProvider,
-                          ),
-                        ),
+                        backgroundColor: Colors.grey.shade200,
                       ),
                       const SizedBox(height: 20),
                       Text(
                         user?.name ?? 'Malfoy',
                         style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                        ),
                       ),
                     ],
                   ),
@@ -112,7 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return SettingsScreen();
+                          return const SettingsScreen();
                         },
                       ),
                     );
@@ -133,7 +134,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         user!.imageUrl = response['image'];
                         user!.name = response['name'];
                       });
-                      print(user!.name);
                     }
                   },
                 ),

@@ -13,12 +13,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   RegisterScreen({super.key});
+
+  @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailcontroller = TextEditingController();
+
   final passcontroller = TextEditingController();
+
   final passconfirmcontroller = TextEditingController();
+
   final namecontroller = TextEditingController();
+
+  bool isObscure = false;
+  bool isObscure1 = false;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -176,7 +188,7 @@ class RegisterScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: passcontroller,
-                          obscureText: true,
+                          obscureText: isObscure1,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter a password';
@@ -184,7 +196,14 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                           decoration: InputDecoration(
-                            suffixIcon: const Icon(CupertinoIcons.eye_slash),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  isObscure1 = !isObscure1;
+                                  setState(() {});
+                                },
+                                icon: Icon(isObscure1
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash)),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
                             labelText: 'Password',
                             border: OutlineInputBorder(
@@ -204,7 +223,7 @@ class RegisterScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: passconfirmcontroller,
-                          obscureText: true,
+                          obscureText: isObscure,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please confirm your password';
@@ -216,7 +235,14 @@ class RegisterScreen extends StatelessWidget {
                             return null;
                           },
                           decoration: InputDecoration(
-                            suffixIcon: const Icon(CupertinoIcons.eye_slash),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  isObscure = !isObscure;
+                                  setState(() {});
+                                },
+                                icon: Icon(isObscure
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash)),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
                             labelText: 'Confirm Password',
                             border: OutlineInputBorder(
