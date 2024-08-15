@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
@@ -9,10 +8,11 @@ import 'package:flutter_application/data/services/user/firebase_user_service.dar
 
 class RecipeController {
   final firebaseRecipeService = FirebaseRecipeService();
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   Future<bool> addRecipe(Recipe recipe) async {
     recipe.id = recipe.title;
+
 
     FirebaseStorageService firebaseStorageService = FirebaseStorageService();
     String? userId = await FirebaseUserService.getId();
@@ -29,7 +29,7 @@ class RecipeController {
             File(recipe.imageUrl), recipe.title) ??
         "";
 
-    final url =
+    const url =
         'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json';
 
     try {
@@ -43,7 +43,6 @@ class RecipeController {
 
       return response.statusCode == 200;
     } catch (e) {
-      print('Error adding recipe: $e');
       return false;
     }
   }
@@ -63,7 +62,6 @@ class RecipeController {
 
       return recipes;
     } catch (e) {
-      print('Error fetching recipes: $e');
       return [];
     }
   }
@@ -72,7 +70,31 @@ class RecipeController {
     try {
       await firebaseRecipeService.toggleLike(uId, recipeId);
     } catch (e) {
-      print('Error toggling like: $e');
+      rethrow;
+    }
+  }
+
+  Future<List<Recipe>?> getLatestRecipes() async {
+    try {
+      await firebaseRecipeService.getLatestRecipes();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+   Future<List<Recipe>?> getTrendingRecipes() async {
+    try {
+      await firebaseRecipeService.getTrendingRecipes();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+   Future<List<Recipe>?> getShortPreparedRecipes() async {
+    try {
+      await firebaseRecipeService.getShortPreparedRecipes();
+    } catch (e) {
+      rethrow;
     }
   }
 }

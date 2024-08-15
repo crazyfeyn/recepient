@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/user_model.dart';
+import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
-import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_widget.dart';
 import 'package:flutter_application/ui/screens/auth_screen/login_screen.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +29,13 @@ class RegisterScreen extends StatelessWidget {
             RegisterEvent(
                 emailcontroller.text, passcontroller.text, namecontroller.text),
           );
+      FirebaseUserService().createUser(UserModel(
+          email: emailcontroller.text,
+          name: namecontroller.text,
+          imageUrl: '',
+          uId: FirebaseAuth.instance.currentUser!.uid,
+          likes: [],
+          saved: []));
     }
   }
 

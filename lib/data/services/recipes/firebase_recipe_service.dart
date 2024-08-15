@@ -8,6 +8,47 @@ class FirebaseRecipeService {
   final String baseUrl =
       'https://retsept-app-db287-default-rtdb.firebaseio.com';
 
+  Future<List<Recipe>?> getLatestRecipes() async {
+    try {
+      final recipes = await getRecipes();
+      if (recipes != null) {
+        recipes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+        print(recipes);
+        return recipes;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<Recipe>?> getTrendingRecipes() async {
+    try {
+      final recipes = await getRecipes();
+      if (recipes != null) {
+        // recipes.sort((a, b) => b.rate.compareTo(a.rate));
+        return recipes;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<List<Recipe>?> getShortPreparedRecipes() async {
+    try {
+      final recipes = await getRecipes();
+      if (recipes != null) {
+        final shortRecipes = recipes
+            .where((recipe) => recipe.estimatedTime.inMinutes <= 30)
+            .toList();
+        return shortRecipes;
+      }
+      return null;
+    } catch (e) {
+      return null;
+    }
+  }
+
   Future<List<Recipe>?> getRecipes() async {
     try {
       final response = await _dio.get('$baseUrl/recipes.json');
@@ -53,7 +94,9 @@ class FirebaseRecipeService {
           },
         ),
       );
+      print('Successfully updated likes');
     } catch (e) {
+      print('Error toggling like: $e');
       rethrow;
     }
   }
@@ -121,5 +164,13 @@ class FirebaseRecipeService {
     } catch (e) {
       print('Error deleting recipe: $e');
     }
+  }
+
+  static double calculateRating(List<int> rate) {
+    int sum = 0;
+    for (var i in rate) {
+      sum += i;
+    }
+    return sum / rate.length;
   }
 }

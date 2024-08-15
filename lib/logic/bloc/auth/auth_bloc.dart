@@ -10,9 +10,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final FirebaseUserService firebaseUserService;
   final AuthRepository authRepository;
 
-  AuthBloc({required this.authRepository}) : super(AuthInitial()) {
+  AuthBloc({
+    required this.authRepository,
+    required this.firebaseUserService,
+  }) : super(AuthInitial()) {
     on<RegisterEvent>(_onRegister);
     on<AppStartedEvent>(_onAppStarted);
     on<LoginEvent>(_onLogin);
@@ -26,13 +30,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthLoading());
     try {
       final user = await authRepository.register(event.email, event.password);
-      FirebaseUserService().createUser(UserModel(
+      firebaseUserService.createUser(
+        UserModel(
           email: event.email,
           name: event.name,
           imageUrl: '',
           uId: user.id,
           likes: [],
-          saved: []));
+          saved: [],
+        ),
+      );
 
       emit(AuthAuthenticated(user));
     } catch (e) {
@@ -40,19 +47,37 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _onAppStarted(
-      AppStartedEvent event, Emitter<AuthState> emit) async {
+Future<void> _onAppStarted(
+    AppStartedEvent event, Emitter<AuthState> emit) async {
+  print('AppStartedEvent triggered');
+  try {
     final isLoggedIn = await authRepository.isLoggedIn();
+    print('Is logged in: $isLoggedIn');
+
     if (isLoggedIn) {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       String? userData = sharedPreferences.getString('userData');
-      final user = User.fromMap(jsonDecode(userData!));
-      emit(AuthAuthenticated(user));
+      print('User data from SharedPreferences: $userData');
+
+      if (userData != null) {
+        final user = User.fromMap(jsonDecode(userData));
+        emit(AuthAuthenticated(user));
+        print('Emitting AuthAuthenticated');
+      } else {
+        emit(AuthUnauthenticated());
+        print('User data null, emitting AuthUnauthenticated');
+      }
     } else {
       emit(AuthUnauthenticated());
+      print('Not logged in, emitting AuthUnauthenticated');
     }
+  } catch (e) {
+    emit(AuthError('Failed to load app state'));
+    print('Error: ${e.toString()}');
   }
+}
+
 
   Future<void> _onLogin(LoginEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
@@ -75,6 +100,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       String? userData = sharedPreferences.getString('userData');
+      print(userData);
       final user = User.fromMap(jsonDecode(userData!));
       emit(AuthAuthenticated(user));
     } else {
