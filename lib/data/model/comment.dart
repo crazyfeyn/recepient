@@ -23,7 +23,7 @@ class Comment {
     return Comment(
       rate: json['rate'],
       title: json['title'],
-      user: UserModel.fromJson(json['user_1_name']),
+      user: UserModel.fromJson(json['user']),
     );
   }
 }

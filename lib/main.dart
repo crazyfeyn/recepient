@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
+import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
@@ -25,13 +26,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
+    final FirebaseUserService firebaseUserService = FirebaseUserService();
     return RepositoryProvider(
       create: (context) => AuthRepository(authService: FirebaseAuthSerivce()),
       child: MultiBlocProvider(
         providers: [
           BlocProvider(
             create: (context) {
-              return AuthBloc(authRepository: context.read<AuthRepository>());
+              return AuthBloc(
+                authRepository: context.read<AuthRepository>(),
+                firebaseUserService: firebaseUserService,
+              );
             },
           ),
           BlocProvider(create: (context) {
@@ -41,7 +46,6 @@ class MyApp extends StatelessWidget {
             return HomeBloc();
           })
         ],
-
         child: ChangeNotifierProvider(
           create: (context) => RecipeAddController(),
           child: MaterialApp(
@@ -50,9 +54,10 @@ class MyApp extends StatelessWidget {
               stream: FirebaseAuth.instance.authStateChanges(),
               builder: (context, snapshot) {
                 if (snapshot.hasData && snapshot.data != null) {
+                  FirebaseAuth.instance.currentUser!.uid;
                   return const AllNavigationBar();
                 } else {
-                  return const AllNavigationBar();
+                  return const WelcomeScreen();
                 }
               },
             ),
