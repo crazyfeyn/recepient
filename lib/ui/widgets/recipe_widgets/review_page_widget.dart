@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/comment.dart';
@@ -217,6 +219,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                   final bool isTruncated =
                       review.title.length > _truncatedLength;
                   final String displayReview = isTruncated
+                      // ignore: prefer_interpolation_to_compose_strings
                       ? review.title.substring(0, _truncatedLength) + '...'
                       : review.title;
                   return Padding(
