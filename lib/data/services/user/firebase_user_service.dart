@@ -14,7 +14,6 @@ class FirebaseUserService {
         '$baseUrl/users/${user.uId}.json',
         data: user.toJson(),
       );
-      print(response.data['name']);
       uId = response.data['uId'];
       final shared = await SharedPreferences.getInstance();
       shared.setString('id', uId);
@@ -31,7 +30,6 @@ class FirebaseUserService {
       }
       return null;
     } catch (e) {
-      print('Error fetching user: $e');
       return null;
     }
   }

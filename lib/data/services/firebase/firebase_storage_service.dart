@@ -10,7 +10,7 @@ class FirebaseStorageService {
 
       final UploadTask uploadTask = storageRef.putFile(
         videoFile,
-        SettableMetadata(contentType: 'video/mp4'), // Specify MIME type
+        SettableMetadata(contentType: 'video/mp4'),
       );
 
       final TaskSnapshot snapshot = await uploadTask;

@@ -1,18 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/firebase/firebase_storage_service.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 
 class RecipeController {
   final firebaseRecipeService = FirebaseRecipeService();
-  Dio _dio = Dio();
+  final Dio _dio = Dio();
 
   Future<bool> addRecipe(Recipe recipe) async {
     recipe.id = recipe.title;
-    recipe.userId = "sdfvcv"; // Replace with FirebaseAuth instance
+    recipe.userId = "sdfvcv";
 
     FirebaseStorageService firebaseStorageService = FirebaseStorageService();
 
@@ -26,7 +25,7 @@ class RecipeController {
             File(recipe.imageUrl), recipe.title) ??
         "";
 
-    final url =
+    const url =
         'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json';
 
     try {
@@ -40,14 +39,14 @@ class RecipeController {
 
       return response.statusCode == 200;
     } catch (e) {
-      print('Error adding recipe: $e');
       return false;
     }
   }
 
   Future<List<Recipe>> fetchRecipes() async {
     try {
-      final response = await _dio.get('https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json');
+      final response = await _dio.get(
+          'https://retsept-app-db287-default-rtdb.firebaseio.com/recipes.json');
       final data = response.data as Map<String, dynamic>;
 
       final List<Recipe> recipes = [];
@@ -59,7 +58,6 @@ class RecipeController {
 
       return recipes;
     } catch (e) {
-      print('Error fetching recipes: $e');
       return [];
     }
   }
@@ -68,7 +66,31 @@ class RecipeController {
     try {
       await firebaseRecipeService.toggleLike(uId, recipeId);
     } catch (e) {
-      print('Error toggling like: $e');
+      rethrow;
+    }
+  }
+
+  Future<List<Recipe>?> getLatestRecipes() async {
+    try {
+      await firebaseRecipeService.getLatestRecipes();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+   Future<List<Recipe>?> getTrendingRecipes() async {
+    try {
+      await firebaseRecipeService.getTrendingRecipes();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+   Future<List<Recipe>?> getShortPreparedRecipes() async {
+    try {
+      await firebaseRecipeService.getShortPreparedRecipes();
+    } catch (e) {
+      rethrow;
     }
   }
 }
