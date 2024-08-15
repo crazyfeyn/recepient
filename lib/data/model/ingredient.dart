@@ -19,7 +19,7 @@ class Ingredient {
     };
   }
 
-  factory Ingredient.fromJson(Map<String, dynamic> json) {
+  factory Ingredient.fromJson(Map<String, dynamic> json) {    
     return Ingredient(
       name: json['name'] ?? '',
       quantity: json['quantity'] ?? 0,

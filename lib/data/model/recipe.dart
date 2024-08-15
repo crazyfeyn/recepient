@@ -14,7 +14,7 @@ class Recipe {
   String id;
   bool isSaved;
   List<String> likes;
-  List<double> rate;
+  List<int> rate;
   List<Comment> comments;
   DateTime createdAt;
 
@@ -72,12 +72,13 @@ class Recipe {
               .toList() ??
           [],
       imageUrl: json['imageUrl'],
-      videoUrl: json['videoUrl'],
+      videoUrl: json['videoUrl'] ??
+          'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       userId: json['userId'],
       id: json['id'],
       isSaved: json['isSaved'] ?? false,
       likes: List<String>.from(json['likes'] ?? []),
-      rate: List<double>.from(json['rate']),
+      rate: List<int>.from(json['rate']),
       createdAt: DateTime.parse(json['createdAt']),
     );
   }
@@ -115,7 +116,7 @@ class Recipe {
       id: '',
       isSaved: false,
       likes: ['9SjFRAq9AJSIqIshJmFA1kAHtjr1'],
-      rate: [4,5,2],
+      rate: [4, 5, 2],
       createdAt: DateTime.now(),
     );
   }

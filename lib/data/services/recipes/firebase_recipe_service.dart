@@ -25,7 +25,8 @@ class FirebaseRecipeService {
     try {
       final recipes = await getRecipes();
       if (recipes != null) {
-        // recipes.sort((a, b) => b.rate.compareTo(a.rate));
+        recipes.sort((a, b) => FirebaseRecipeService.calculateRating(b.rate)
+            .compareTo(FirebaseRecipeService.calculateRating(a.rate)));
         return recipes;
       }
       return null;
@@ -33,6 +34,7 @@ class FirebaseRecipeService {
       return null;
     }
   }
+
 
   Future<List<Recipe>?> getShortPreparedRecipes() async {
     try {
@@ -167,6 +169,7 @@ class FirebaseRecipeService {
   }
 
   static double calculateRating(List<int> rate) {
+    if (rate.isEmpty) return 0.0;
     int sum = 0;
     for (var i in rate) {
       sum += i;
