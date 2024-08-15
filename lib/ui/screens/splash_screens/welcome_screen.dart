@@ -28,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               if (state is AuthAuthenticated) {
                 return const AllNavigationBar();
               } else {
-                return FirstOnboardingScreen();
+                return const FirstOnboardingScreen();
               }
             },
           );
