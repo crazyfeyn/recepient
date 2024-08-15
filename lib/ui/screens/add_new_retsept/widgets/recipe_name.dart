@@ -13,6 +13,7 @@ class RecipeName extends StatefulWidget {
 class _RecipeNameState extends State<RecipeName> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _cookingTimeController = TextEditingController();
 
   @override
   void dispose() {
@@ -27,8 +28,12 @@ class _RecipeNameState extends State<RecipeName> {
     String name = _nameController.text;
     String description = _descriptionController.text;
 
-    if (name.isNotEmpty && description.isNotEmpty) {
-      recipeAddController.addNameandDicription(name, description);
+    if (name.isNotEmpty &&
+        description.isNotEmpty &&
+        _cookingTimeController.text.isNotEmpty) {
+      int cookingTime = int.parse(_cookingTimeController.text);
+
+      recipeAddController.addNameandDicription(name, description, cookingTime);
       recipeAddController.pageController.nextPage(
           duration: const Duration(milliseconds: 300), curve: Curves.bounceIn);
     }
@@ -65,6 +70,21 @@ class _RecipeNameState extends State<RecipeName> {
             ),
             const Gap(10),
             const Text(
+              "Cooking time (min)",
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            TextField(
+              controller: _cookingTimeController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const Gap(10),
+            const Text(
               "Description (Optional)",
               style: TextStyle(
                 fontSize: 16,
@@ -77,7 +97,7 @@ class _RecipeNameState extends State<RecipeName> {
                 border: OutlineInputBorder(),
                 hintText: "Enter the detail of your recipe",
               ),
-              minLines: 5,
+              minLines: 4,
               maxLines: 5,
             ),
             GestureDetector(

@@ -108,7 +108,7 @@ class Recipe {
       ingredient: [],
       description: '',
       preparation: [],
-      estimatedTime: Duration.zero,
+      estimatedTime: Duration(minutes: 0),
       category: [],
       comments: [],
       imageUrl: '',
