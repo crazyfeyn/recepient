@@ -51,12 +51,13 @@ class _AddNewRecipeState extends State<AddNewRecipe> {
   Future<void> _pickImage() async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    print("Image path ->>>> ${image!.path}");
+        context.read<RecipeAddController>().updateRecipeImage(image.path);
 
     if (image != null) {
       setState(() {
         _selectedImage = File(image.path);
         // Update the Recipe model with the image path using the RecipeAddController
-        context.read<RecipeAddController>().updateRecipeImage(image.path);
       });
     }
   }
