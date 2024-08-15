@@ -107,7 +107,6 @@ class BuildRecipeCardWidget extends StatelessWidget {
                 ),
               ],
             ),
-            BuildRecipeCardWidget(recipe: recipe)
           ],
         ),
       ],
