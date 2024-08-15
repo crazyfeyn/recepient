@@ -1,12 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/recipe.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class IngredientsSectionWidget extends StatelessWidget {
-  const IngredientsSectionWidget({super.key});
+class IngredientsSectionWidget extends StatefulWidget {
+  final Recipe? recipe;
+
+  const IngredientsSectionWidget({
+    super.key,
+    required this.recipe,
+  });
+
+  @override
+  _IngredientsSectionWidgetState createState() =>
+      _IngredientsSectionWidgetState();
+}
+
+class _IngredientsSectionWidgetState extends State<IngredientsSectionWidget> {
+  bool _showAll = false;
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.width;
+    final ingredients = widget.recipe!.ingredient;
+
+    final itemHeight = 40.0;
+    final initialItemCount = 4;
+    final visibleItemCount = _showAll
+        ? ingredients.length
+        : (ingredients.length > initialItemCount
+            ? initialItemCount
+            : ingredients.length);
+    final containerHeight = 30.0 + visibleItemCount * itemHeight;
+
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Stack(
@@ -17,81 +42,78 @@ class IngredientsSectionWidget extends StatelessWidget {
             children: [
               Container(
                 width: size * 0.93,
-                height: 210,
+                height: containerHeight,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Column(
                   children: [
-                    _buildIngredientRow(
-                      "Cooked rice (preferably day-old)",
-                      "2 cups",
+                    ...List.generate(
+                      visibleItemCount,
+                      (index) {
+                        final ingredient = ingredients[index];
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10,
+                                vertical: 5,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    ingredient.name.toString(),
+                                    style: GoogleFonts.montserrat(fontSize: 12),
+                                  ),
+                                  Text(
+                                    "${ingredient.quantity.toString()} cups",
+                                    style: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(indent: 10, endIndent: 10),
+                          ],
+                        );
+                      },
                     ),
-                    const Divider(indent: 10, endIndent: 10),
-                    _buildIngredientRow(
-                      "Sausage, sliced",
-                      "2 pcs",
-                    ),
-                    const Divider(indent: 10, endIndent: 10),
-                    _buildIngredientRow(
-                      "Garlic, minced",
-                      "2 cloves",
-                    ),
-                    const Divider(indent: 10, endIndent: 10),
-                    _buildIngredientRow(
-                      "Small onion, chopped",
-                      "1 pc",
-                    ),
-                    const Divider(indent: 10, endIndent: 10),
                   ],
                 ),
               ),
             ],
           ),
-          Positioned(
-            bottom: 0,
-            right: (size / 2) - 65 / 2,
-            child: Row(
-              children: [
-                Text(
-                  "See More",
-                  style: GoogleFonts.montserrat(
-                    color: Colors.orange,
-                  ),
+          if (ingredients.length > initialItemCount)
+            Positioned(
+              bottom: 0,
+              right: (size / 2) - 65 / 2,
+              child: GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _showAll = !_showAll;
+                  });
+                },
+                child: Row(
+                  children: [
+                    Text(
+                      _showAll ? "Show Less" : "See More",
+                      style: GoogleFonts.montserrat(
+                        color: Colors.orange,
+                      ),
+                    ),
+                    const Icon(
+                      Icons.keyboard_arrow_down,
+                      color: Colors.orange,
+                    ),
+                  ],
                 ),
-                const Icon(
-                  Icons.keyboard_arrow_down,
-                  color: Colors.orange,
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildIngredientRow(String name, String quantity) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 10,
-        vertical: 5,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            name,
-            style: GoogleFonts.montserrat(fontSize: 12),
-          ),
-          Text(
-            quantity,
-            style: GoogleFonts.montserrat(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
         ],
       ),
     );

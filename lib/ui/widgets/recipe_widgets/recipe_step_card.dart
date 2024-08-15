@@ -1,13 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/recipe.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class RecipeStepCard extends StatelessWidget {
+class RecipeStepCard extends StatefulWidget {
+  final Recipe? recipe;
   final double size;
 
-  const RecipeStepCard({super.key, required this.size});
+  const RecipeStepCard({
+    super.key,
+    required this.size,
+    required this.recipe,
+  });
+
+  @override
+  _RecipeStepCardState createState() => _RecipeStepCardState();
+}
+
+class _RecipeStepCardState extends State<RecipeStepCard> {
+  bool _showAll = false;
 
   @override
   Widget build(BuildContext context) {
+    final size = widget.size;
+    final preparationSteps = widget.recipe?.preparation ?? [];
+
+    // Debug print
+    print("Preparation Steps: ${preparationSteps.length}");
+    preparationSteps.forEach((step) {
+      print(step);
+    });
+
+    final itemHeight = 40.0;
+    final initialItemCount = 2;
+    final visibleItemCount = _showAll
+        ? preparationSteps.length
+        : (preparationSteps.length > initialItemCount
+            ? initialItemCount
+            : preparationSteps.length);
+    final containerHeight = 30.0 + visibleItemCount * itemHeight;
+
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -18,7 +49,7 @@ class RecipeStepCard extends StatelessWidget {
             children: [
               Container(
                 width: size * 0.93,
-                height: 200,
+                height: containerHeight,
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(15),
@@ -26,76 +57,34 @@ class RecipeStepCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 10,
-                        bottom: 5,
-                      ),
-                      child: Text(
-                        "1. Preparation (5 Minutes)",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 10,
-                        bottom: 5,
-                      ),
-                      child: Text(
-                        "Cook the rice if not using leftover rice.",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 10,
-                        bottom: 5,
-                      ),
-                      child: Text(
-                        "Slice the sausages, mince the garlic, chop the onion, slice the chili, and dice the carrot.",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    const Divider(
-                      indent: 10,
-                      endIndent: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 10,
-                        top: 10,
-                        bottom: 5,
-                      ),
-                      child: Text(
-                        "2. Cooking the Sausage (5 Minutes)",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 10,
-                        bottom: 5,
-                      ),
-                      child: Text(
-                        "Heat 1 tablespoon of vegetable oil in a large frying pan or wok over medium-high heat.",
-                        style: GoogleFonts.montserrat(
-                          fontSize: 12,
-                        ),
-                      ),
+                    ...List.generate(
+                      visibleItemCount,
+                      (index) {
+                        final step = preparationSteps[index];
+                        return Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                left: 10,
+                                right: 10,
+                                top: 10,
+                                bottom: 5,
+                              ),
+                              child: Text(
+                                "${index + 1}. ${step}",
+                                style: GoogleFonts.montserrat(
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                            if (index < visibleItemCount - 1)
+                              const Divider(
+                                indent: 10,
+                                endIndent: 10,
+                              ),
+                          ],
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -103,25 +92,32 @@ class RecipeStepCard extends StatelessWidget {
             ],
           ),
         ),
-        Positioned(
-          bottom: 0,
-          right: (size / 2) - 65 / 2,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "See More",
-                style: GoogleFonts.montserrat(
-                  color: Colors.orange,
-                ),
+        if (preparationSteps.length > initialItemCount)
+          Positioned(
+            bottom: 0,
+            right: (size / 2) - 65 / 2,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  _showAll = !_showAll;
+                });
+              },
+              child: Row(
+                children: [
+                  Text(
+                    _showAll ? "Show Less" : "See More",
+                    style: GoogleFonts.montserrat(
+                      color: Colors.orange,
+                    ),
+                  ),
+                  const Icon(
+                    Icons.keyboard_arrow_down,
+                    color: Colors.orange,
+                  ),
+                ],
               ),
-              const Icon(
-                Icons.keyboard_arrow_down,
-                color: Colors.orange,
-              ),
-            ],
+            ),
           ),
-        ),
       ],
     );
   }
