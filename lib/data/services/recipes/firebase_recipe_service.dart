@@ -174,4 +174,22 @@ class FirebaseRecipeService {
     }
     return sum / rate.length;
   }
+
+  Future<void> addReviewComment(String recipeId, Map<String, dynamic> review) async {
+    try {
+      final response = await _dio.post(
+        "$baseUrl/recipes/$recipeId/review.json",
+        data: json.encode(review),
+        options: Options(headers: {'Contant-Type': 'application/json'}),
+      );
+
+      if (response.statusCode == 200) {
+        print("Review added successfully");
+      } else {
+        print("Failed to add review: ${response.statusCode}");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

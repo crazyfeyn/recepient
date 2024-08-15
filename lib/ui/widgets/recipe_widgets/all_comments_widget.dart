@@ -1,11 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class AllCommentsWidget extends StatelessWidget {
+  final Recipe? recipe;
   final List<Map<String, dynamic>> reviews;
 
-  const AllCommentsWidget({super.key, required this.reviews});
+  const AllCommentsWidget({
+    super.key,
+    required this.reviews,
+    required this.recipe,
+  });
+
+  // Sana formatlash funksiyasi
+  String formatDate(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy');
+    return formatter.format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +38,13 @@ class AllCommentsWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
-                  leading: const CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "https://avatars.mds.yandex.net/i?id=a917c07f6b9d1749fdc6230eb39ca844_l-5287757-images-thumbs&n=13"),
+                  leading: CircleAvatar(
+                    backgroundImage: NetworkImage(recipe!.imageUrl),
                   ),
                   title: Row(
                     children: [
                       Text(
-                        "User",
+                        AppConstants.userModel!.name,
                         style: GoogleFonts.montserrat(fontSize: 13),
                       ),
                       Row(
@@ -49,7 +62,7 @@ class AllCommentsWidget extends StatelessWidget {
                     ],
                   ),
                   subtitle: Text(
-                    "21 May 2024",
+                    formatDate(recipe!.createdAt),
                     style: GoogleFonts.montserrat(fontSize: 10),
                   ),
                 ),

@@ -24,11 +24,7 @@ class _RecipeStepCardState extends State<RecipeStepCard> {
     final size = widget.size;
     final preparationSteps = widget.recipe?.preparation ?? [];
 
-    // Debug print
     print("Preparation Steps: ${preparationSteps.length}");
-    preparationSteps.forEach((step) {
-      print(step);
-    });
 
     final itemHeight = 40.0;
     final initialItemCount = 2;

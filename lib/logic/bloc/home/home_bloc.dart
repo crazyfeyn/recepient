@@ -10,6 +10,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<FetchRecipesEvent>(fetchRecipes);
     on<ToggleLikeEvent>(toggleLike);
     on<GetLatestRecipesEvent>(getLatestRecipes);
+    on<AddReviewEvent>(addReviewComment);
   }
   final recipeController = RecipeController();
 
@@ -36,6 +37,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } else {
         emit(ErrorState("No recipes found"));
       }
+    } catch (e) {
+      emit(ErrorState(e.toString()));
+    }
+  }
+
+  Future<void> addReviewComment(
+      AddReviewEvent event, Emitter<HomeState> emit) async {
+    try {
+      emit(LoadingState());
+      await recipeController.addReviewComment(event.recipeId, event.review);
+      emit(ReviewAddedState());
     } catch (e) {
       emit(ErrorState(e.toString()));
     }

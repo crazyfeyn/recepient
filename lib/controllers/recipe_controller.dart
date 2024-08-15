@@ -13,7 +13,6 @@ class RecipeController {
   Future<bool> addRecipe(Recipe recipe) async {
     recipe.id = recipe.title;
 
-
     FirebaseStorageService firebaseStorageService = FirebaseStorageService();
     String? userId = await FirebaseUserService.getId();
     recipe.userId = userId!; // Replace with FirebaseAuth instance
@@ -93,6 +92,17 @@ class RecipeController {
   Future<List<Recipe>?> getShortPreparedRecipes() async {
     try {
       await firebaseRecipeService.getShortPreparedRecipes();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<void> addReviewComment(
+    String recipeId,
+    Map<String, dynamic> review,
+  ) async {
+    try {
+      await firebaseRecipeService.addReviewComment(recipeId, review);
     } catch (e) {
       rethrow;
     }
