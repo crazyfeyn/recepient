@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeScreenState createState() => _HomeScreenState();
 }
 
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {});
       }
     } catch (e) {
-      print('Error getting user info: $e');
+      rethrow;
     }
   }
 
@@ -64,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Center(child: Text(state.message));
                 }
                 if (state is LoadedState) {
+                  print(state.recipes);
                   return TrippleWidget(
                     recipes: state.recipes,
                   );
