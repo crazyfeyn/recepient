@@ -7,6 +7,7 @@ import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/data/services/user/firebase_user_service.dart';
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
+import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
@@ -46,22 +47,10 @@ class MyApp extends StatelessWidget {
             return HomeBloc();
           })
         ],
-        child: ChangeNotifierProvider(
-          create: (context) => RecipeAddController(),
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: StreamBuilder<User?>(
-              stream: FirebaseAuth.instance.authStateChanges(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.data != null) {
-                  FirebaseAuth.instance.currentUser!.uid;
-                  return const AllNavigationBar();
-                } else {
-                  return const AllNavigationBar();
-                }
-              },
-            ),
-          ),
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: const WelcomeScreen(),
+
         ),
       ),
     );

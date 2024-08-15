@@ -11,7 +11,7 @@ class SecondOnboardingScreen extends StatefulWidget {
 }
 
 class _SecondOnboardingScreenState extends State<SecondOnboardingScreen> {
-  PageController _controller = PageController();
+  final PageController  _controller = PageController();
   bool isLastPage = false;
 
   @override
