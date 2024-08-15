@@ -31,8 +31,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   Future<void> getLatestRecipes(GetLatestRecipesEvent event, emit) async {
     try {
       emit(LoadingState());
-      List<Recipe> recipes = recipeController.getLatestRecipes()!;
-      if (recipes.isNotEmpty) {
+      List<Recipe>? recipes = recipeController.getLatestRecipes();
+      if (recipes != null && recipes.isNotEmpty) {
         emit(LoadedState(recipes));
       } else {
         emit(ErrorState("No recipes found"));

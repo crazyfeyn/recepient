@@ -11,11 +11,14 @@ final class ToggleLikeEvent extends HomeEvent {
   ToggleLikeEvent(this.uId, this.recipeId);
 }
 
-final class GetLatestRecipesEvent extends HomeEvent {}
+final class GetLatestRecipesEvent extends HomeEvent {
+}
 
-final class GetTrendingRecipesEvent extends HomeEvent {}
+final class GetTrendingRecipesEvent extends HomeEvent {
+}
 
-final class GetShortPreparedRecipesEvent extends HomeEvent {}
+final class GetShortPreparedRecipesEvent extends HomeEvent {
+}
 
 final class AddReviewEvent extends HomeEvent {
   final String recipeId;

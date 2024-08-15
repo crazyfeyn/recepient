@@ -79,6 +79,7 @@ class RecipeController {
     } catch (e) {
       rethrow;
     }
+    return null;
   }
 
   Future<List<Recipe>?> getTrendingRecipes() async {
@@ -87,6 +88,7 @@ class RecipeController {
     } catch (e) {
       rethrow;
     }
+    return null;
   }
 
   Future<List<Recipe>?> getShortPreparedRecipes() async {
@@ -95,6 +97,7 @@ class RecipeController {
     } catch (e) {
       rethrow;
     }
+    return null;
   }
 
   Future<void> addReviewComment(

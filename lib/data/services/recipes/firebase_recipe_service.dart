@@ -18,6 +18,7 @@ class FirebaseRecipeService {
     } catch (e) {
       return null;
     }
+    return null;
   }
 
   Future<List<Recipe>?> getTrendingRecipes() async {
@@ -39,7 +40,7 @@ class FirebaseRecipeService {
       final recipes = await getRecipes();
       if (recipes != null) {
         final shortRecipes = recipes
-            .where((recipe) => recipe.estimatedTime.inMinutes <= 30)
+            .where((recipe) => recipe.estimatedTime.inMinutes <= 15)
             .toList();
         return shortRecipes;
       }
@@ -175,7 +176,8 @@ class FirebaseRecipeService {
     return sum / rate.length;
   }
 
-  Future<void> addReviewComment(String recipeId, Map<String, dynamic> review) async {
+  Future<void> addReviewComment(
+      String recipeId, Map<String, dynamic> review) async {
     try {
       final response = await _dio.post(
         "$baseUrl/recipes/$recipeId/review.json",

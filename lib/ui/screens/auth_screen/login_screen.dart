@@ -28,6 +28,8 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    emailcontroller.text = 'opers@gmail.com';
+    passcontroller.text = '12345678';
     return Scaffold(
       body: Form(
         key: _formKey,
