@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application/ui/screens/add_new_retsept/add_new_retsept.dart';
 import 'package:flutter_application/ui/screens/auth_screen/profile_screen.dart';
 import 'package:flutter_application/ui/screens/resipe_screens/my_resipes_screen.dart';
 import 'package:flutter_application/ui/screens/home_screen/home_screen.dart';
@@ -28,7 +29,13 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF129575),
         shape: const CircleBorder(),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AddNewRecipe(),
+              ));
+        },
         child: const Icon(
           Icons.add,
           color: Colors.white,
