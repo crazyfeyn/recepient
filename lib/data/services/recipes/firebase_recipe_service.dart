@@ -168,6 +168,7 @@ class FirebaseRecipeService {
     }
   }
 
+  /// berilgan ratingni hisoblash uchun
   static double calculateRating(List<int> rate) {
     if (rate.isEmpty) return 0.0;
     int sum = 0;
@@ -177,9 +178,8 @@ class FirebaseRecipeService {
     return sum / rate.length;
   }
 
+  /// kommentlarni firebasega qo'shish
   Future<void> addReviewComment(String recipeId, Comment review) async {
-    print(recipeId);
-    print(review.title);
     try {
       final response = await _dio.post(
         "$baseUrl/recipes/$recipeId/review.json",
@@ -197,6 +197,7 @@ class FirebaseRecipeService {
     }
   }
 
+  /// kommentlarni firebasedan olish
   Future<List<Comment>> getReviewComments(String recipeId) async {
     try {
       final response = await _dio.get(
@@ -220,16 +221,7 @@ class FirebaseRecipeService {
         return [];
       }
     } catch (e) {
-      print("Error: $e");
-      return [];
+      rethrow;
     }
   }
-}
-
-void main(List<String> args) async {
-  FirebaseRecipeService firebaseRecipeService = FirebaseRecipeService();
-  final res =
-      await firebaseRecipeService.getReviewComments("-O4Hc-aCEm__wEGVxdGn");
-
-  print(res);
 }

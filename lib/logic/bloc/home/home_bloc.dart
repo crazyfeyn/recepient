@@ -44,6 +44,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
+  /// kommentlarni firebasega yuborish uchun bloc funksiya
   Future<void> addReviewComment(
       AddReviewEvent event, Emitter<HomeState> emit) async {
     try {
@@ -55,6 +56,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     }
   }
 
+  /// kommentlarni firebasedan olish uchun bloc funksiya
   Future<void> getReviewComment(
       GetReviewEvent event, Emitter<HomeState> emit) async {
     try {
