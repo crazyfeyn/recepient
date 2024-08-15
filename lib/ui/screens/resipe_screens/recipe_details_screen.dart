@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/ingredients_section_widget.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/recipe_step_card.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/review_page_widget.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_application/ui/widgets/recipe_widgets/video_and_action_w
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
+import 'package:intl/intl.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
   final Recipe? recipe;
@@ -37,9 +39,14 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
       });
   }
 
+// Sana formatlash funksiyasi
+  String formatDate(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy');
+    return formatter.format(date);
+  }
+
   @override
   Widget build(BuildContext context) {
-    print(widget.recipe!.imageUrl);
     final size = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -86,7 +93,9 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                           color: Colors.amber,
                         ),
                         Text(
-                          "4.5",
+                          FirebaseRecipeService.calculateRating(
+                                  widget.recipe!.rate)
+                              .toStringAsFixed(1),
                           style: GoogleFonts.montserrat(fontSize: 13),
                         ),
                       ],
@@ -100,7 +109,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
               child: Row(
                 children: [
                   Text(
-                    widget.recipe!.createdAt.toString(),
+                    formatDate(widget.recipe!.createdAt),
                     style: GoogleFonts.montserrat(fontSize: 12),
                   ),
                   const Gap(10),
@@ -166,10 +175,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                 ),
               ),
             ),
-            RecipeStepCard(
-              size: size,
-              recipe: widget.recipe,
-            ),
+            RecipeStepCard(size: size, recipe: widget.recipe),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 30, bottom: 10),
               child: Text(
@@ -184,7 +190,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
             const Gap(10),
             const Divider(indent: 20, endIndent: 20),
             const Gap(10),
-            const ReviewPageWidget(),
+            ReviewPageWidget(recipe: widget.recipe),
           ],
         ),
       ),

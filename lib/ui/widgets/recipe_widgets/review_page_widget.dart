@@ -1,11 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/utils/app_constants.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/all_comments_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class ReviewPageWidget extends StatefulWidget {
-  const ReviewPageWidget({super.key});
+  final Recipe? recipe;
+
+  const ReviewPageWidget({
+    super.key,
+    required this.recipe,
+  });
 
   @override
   _ReviewPageState createState() => _ReviewPageState();
@@ -37,9 +45,18 @@ class _ReviewPageState extends State<ReviewPageWidget> {
     Navigator.push(
       context,
       CupertinoPageRoute(
-        builder: (context) => AllCommentsWidget(reviews: _reviews),
+        builder: (context) => AllCommentsWidget(
+          reviews: _reviews,
+          recipe: widget.recipe,
+        ),
       ),
     );
+  }
+
+  // Sana formatlash funksiyasi
+  String formatDate(DateTime date) {
+    final DateFormat formatter = DateFormat('dd MMMM yyyy');
+    return formatter.format(date);
   }
 
   @override
@@ -169,14 +186,13 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     ListTile(
-                      leading: const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://avatars.mds.yandex.net/i?id=a917c07f6b9d1749fdc6230eb39ca844_l-5287757-images-thumbs&n=13"),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(widget.recipe!.imageUrl),
                       ),
                       title: Row(
                         children: [
                           Text(
-                            "User",
+                            AppConstants.userModel!.name,
                             style: GoogleFonts.montserrat(fontSize: 13),
                           ),
                           Row(
@@ -194,7 +210,7 @@ class _ReviewPageState extends State<ReviewPageWidget> {
                         ],
                       ),
                       subtitle: Text(
-                        "21 May 2024",
+                        formatDate(widget.recipe!.createdAt),
                         style: GoogleFonts.montserrat(fontSize: 10),
                       ),
                     ),

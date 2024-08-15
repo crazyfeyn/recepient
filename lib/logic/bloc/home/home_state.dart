@@ -17,3 +17,9 @@ final class ErrorState extends HomeState {
 
   ErrorState(this.message);
 }
+
+final class ReviewAddedState extends HomeState {
+  final String message;
+
+  ReviewAddedState({this.message = "Review added successfully!"});
+}
