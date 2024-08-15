@@ -114,7 +114,7 @@ class _SecondOnboardingScreenState extends State<SecondOnboardingScreen> {
                 child: SmoothPageIndicator(
                   controller: _controller,
                   count: 4,
-                  effect: ExpandingDotsEffect(
+                  effect: const ExpandingDotsEffect(
                     activeDotColor: Colors.orange,
                     dotColor: Colors.grey,
                     dotHeight: 8,

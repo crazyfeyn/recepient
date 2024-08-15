@@ -6,7 +6,6 @@ import 'package:flutter_application/controllers/recipe_add_controller.dart';
 import 'package:flutter_application/data/repositories/auth_repository.dart';
 import 'package:flutter_application/firebase_options.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
-import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
 import 'package:flutter_application/logic/bloc/home/home_bloc.dart';
 import 'package:flutter_application/logic/cubits/home_screen_cubits.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
@@ -42,6 +41,7 @@ class MyApp extends StatelessWidget {
             return HomeBloc();
           })
         ],
+
         child: ChangeNotifierProvider(
           create: (context) => RecipeAddController(),
           child: MaterialApp(
