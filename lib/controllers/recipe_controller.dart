@@ -79,7 +79,7 @@ class RecipeController {
     }
   }
 
-   Future<List<Recipe>?> getTrendingRecipes() async {
+  Future<List<Recipe>?> getTrendingRecipes() async {
     try {
       await firebaseRecipeService.getTrendingRecipes();
     } catch (e) {
@@ -87,7 +87,7 @@ class RecipeController {
     }
   }
 
-   Future<List<Recipe>?> getShortPreparedRecipes() async {
+  Future<List<Recipe>?> getShortPreparedRecipes() async {
     try {
       await firebaseRecipeService.getShortPreparedRecipes();
     } catch (e) {
