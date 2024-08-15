@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_application/data/model/comment.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 
 class FirebaseRecipeService {
@@ -175,7 +176,9 @@ class FirebaseRecipeService {
     return sum / rate.length;
   }
 
-  Future<void> addReviewComment(String recipeId, Map<String, dynamic> review) async {
+  Future<void> addReviewComment(String recipeId, Comment review) async {
+    print(recipeId);
+    print(review.title);
     try {
       final response = await _dio.post(
         "$baseUrl/recipes/$recipeId/review.json",
@@ -190,6 +193,32 @@ class FirebaseRecipeService {
       }
     } catch (e) {
       rethrow;
+    }
+  }
+
+  Future<List<Comment>> getReviewComments(String recipeId) async {
+    try {
+      final response = await _dio.get(
+        "$baseUrl/recipes/$recipeId/review.json",
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+
+      if (response.statusCode == 200) {
+        final Map<String, dynamic> data = json.decode(response.data);
+        final List<Comment> comments = data.entries.map((entry) {
+          final Map<String, dynamic> commentData = entry.value as Map<String, dynamic>;
+          return Comment.fromJson(commentData);
+        }).toList();
+        print("//////////////////////////////////////");
+        print(comments);
+        return comments;
+      } else {
+        print("Failed to fetch reviews: ${response.statusCode}");
+        return [];
+      }
+    } catch (e) {
+      print("Error: $e");
+      return [];
     }
   }
 }

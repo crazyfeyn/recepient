@@ -26,14 +26,12 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   int _currentIndex = 0;
 
   late VideoPlayerController _controller;
-  final String videoUrl =
-      "https://sample-videos.com/video321/mp4/240/big_buck_bunny_240p_30mb.mp4";
 
   @override
   void initState() {
     super.initState();
     _controller = VideoPlayerController.networkUrl(
-      Uri.parse(videoUrl),
+      Uri.parse(widget.recipe!.videoUrl),
     )..initialize().then((_) {
         setState(() {});
       });
