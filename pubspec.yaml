@@ -46,6 +46,7 @@ dependencies:
   refresh: ^1.0.1
   easy_localization: ^3.0.7
   adaptive_theme: ^3.6.0
+  mocktail: ^1.0.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

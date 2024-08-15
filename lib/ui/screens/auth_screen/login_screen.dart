@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_bloc.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_event.dart';
 import 'package:flutter_application/logic/bloc/auth/auth_state.dart';
@@ -9,21 +10,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});
-
-  @override
-  State<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends State<LoginScreen> {
   final emailcontroller = TextEditingController();
-
   final passcontroller = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
-  bool isObscure = false;
 
   void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
@@ -36,8 +27,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    emailcontroller.text = 'opers@gmail.com';
-    passcontroller.text = '12345678';
     return Scaffold(
       body: Form(
         key: _formKey,
@@ -154,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: passcontroller,
-                          obscureText: isObscure,
+                          obscureText: true,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Input password';
@@ -162,14 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             return null;
                           },
                           decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                                onPressed: () {
-                                  isObscure = !isObscure;
-                                  setState(() {});
-                                },
-                                icon: Icon(isObscure
-                                    ? CupertinoIcons.eye
-                                    : CupertinoIcons.eye_slash)),
+                            suffixIcon: const Icon(CupertinoIcons.eye_slash),
                             prefixIcon: const Icon(Icons.lock_outline_rounded),
                             label: const Text('password'),
                             border: OutlineInputBorder(
