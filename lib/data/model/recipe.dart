@@ -65,7 +65,7 @@ class Recipe {
           [],
       description: json['description'],
       preparation: List<String>.from(json['preparation'] ?? []),
-      estimatedTime: parseDuration(json['estimatedTime']),
+      estimatedTime: Duration(minutes:  json['estimatedTime']),
       category: List<String>.from(json['category']),
       comments: (json['comments'] as List<dynamic>?)
               ?.map((e) => Comment.fromJson(e as Map<String, dynamic>))

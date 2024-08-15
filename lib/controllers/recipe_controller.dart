@@ -71,9 +71,9 @@ class RecipeController {
     }
   }
 
-  Future<List<Recipe>?> getLatestRecipes() async {
+  List<Recipe>? getLatestRecipes() {
     try {
-      await firebaseRecipeService.getLatestRecipes();
+      firebaseRecipeService.getLatestRecipes();
     } catch (e) {
       rethrow;
     }

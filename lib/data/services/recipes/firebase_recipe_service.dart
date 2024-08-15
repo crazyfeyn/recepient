@@ -13,7 +13,6 @@ class FirebaseRecipeService {
       final recipes = await getRecipes();
       if (recipes != null) {
         recipes.sort((a, b) => b.createdAt.compareTo(a.createdAt));
-        print(recipes);
         return recipes;
       }
     } catch (e) {
@@ -34,7 +33,6 @@ class FirebaseRecipeService {
       return null;
     }
   }
-
 
   Future<List<Recipe>?> getShortPreparedRecipes() async {
     try {

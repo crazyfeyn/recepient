@@ -134,6 +134,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                 context
                                     .read<HomeBloc>()
                                     .add(GetLatestRecipesEvent());
+                              } else if (categories[index] == 'Trending') {
+                                context
+                                    .read<HomeBloc>()
+                                    .add(GetTrendingRecipesEvent());
+                              } else if (categories[index] == 'Short') {
+                                context
+                                    .read<HomeBloc>()
+                                    .add(GetShortPreparedRecipesEvent());
+                              } else {
+                                 context
+                                    .read<HomeBloc>()
+                                    .add(FetchRecipesEvent());
                               }
                             },
                             child: Container(
