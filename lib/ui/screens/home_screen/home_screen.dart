@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> getCurrentUserInfo() async {
     try {
       var uId = await FirebaseUserService.getId();
+      print(uId);
       if (uId != null) {
         user = await FirebaseUserService().getUser(uId);
         AppConstants.uId = uId;
