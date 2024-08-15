@@ -9,7 +9,6 @@ class FirebaseUserService {
       'https://retsept-app-db287-default-rtdb.firebaseio.com/';
 
   Future<void> createUser(UserModel user) async {
-    print('secuess another');
     try {
       final response = await _dio.put(
         '$baseUrl/users/${user.uId}.json',
@@ -17,8 +16,6 @@ class FirebaseUserService {
       );
       print(response.data['name']);
       uId = response.data['uId'];
-      print('0-----0');
-      print(uId);
       final shared = await SharedPreferences.getInstance();
       shared.setString('id', uId);
     } catch (e) {
