@@ -36,6 +36,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    emailcontroller.text = 'opers@gmail.com';
+    passcontroller.text = '12345678';
     return Scaffold(
       body: Form(
         key: _formKey,
