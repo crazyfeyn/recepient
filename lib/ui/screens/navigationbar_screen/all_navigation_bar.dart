@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/ui/screens/auth_screen/profile_screen.dart';
-import 'package:flutter_application/ui/screens/resipe_screens/recipe_details_screen.dart';
+import 'package:flutter_application/ui/screens/resipe_screens/my_resipes_screen.dart';
 import 'package:flutter_application/ui/screens/home_screen/home_screen.dart';
+import 'package:flutter_application/ui/screens/resipe_screens/recipe_details_screen.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AllNavigationBar extends StatefulWidget {
@@ -92,9 +93,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
                     minWidth: 40,
                     onPressed: () {
                       setState(() {
-                        currentScreen = const Center(
-                          child: Text("This Screen is Empty"),
-                        );
+                        currentScreen = const MyResipesScreen();
                         currentTab = 2;
                       });
                     },

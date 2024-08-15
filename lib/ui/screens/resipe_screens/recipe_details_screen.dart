@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
-import 'package:flutter_application/ui/widgets/recipe_details_widgets/ingredients_section_widget.dart';
-import 'package:flutter_application/ui/widgets/recipe_details_widgets/recipe_step_card.dart';
-import 'package:flutter_application/ui/widgets/recipe_details_widgets/review_page_widget.dart';
-import 'package:flutter_application/ui/widgets/recipe_details_widgets/video_and_action_widget.dart';
+import 'package:flutter_application/ui/widgets/recipe_widgets/ingredients_section_widget.dart';
+import 'package:flutter_application/ui/widgets/recipe_widgets/recipe_step_card.dart';
+import 'package:flutter_application/ui/widgets/recipe_widgets/review_page_widget.dart';
+import 'package:flutter_application/ui/widgets/recipe_widgets/video_and_action_widget.dart';
 import 'package:gap/gap.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
 
 class RecipeDetailsScreen extends StatefulWidget {
   final Recipe? recipe;
+
   const RecipeDetailsScreen({
     super.key,
     this.recipe,
@@ -27,8 +28,6 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   ];
 
   int _currentIndex = 0;
-  bool isExpanded1 = false;
-  bool isExpanded2 = false;
 
   void _nextImage() {
     setState(() {
@@ -46,7 +45,6 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
     _controller = VideoPlayerController.networkUrl(
       Uri.parse(videoUrl),
     )..initialize().then((_) {
-        print("INITIALIZED");
         setState(() {});
       });
   }
