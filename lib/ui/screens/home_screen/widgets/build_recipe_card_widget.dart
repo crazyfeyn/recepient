@@ -2,6 +2,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/ui/widgets/toggleLike_widget.dart';
+import 'package:share_plus/share_plus.dart';
 
 // ignore: must_be_immutable
 class BuildRecipeCardWidget extends StatelessWidget {
@@ -29,16 +30,16 @@ class BuildRecipeCardWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // GestureDetector(
-                //   onTap: () => Share.share('hello from Hogwarts'),
-                //   child: CircleAvatar(
-                //     backgroundColor: Colors.white,
-                //     child: Image.asset(
-                //       'assets/images/share_icon.png',
-                //       height: 22,
-                //     ),
-                //   ),
-                // ),
+                GestureDetector(
+                  onTap: () => Share.share('hello from Hogwarts'),
+                  child: CircleAvatar(
+                    backgroundColor: Colors.white,
+                    child: Image.asset(
+                      'assets/images/share_icon.png',
+                      height: 22,
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -67,7 +68,9 @@ class BuildRecipeCardWidget extends StatelessWidget {
                   recipe.title,
                   style: TextStyle(
                     color: AdaptiveTheme.of(context).mode ==
-                            AdaptiveThemeMode.light
+                                AdaptiveThemeMode.light ||
+                            AdaptiveTheme.of(context).mode ==
+                                AdaptiveThemeMode.system
                         ? Colors.black
                         : Colors.white,
                     fontWeight: FontWeight.w500,
@@ -85,7 +88,9 @@ class BuildRecipeCardWidget extends StatelessWidget {
                       ' ${recipe.estimatedTime.inMinutes} min',
                       style: TextStyle(
                         color: AdaptiveTheme.of(context).mode ==
-                                AdaptiveThemeMode.light
+                                    AdaptiveThemeMode.light ||
+                                AdaptiveTheme.of(context).mode ==
+                                    AdaptiveThemeMode.system
                             ? Colors.black
                             : Colors.white,
                         fontWeight: FontWeight.w400,
@@ -105,7 +110,9 @@ class BuildRecipeCardWidget extends StatelessWidget {
                       ' ${recipe.rate}',
                       style: TextStyle(
                         color: AdaptiveTheme.of(context).mode ==
-                                AdaptiveThemeMode.light
+                                    AdaptiveThemeMode.light ||
+                                AdaptiveTheme.of(context).mode ==
+                                    AdaptiveThemeMode.system
                             ? Colors.black
                             : Colors.white,
                         fontWeight: FontWeight.w400,

@@ -43,9 +43,7 @@ class _AllNavigationBarState extends State<AllNavigationBar> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
-        color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-            ? Colors.white
-            : Colors.black,
+        color: Colors.white,
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
         child: SizedBox(

@@ -29,8 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final namecontroller = TextEditingController();
 
-  bool isObscure = false;
-  bool isObscure1 = false;
+  bool isObscure = true;
+  bool isObscure1 = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -282,7 +282,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 text: "Already have an account? ",
                                 style: TextStyle(
                                   color: AdaptiveTheme.of(context).mode ==
-                                          AdaptiveThemeMode.light
+                                              AdaptiveThemeMode.light ||
+                                          AdaptiveTheme.of(context).mode ==
+                                              AdaptiveThemeMode.system
                                       ? Colors.black
                                       : Colors.white,
                                   fontSize: 15,

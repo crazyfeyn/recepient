@@ -10,11 +10,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final emailcontroller = TextEditingController();
+
   final passcontroller = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+
+  bool isObscure = true;
 
   void submit(BuildContext context) {
     if (_formKey.currentState!.validate()) {
@@ -143,7 +153,7 @@ class LoginScreen extends StatelessWidget {
                         const SizedBox(height: 10),
                         TextFormField(
                           controller: passcontroller,
-                          obscureText: true,
+                          obscureText: isObscure,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Input password';
@@ -151,8 +161,16 @@ class LoginScreen extends StatelessWidget {
                             return null;
                           },
                           decoration: InputDecoration(
-                            suffixIcon: const Icon(CupertinoIcons.eye_slash),
-                            prefixIcon: const Icon(Icons.lock_outline_rounded),
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    isObscure = !isObscure;
+                                  });
+                                },
+                                icon: Icon(isObscure
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash)),
+                            prefixIcon: Icon(CupertinoIcons.lock),
                             label: const Text('password'),
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
@@ -211,7 +229,9 @@ class LoginScreen extends StatelessWidget {
                                 text: "Don't have an Account? ",
                                 style: TextStyle(
                                   color: AdaptiveTheme.of(context).mode ==
-                                          AdaptiveThemeMode.light
+                                              AdaptiveThemeMode.light ||
+                                          AdaptiveTheme.of(context).mode ==
+                                              AdaptiveThemeMode.system
                                       ? Colors.black
                                       : Colors.white,
                                   fontSize: 15,

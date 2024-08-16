@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
+import 'package:flutter_application/ui/screens/home_screen/widgets/build_recipe_card_widget.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/ingredients_section_widget.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/recipe_step_card.dart';
 import 'package:flutter_application/ui/widgets/recipe_widgets/review_page_widget.dart';
@@ -47,7 +48,7 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,9 +70,14 @@ class _RecipeDetailsScreenState extends State<RecipeDetailsScreen> {
                   top: 16, // Yoki kerakli qiymat
                   left: 16, // Yoki kerakli qiymat
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
-                    onPressed: () => Navigator.pop(context),
-                  ),
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BuildRecipeCardWidget(
+                                    recipe: widget.recipe!)));
+                      }),
                 ),
               ],
             ),
