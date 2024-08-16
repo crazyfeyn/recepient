@@ -1,6 +1,7 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
+import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
+import 'package:flutter_application/ui/screens/home_screen/widgets/book_mark_widget.dart';
 import 'package:flutter_application/ui/widgets/toggleLike_widget.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -123,6 +124,7 @@ class BuildRecipeCardWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const BookMarkWidget()
           ],
         ),
       ],

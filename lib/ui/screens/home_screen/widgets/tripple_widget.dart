@@ -30,7 +30,6 @@ class _TrippleWidgetState extends State<TrippleWidget> {
     'All',
     'Latest',
     'Trending',
-    'Short',
   ];
 
   int _selectedIndex = 0;
@@ -48,10 +47,6 @@ class _TrippleWidgetState extends State<TrippleWidget> {
         _filteredRecipes.sort((a, b) =>
             FirebaseRecipeService.calculateRating(b.rate)
                 .compareTo(FirebaseRecipeService.calculateRating(a.rate)));
-      case 3:
-        _filteredRecipes
-            .where((recipe) => recipe.estimatedTime.inMinutes <= 15)
-            .toList();
     }
     setState(() {});
   }
