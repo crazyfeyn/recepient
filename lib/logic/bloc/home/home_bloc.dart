@@ -13,6 +13,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<GetLatestRecipesEvent>(getLatestRecipes);
     on<AddReviewEvent>(addReviewComment);
     on<GetReviewEvent>(getReviewComment);
+    
   }
   final recipeController = RecipeController();
 
@@ -67,5 +68,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     } catch (e) {
       emit(ErrorState(e.toString()));
     }
+
+    
   }
 }
