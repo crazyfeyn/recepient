@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application/data/model/recipe.dart';
 import 'package:flutter_application/data/services/recipes/firebase_recipe_service.dart';
@@ -108,7 +109,7 @@ class BuildRecipeCardWidget extends StatelessWidget {
                       color: Color(0xFFFF9B05),
                     ),
                     Text(
-                      ' ${recipe.rate}',
+                      ' ${FirebaseRecipeService.calculateRating(recipe.rate).toStringAsFixed(1)}',
                       style: TextStyle(
                         color: AdaptiveTheme.of(context).mode ==
                                     AdaptiveThemeMode.light ||
