@@ -41,13 +41,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
             RegisterEvent(
                 emailcontroller.text, passcontroller.text, namecontroller.text),
           );
-      FirebaseUserService().createUser(UserModel(
-          email: emailcontroller.text,
-          name: namecontroller.text,
-          imageUrl: '',
-          uId: FirebaseAuth.instance.currentUser!.uid,
-          likes: [],
-          saved: []));
     }
   }
 

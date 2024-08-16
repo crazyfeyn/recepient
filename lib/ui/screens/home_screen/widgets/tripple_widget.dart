@@ -107,7 +107,8 @@ class _TrippleWidgetState extends State<TrippleWidget> {
         Text(
           'All recipes',
           style: TextStyle(
-            color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
+            color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ||
+                    AdaptiveTheme.of(context).mode == AdaptiveThemeMode.system
                 ? Colors.black
                 : Colors.white,
             fontWeight: FontWeight.w600,
