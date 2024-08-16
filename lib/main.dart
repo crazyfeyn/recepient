@@ -22,6 +22,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
 
   runApp(

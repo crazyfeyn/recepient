@@ -18,9 +18,12 @@ class BuildUserGreetingWidget extends StatelessWidget {
             Text(
               'Hello ${user?.name ?? 'Guest'}',
               style: TextStyle(
-                color: AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light
-                    ? Colors.black
-                    : Colors.white,
+                color:
+                    AdaptiveTheme.of(context).mode == AdaptiveThemeMode.light ||
+                            AdaptiveTheme.of(context).mode ==
+                                AdaptiveThemeMode.system
+                        ? Colors.black
+                        : Colors.white,
                 fontWeight: FontWeight.w600,
                 fontSize: 19,
               ),

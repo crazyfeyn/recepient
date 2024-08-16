@@ -67,8 +67,13 @@ class BuildRecipeCardWidget extends StatelessWidget {
               children: [
                 Text(
                   recipe.title,
-                  style: const TextStyle(
-                    color: Color(0xFF1E1E1E),
+                  style: TextStyle(
+                    color: AdaptiveTheme.of(context).mode ==
+                                AdaptiveThemeMode.light ||
+                            AdaptiveTheme.of(context).mode ==
+                                AdaptiveThemeMode.system
+                        ? Colors.black
+                        : Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 16,
                   ),
@@ -82,8 +87,13 @@ class BuildRecipeCardWidget extends StatelessWidget {
                     ),
                     Text(
                       ' ${recipe.estimatedTime.inMinutes} min',
-                      style: const TextStyle(
-                        color: Color(0xFF1E1E1E),
+                      style: TextStyle(
+                        color: AdaptiveTheme.of(context).mode ==
+                                    AdaptiveThemeMode.light ||
+                                AdaptiveTheme.of(context).mode ==
+                                    AdaptiveThemeMode.system
+                            ? Colors.black
+                            : Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
@@ -98,9 +108,14 @@ class BuildRecipeCardWidget extends StatelessWidget {
                       color: Color(0xFFFF9B05),
                     ),
                     Text(
-                      ' ${FirebaseRecipeService.calculateRating(recipe.rate).toStringAsFixed(1)}',
-                      style: const TextStyle(
-                        color: Color(0xFF1E1E1E),
+                      ' ${recipe.rate}',
+                      style: TextStyle(
+                        color: AdaptiveTheme.of(context).mode ==
+                                    AdaptiveThemeMode.light ||
+                                AdaptiveTheme.of(context).mode ==
+                                    AdaptiveThemeMode.system
+                            ? Colors.black
+                            : Colors.white,
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
                       ),
