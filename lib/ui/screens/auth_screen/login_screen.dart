@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_application/ui/screens/add_new_retsept/widgets/category_
 import 'package:flutter_application/ui/screens/auth_screen/register_screen.dart';
 import 'package:flutter_application/ui/screens/navigationbar_screen/all_navigation_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
@@ -75,7 +77,7 @@ class LoginScreen extends StatelessWidget {
               child: Column(
                 children: [
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       image: DecorationImage(
                         image: AssetImage('assets/images/login.png'),
                       ),
@@ -198,33 +200,72 @@ class LoginScreen extends StatelessWidget {
                           ),
                         ),
                         Center(
-                          child: TextButton(
-                            onPressed: () {
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterScreen(),
-                                ),
-                              );
-                            },
-                            child: RichText(
-                              text: TextSpan(
-                                text: "Don't have an Account? ",
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                ),
-                                children: [
-                                  TextSpan(
-                                    text: 'Sign up',
-                                    style: TextStyle(
-                                      color: Colors.red.shade300,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ],
+                          child: Column(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.gif),
+                                onPressed: () async {
+                                  try {
+                                    // Trigger the authentication flow
+                                    final GoogleSignInAccount? googleUser =
+                                        await GoogleSignIn(scopes: ['email'])
+                                            .signIn();
+
+                                    if (googleUser == null) {
+                                      // The user canceled the sign-in
+                                      return;
+                                    }
+
+                                    // Obtain the auth details from the request
+                                    final GoogleSignInAuthentication?
+                                        googleAuth =
+                                        await googleUser.authentication;
+
+                                    // Create a new credential
+                                    final credential =
+                                        GoogleAuthProvider.credential(
+                                      accessToken: googleAuth?.accessToken,
+                                      idToken: googleAuth?.idToken,
+                                    );
+
+                                    // Once signed in, return the UserCredential
+                                    await FirebaseAuth.instance
+                                        .signInWithCredential(credential);
+                                  } catch (e) {
+                                    // Handle error here
+                                    print("Google sign-in failed: $e");
+                                  }
+                                },
                               ),
-                            ),
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => RegisterScreen(),
+                                    ),
+                                  );
+                                },
+                                child: RichText(
+                                  text: TextSpan(
+                                    text: "Don't have an Account? ",
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 15,
+                                    ),
+                                    children: [
+                                      TextSpan(
+                                        text: 'Sign up',
+                                        style: TextStyle(
+                                          color: Colors.red.shade300,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],

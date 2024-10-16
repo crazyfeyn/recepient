@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
             create: (context) {
               return AuthBloc(
                 authRepository: context.read<AuthRepository>(),
-                firebaseUserService: firebaseUserService,
+                firebaseUserService: firebaseUserService,   
               );
             },
           ),
